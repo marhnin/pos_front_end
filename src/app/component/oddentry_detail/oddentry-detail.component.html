@@ -1,0 +1,119 @@
+<div class="wrapper">
+    <!-- Navbar -->
+    <app-header-sidebar></app-header-sidebar>
+
+    <!-- here here here -->
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <form>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title" style="font-weight: bold;"> Odd Detail </h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <form>
+                                         <div class="row">
+                                            <label class="col-md-2">Odd</label>
+                                            <div class="form-group col-md-3">
+                                              <input type = "text" class="form-control form-control-sm" [(ngModel)]="oddDTO.odd"
+                                                [ngModelOptions]="{standalone: true}" maxlength="3">
+                                            </div>
+                                          </div>
+
+                                          <div class="row" *ngIf = "oddDTO.type != '3D' ">
+                                            <label class="col-md-2">Section</label>
+                                            <div class="form-group col-md-3">
+                                              <input disabled type = "text" class="form-control form-control-sm" [(ngModel)]="oddDTO.section"
+                                                [ngModelOptions]="{standalone: true}" maxlength="3">
+                                            </div>
+                                          </div>
+
+
+                                          <div class="row">
+                                            <label class="col-md-2">Type</label>
+                                            <div class="form-group col-md-3">
+                                            <select id = "type" class="form-control form-control-sm" [(ngModel)]="oddDTO.type" [ngModelOptions]="{standalone: true}">
+                                                <option value = "2D">2D</option>
+                                                <option value = "3D">3D</option>
+                                            </select>
+                                            </div>
+                                          </div>
+
+                                        <div class="row" style="margin-top: 1%;">
+                                            <div class="col-md-2 col-sm-6">
+                                                <button type="button" class="btn btn-block btn-success"
+                                                    (click)="goOddSave()"> Save </button>&nbsp;
+                                            </div>
+                                            <div class="col-md-2 col-sm-6">
+                                                <button type="button" class="btn btn-block btn-danger"
+                                                [routerLink] = "['/oddentry']"> Cancel </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+                <!-- /.row -->
+
+                <!-- /.row -->
+            </div>
+            <!--/. container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+
+    <app-footer></app-footer>
+
+    <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="square-jelly-box">
+        <p style="font-size: 16px; color: white">Loading...</p>
+    </ngx-spinner>
+
+</div>
+
+
+<div id="deleteData" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <form>
+
+                    <div class="row" style="margin-top: 5%;margin-bottom: 3%;margin-left: 9%;">
+                        <div class="form-group col-md-12">
+                            <h5> This Account is used by another device. 
+                                Please Sign Out. Login Again. </h5>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-left: 40%;margin-bottom: 3%;">
+                        <div class="col-md-5 col-sm-6" id="deleteBtn">
+                            <button type="button" class="btn btn-block btn-success" (click)="OkLogout()"> Ok </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

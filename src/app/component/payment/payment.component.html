@@ -1,0 +1,225 @@
+<div class="wrapper">
+    <!-- Navbar -->
+    <app-header-sidebar></app-header-sidebar>
+
+    <!-- here here here -->
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2" style="border: 1px solid #ced4da;border-radius: 0.25rem;">
+                    <div class="col-sm-8">
+                        <h3 class="m-0 text-dark" style="font-weight: bold;padding: 3px 0px 3px 5px;">
+                            Payment 
+                        </h3>
+                    </div>
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <form>
+                    <div class="row">
+
+                        <div class="form-group col-md-2">
+                            <label> Account No </label>
+                            <input class="form-control form-control-sm" [(ngModel)]="accountNo"
+                                [ngModelOptions]="{standalone: true}">
+                        </div>
+
+                        <!--<div class="form-group col-md-2">
+                            <label> Payment Type </label>
+                            <select class="type form-control form-control-sm col-md-12 col-sm-4 col-xs-4"
+                                [(ngModel)]="type" [ngModelOptions]="{standalone: true}">
+                                <option value="KBZ" selected>KBZ Pay</option>
+                                <option value="WAVE">Wave Pay</option>
+                            </select>
+                        </div> -->
+
+                          <div class="form-group col-md-2">
+                            <label> Payment Type </label>
+                            <select class="type form-control form-control-sm col-md-12 col-sm-4 col-xs-4"
+                                [(ngModel)]="type" [ngModelOptions]="{standalone: true}">
+                                <option value="TOPUP" selected>TOPUP</option>
+                                <option value="WITHDRAWAL">WITHDRAWAL</option>
+                            </select>
+                        </div> 
+
+                        <div class="form-group col-md-2">
+                            <label> Status </label>
+                            <select class="status form-control form-control-sm col-md-12 col-sm-4 col-xs-4"
+                                [(ngModel)]="status" [ngModelOptions]="{standalone: true}">
+                                <option value="ACTIVE" selected>Active</option>
+                                <option value="INACTIVE">Inactive</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-2">
+                        </div>
+
+                        <div class="form-group col-md-2 col-sm-4 col-xs-4">
+                            <label></label>
+                            <button id="search" type="button" class="btn btn-block btn-primary btn-sm"
+                                style="margin-top: 4%;" (click)="search()">
+                                Search
+                            </button>
+                        </div>
+
+                        <div class="form-group col-md-2 col-sm-4 col-xs-4">
+                            <label></label>
+                            <button type="button" class="btn btn-block btn-success btn-sm" style="margin-top: 4%;"
+                                [routerLink]="['/payment-detail']">
+                                Add New
+                            </button>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title" style="font-weight: bold;"> Payment List </h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <table width='100%' id="{{'tblpayment' + idIndex}}" datatable
+                                        [dtTrigger]="dtTrigger" [dtOptions]="dtOptions"
+                                        class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th style="font-family: unicode;">Account Name</th>
+                                               <!-- <th style="font-family: unicode;">Account No</th> -->
+                                                <th style="font-family: unicode;">Type</th>
+                                                <th style="font-family: unicode;">Status</th> 
+                                                <th style="font-family: unicode;">Created Date</th>
+                                                <th style="font-family: unicode;">Created By</th>
+                                                <th style="font-family: unicode;">Updated Date</th>
+                                                <th style="font-family: unicode;">Updated By</th>
+                                                <th style="font-family: unicode;">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let payment of paymentList">
+                                                <td style="font-family: unicode;">{{payment.name}}</td>
+                                              <!-- <td style="font-family: unicode;">{{payment.account_no}}</td> *ngIf="payment.uiDisable --> 
+                                                <td style="font-family: unicode;">{{payment.type}}</td>
+                                                <td style="font-family: unicode;">{{payment.status}}</td> 
+                                                <td style="font-family: unicode;">{{payment.created_date_Str}}</td>
+                                                <td style="font-family: unicode;">{{payment.created_by_name}}</td>
+                                                <td style="font-family: unicode;">{{payment.updated_date_Str}}</td>
+                                                <td style="font-family: unicode;">{{payment.updated_by_name}}</td>
+                                                <td style="font-family: unicode;">
+                                                    <a [routerLink]="['/payment-detail', payment.id]">
+                                                        <i  title = "Edit" class="fas fa-edit" style="color:#4b88eb;cursor: pointer;"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- /.row -->
+                <!-- /.row -->
+            </div>
+            <!--/. container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+
+    <app-footer></app-footer>
+
+    <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="square-jelly-box">
+        <p style="font-size: 16px; color: white">Loading...</p>
+    </ngx-spinner>
+
+</div>
+
+<div id="browseAccountData" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content" style="width: 600px;">
+        <div class="modal-header">
+          <h3 class="modal-title" style="font-weight: bold;font-size: 1.1rem;"> Bank Account Detail </h3>
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> x </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="col-md-12">
+              <div class="row" style="margin-left: 0.1%;">
+                    <label class="col-md-2"> Name </label>
+                    <div class="form-group col-md-3">
+                    <input class="form-control form-control-sm" [(ngModel)]="name" [ngModelOptions]="{standalone: true}"
+                        disabled>
+                    </div>
+              </div>
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-body"  style = "width : 100%">
+                    <table width='100%' id="{{'tbltwodbetdetail' + idIndex2}}" datatable [dtTrigger]="dtTrigger2"
+                      [dtOptions]="dtOptions2" class="table table-bordered table-hover">
+                      <thead>
+                        <tr>
+                          <th style="font-family: unicode;">No</th>
+                          <th style="font-family: unicode;">Account Number</th>
+                          <th style="font-family: unicode;">Status</th>
+                          <th style="font-family: unicode;">Order Number</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let temp of paymentTempList, let i = index">
+                          <td style="font-family: unicode; padding: 0.35rem 0.75rem 0.30rem 0.75rem;">{{ i + 1 }}</td>
+                          <td style="font-family: unicode; padding: 0.35rem 0.75rem 0.30rem 0.75rem;">{{temp.account_no}}
+                          <td style="font-family: unicode; padding: 0.35rem 0.75rem 0.30rem 0.75rem;">{{temp.status}}
+                        <td style="font-family: unicode; padding: 0.35rem 0.75rem 0.30rem 0.75rem;">{{temp.order_id}}
+
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+  
+            </div>
+  
+          </form>
+        </div>
+  
+    </div>
+  </div>
+
+
+  <div id="deleteData" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <form>
+
+                    <div class="row" style="margin-top: 5%;margin-bottom: 3%;margin-left: 9%;">
+                        <div class="form-group col-md-12">
+                            <h5> This Account is used by another device. 
+                                Please Sign Out. Login Again. </h5>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-left: 40%;margin-bottom: 3%;">
+                        <div class="col-md-5 col-sm-6" id="deleteBtn">
+                            <button type="button" class="btn btn-block btn-success" (click)="OkLogout()"> Ok </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

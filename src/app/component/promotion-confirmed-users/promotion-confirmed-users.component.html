@@ -1,0 +1,235 @@
+<div class="wrapper">
+    <app-header-sidebar></app-header-sidebar>
+    
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2" style="border: 1px solid #ced4da;border-radius: 0.25rem;">
+              <div class="col-sm-8">
+                <h3 class="m-0 text-dark" style="font-weight: bold;padding: 3px 0px 3px 5px;"> <i class="nav-icon fas fa-star" style="color: green;"></i>  Confirmed Promotion Users </h3>
+              </div>
+            </div>
+          </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+    
+        <!-- Main content -->
+        <section class="content">
+          <div class="container-fluid">
+            <form>
+              <div class="row">
+
+                <div class="form-group col-md-2">
+                  <label>Name</label>
+                  <input class="form-control form-control-sm" [(ngModel)]="name" [ngModelOptions]="{standalone: true}">
+                </div>
+
+                <div class="form-group col-md-2">
+                  <label>Phone No</label>
+                  <input class="form-control form-control-sm" [(ngModel)]="phoneNo" [ngModelOptions]="{standalone: true}">
+                </div>
+
+                <div class="form-group col-md-2">
+                  <label>Referral Code</label>
+                  <input class="form-control form-control-sm" [(ngModel)]="referralCode" [ngModelOptions]="{standalone: true}">
+                </div>
+
+                <!-- <div class="row"> -->
+                  <div class="form-group col-md-2">
+                  <label>App Version</label>
+                      <select class="form-control form-control-sm"
+                          [(ngModel)]="appVersion"
+                          [ngModelOptions]="{standalone: true}" id="appVersion">
+                          <option *ngFor="let appVersion of appVersionList" value={{appVersion.app_version}}>
+                              {{appVersion.app_version}}
+                      </select>
+                  </div>
+                
+
+                  <div class="form-group col-md-2 col-sm-2 col-xs-2">
+                    <label>&nbsp;&nbsp;</label>
+                    <button id="search" type="button" class="btn btn-block btn-primary btn-sm" (click)="getAllData()">Search</button>
+                  </div>
+                <!-- </div> -->
+
+                <div class="form-group col-md-2" style="display: none;">
+                  <label>Topup From Date</label>
+                  <input id="approveDate" readonly class="form-control form-control-sm" placeholder="Select Date"
+                    [ngxDatePicker]="dateInstanceApprove" [value]="approveDate" [(ngModel)]="approvedate"
+                    [ngModelOptions]="{standalone: true}"  (valueChange)="onChangeApprove()">
+                  <ngx-date-picker #dateInstanceApprove></ngx-date-picker>
+                </div>
+
+
+                <div class="form-group col-md-2" style="display: none;">
+                  <label>Topup To Date</label>
+                  <input id="approvetoDate" readonly class="form-control form-control-sm" placeholder="Select Date"
+                    [ngxDatePicker]="dateInstanceApprove1" [value]="approvetoDate" [(ngModel)]="approvetodate"
+                    [ngModelOptions]="{standalone: true}"  (valueChange)="onChangeApproveTo()">
+                  <ngx-date-picker #dateInstanceApprove1></ngx-date-picker>
+                </div>
+
+                <div class="form-group col-md-2" style="display: none;">
+                  <label>Status</label>
+                  <select class="status form-control form-control-sm col-md-12 col-sm-4 col-xs-4" [(ngModel)]="status" [ngModelOptions]="{standalone: true}">
+                    <option value="ACTIVE" selected>Active</option>
+                    <option value="INACTIVE">Inactive</option>
+                  </select>
+                </div>
+              </div>
+
+             
+                <div class="col-md-12">
+                  <div class="card">
+                    <div class="card-header">
+                       <h3 class="card-title" style="font-weight: bold;"> Confirmed Promotion User List </h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                      <table width='100%' id="{{'tblUser' + idIndex}}" datatable [dtTrigger]="dtTrigger" [dtOptions]="dtOptions" class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                          <th style="font-family: unicode;">Name</th>
+                          <th style="font-family: unicode;">Phone No</th>
+                          <th style="font-family: unicode;">App Version</th>
+                          <th style="font-family: unicode;">Wallet</th>
+                          <th style="font-family: unicode;">First Topup Amount</th> 
+                          <!-- <th style="font-family: unicode;">V1.2.9 First Topup Amount</th> -->
+                          <th style="font-family: unicode;">Point Balance</th>
+                          <th style="font-family: unicode;">Point Percentage (%)</th>
+                          <th style="font-family: unicode;">Register Date</th>
+                          <th style="font-family: unicode;">First Topup Date</th>
+                          <!-- <th style="font-family: unicode;">V1.2.9 First Topup Date</th> -->
+                          <th style="font-family: unicode;">Updated Date</th>
+                          <th style="font-family: unicode;">Updated By</th>
+                          <th style="font-family: unicode;">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let user of userList">
+                          <td style="font-family: unicode;width: 150px;">{{user.name}}</td>
+                          <td style="font-family: unicode;">{{user.phone_no}}</td>
+                          <td style="font-family: unicode;">{{user.app_version}}</td>
+                          <td style="font-family: unicode;" class="text-right">{{user.balance_Str}}</td>
+                          <td  style="font-family: unicode;" class="text-right">{{user.first_topup_amt_Str}}</td>
+                          <!-- <td  style="font-family: unicode;" class="text-right">{{user.v129_first_topup_amt_Str}}</td> -->
+                          <td style="font-family: unicode;" class="text-right">{{user.total_promotion_balance | number : 0}}</td>
+                          <td style="font-family: unicode;" class="text-right">{{user.point_percentage}} %</td>
+                          <td style="font-family: unicode;">{{user.created_date_Str}}</td>
+                          <td style="font-family: unicode;">{{user.first_topup_date_Str}}</td>
+                          <!-- <td style="font-family: unicode;">{{user.v129_first_topup_date_Str}}</td> -->
+                          <td style="font-family: unicode;">{{user.updated_date_Str}}</td>
+                          <td style="font-family: unicode;">{{user.updated_by_name}}</td>
+                        
+                          <td style="font-family: unicode;">
+                            <a [routerLink] = "['/confirmed-promotion-users-detail', user.id]"><i class="fas fa-edit" style="color:#4b88eb"></i></a>
+                          </td>
+                        </tr>                        
+                        </tbody>
+                      </table>
+                      <!--XXXXXXXXXXXXXXXXXXXXXXXXX | paginate: { itemsPerPage: 10, currentPage: page}  getAllData()  -->
+                        <!-- <tr *ngFor="let user of userList | paginate
+                        : {
+                            itemsPerPage: itemsPerPage,
+                            currentPage: page,
+                            totalItems: totalItems
+                          }" 
+                          >
+                      </tr>  -->
+                    <!-- <div class = "row">
+                      <div class = "col-md-6"></div>
+                      <div class = "col-md-6">
+                        <pagination-controls
+                          class="pagi"
+                          (pageChange)="gty((page = $event))"
+
+                          maxSize="9"
+                          directionLinks="true"
+                          autoHide="false"
+                          responsive="true"
+                          previousLabel="Previous"
+                          nextLabel="Next"
+                          screenReaderPaginationLabel="Pagination"
+                          screenReaderPageLabel="page"
+                          screenReaderCurrentLabel="You're on page"
+                          
+                        ></pagination-controls>
+                    </div> 
+
+                    </div> -->
+                  </div>
+                    <!-- /.card-body -->
+                  </div>
+                </div>
+
+              <!--</div>-->
+
+            </form>
+            <!-- /.row -->
+
+            <!-- /.row -->
+          </div><!--/. container-fluid -->
+        </section>
+        <!-- /.content -->
+      </div>
+      <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+      </aside>
+    
+    <app-footer></app-footer>
+    <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="square-jelly-box">
+      <p style="font-size: 16px; color: white">Loading...</p>
+    </ngx-spinner>
+</div>
+
+<div id="deleteData" class="modal fade">
+  <div class="modal-dialog">
+      <div class="modal-content">
+
+          <div class="modal-body">
+              <form>
+
+                  <div class="row" style="margin-top: 5%;margin-bottom: 3%;margin-left: 9%;">
+                      <div class="form-group col-md-12">
+                          <h5> This Account is used by another device. 
+                              Please Sign Out. Login Again. </h5>
+                      </div>
+                  </div>
+
+                  <div class="row" style="margin-left: 40%;margin-bottom: 3%;">
+                      <div class="col-md-5 col-sm-6" id="deleteBtn">
+                          <button type="button" class="btn btn-block btn-success" (click)="OkLogout()"> Ok </button>
+                      </div>
+                  </div>
+              </form>
+          </div>
+
+      </div>
+  </div>
+</div>
+
+<div id="pointToMain" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+  
+            <div class="modal-body">
+                <form>
+  
+                    <div class="row" style="margin-top: 5%;margin-bottom: 3%;margin-left: 9%;">
+                        <div class="form-group col-md-12">
+                            <h5> Point => Main Wallet</h5>
+                        </div>
+                    </div>
+  
+                    <div class="row" style="margin-left: 40%;margin-bottom: 3%;">
+                        <div class="col-md-5 col-sm-6" id="deleteBtn">
+                            <button type="button" class="btn btn-block btn-success" (click)="OkLogout()"> Ok </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+  
+        </div>
+    </div>
+</div>

@@ -1,0 +1,197 @@
+<div class="wrapper">
+    <!-- Navbar -->
+    <app-header-sidebar></app-header-sidebar>
+
+    <!-- here here here -->
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <form>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title" style="font-weight: bold;"> Dream Book
+                                    </h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <form>
+
+                                            <div class="row">
+                                                <label class="col-md-2"> Description (English)</label>
+                                                <div class="form-group col-md-3">
+                                                    <textarea id="singleDate" 
+                                                    [(ngModel)]="dreamBookDTO.description_en"
+                                                    [ngModelOptions]="{standalone: true}"
+                                                    class="form-control form-control-sm"></textarea>
+                                                </div>
+
+                                                <label class="col-md-2"> Description (Burmese)</label>
+                                                <div class="form-group col-md-3">
+                                                   <textarea id="toDate" 
+                                                   [(ngModel)]="dreamBookDTO.description_my" 
+                                                   [ngModelOptions]="{standalone: true}"
+                                                   class="form-control form-control-sm"> </textarea>
+                                                   </div>
+                                            </div>
+
+                                       <div class="row">
+                                         <label class="col-md-2"> Description (Thailand)</label>
+                                            <div class="form-group col-md-3">
+                                            <textarea id="toDate" 
+                                            [(ngModel)]="dreamBookDTO.description_th" 
+                                            [ngModelOptions]="{standalone: true}" 
+                                            class="form-control form-control-sm"></textarea>
+                                            </div>
+
+                                            <label class="col-md-2"> Description (Chinese)</label>
+                                            <div class="form-group col-md-3">
+                                               <textarea id="toDate" 
+                                               [(ngModel)]="dreamBookDTO.description_zh" 
+                                               [ngModelOptions]="{standalone: true}" 
+                                               class="form-control form-control-sm"></textarea>
+                                             </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <label class="col-md-2"> Number 1</label>
+                                               <div class="form-group col-md-3">
+                                                <input type="text" id="num1"  
+                                               [(ngModel)]="dreamBookDTO.number1" 
+                                               [ngModelOptions]="{standalone: true}" 
+                                               class="form-control form-control-sm">
+                                               </div>
+   
+                                               <label class="col-md-2"> Number 2</label>
+                                               <div class="form-group col-md-3">
+                                                  <input type="text" id="num2" 
+                                                  [(ngModel)]="dreamBookDTO.number2" 
+                                                  [ngModelOptions]="{standalone: true}" 
+                                                  class="form-control form-control-sm">
+                                                </div>
+                                           </div>
+
+                                           
+                                        <div class="row">
+                                            <label class="col-md-2"> Image </label>
+                                            <div class="form-group col-md-3">
+                                                <input #file type="file" accept='image/*'
+                                                    (change)="preview(file.files)" /> 
+                                                    
+                                                    <img [src]="imgURL" height="200" width="255" *ngIf="imgURL"
+                                                    style="margin-top: 5%;">
+                                            </div>
+                                        </div>
+
+                                            <div class="row">
+                                                <label class="col-md-2"> Status </label>
+                                                <div class="form-group radio">
+                                                  <div class="form-group clearfix">
+                                                    <div class="icheck-success d-inline">
+                                                      <input type="radio" name="r3" checked id="radioSuccess1" value="ACTIVE"
+                                                        [(ngModel)]="dreamBookDTO.status" [ngModelOptions]="{standalone: true}">
+                                                      <label for="radioSuccess1">Active &nbsp;&nbsp;
+                                                      </label>
+                                                    </div>
+                                                    <div class="icheck-success d-inline">
+                                                      <input type="radio" name="r3" id="radioSuccess2" value="INACTIVE"
+                                                        [(ngModel)]="dreamBookDTO.status" [ngModelOptions]="{standalone: true}">
+                                                      <label for="radioSuccess2">Inactive
+                                                      </label>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                            </div>
+
+                                        <div class="row">
+                                            <div class="col-md-2 col-sm-6">
+                                                <button type="button" class="btn btn-block btn-success"
+                                                    (click)="goSave()"> Apply </button>&nbsp;
+                                            </div>
+
+                                            <div class="col-md-2 col-sm-6">
+                                                <button type="button" class="btn btn-block btn-danger"
+                                                [routerLink] = "['/dream-book']"> Cancel </button>
+                                            </div>
+                                        </div>
+
+                                        <div class="row" style="margin-top: 2%;">
+                                        </div>
+
+                                      <!--  <div class="col-md-12" 
+                                            style="border: 1px solid #ced4da;border-radius: 0.25rem;">
+
+                                            <div class="col-md-2 col-sm-4 col-xs-4" style="margin-top: 1%;display: none;">
+                                                <button id="selectALL" type="button"
+                                                    class="btn btn-block btn-primary btn-sm" (click)="selectAll()">
+                                                    Select All
+                                                </button>
+                                            </div>
+
+                                            <div class="row" style="margin-top: 35px;margin-left: 17px;">
+                                                <div class="col-md-1 col-sm-1"
+                                                    *ngFor="let n of threedbetnumber; let j = index"> 
+                                                    <div (click)="threeDSelect(n,j)"
+                                                        style="margin-top: 5px;margin-bottom: 5px;">
+                                                        <button *ngIf="n.number != 'aa'"
+                                                            [style.backgroundColor]="n.buttonColor"
+                                                            style="border-radius: 5px;width: 40px;height: 40px;" full>
+                                                            <span [style.color]="n.textcolor"
+                                                                style="text-transform: none;"> {{n.number}}
+                                                            </span>
+                                                        </button>
+                                                    </div>
+
+                                                    <div style="margin-top: 5px;margin-bottom: 5px;">
+                                                        <button *ngIf="n.number == 'aa'"
+                                                            [style.backgroundColor]="n.buttonColor"
+                                                            style="height: 4.8rem !important;border-radius: 5px;opacity: -1.5;width: 40px;height: 40px;"
+                                                            full>
+                                                            <span [style.color]="n.textcolor"
+                                                                style="text-transform: none;"> {{n.number}}
+                                                            </span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                           
+                                        </div> -->
+
+                                    </form>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+                <!-- /.row -->
+
+                <!-- /.row -->
+            </div>
+            <!--/. container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+
+    <app-footer></app-footer>
+
+    <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="square-jelly-box">
+        <p style="font-size: 16px; color: white">Loading...</p>
+    </ngx-spinner>
+
+</div>

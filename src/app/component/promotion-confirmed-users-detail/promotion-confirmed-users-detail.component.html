@@ -1,0 +1,1587 @@
+
+    <div class="wrapper">
+        <!-- Navbar -->
+        <app-header-sidebar></app-header-sidebar>
+  
+        <!-- here here here -->
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+      
+          <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid">
+              <form>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="card">
+                      <div class="card-header">
+                        <h3 class="card-title" style="font-weight: bold;"> User Detail </h3>
+                      </div>
+                      <!-- /.card-header -->
+                      <div class="card-body">
+                        <form>
+                          <div class = "row">
+                            <label class="col-md-2"> Profile Picture </label>
+                            <div class="form-group col-md-3" *ngIf = "isProfile">
+                             <!-- <input #file type="file" accept='image/*'
+                                  (change)="preview(file.files)" />  
+                                 -->
+                                 <img [src] ="imgURL" height="150" width="160" *ngIf="imgURL">
+                            </div>  
+                            <div class="form-group col-md-3" *ngIf = "!isProfile">
+                               <img src ="assets/image/userProfile.jpg" height="150" width="160">
+                           </div> 
+                          </div>
+
+                          <div class = "row">
+                          
+                            <label class="col-md-2"> Name </label>
+                            <div class="form-group col-sm-3">
+                              <input disabled class="form-control form-control-sm" [(ngModel)]="userDTO.name" [ngModelOptions]="{standalone: true}">
+                            </div>
+
+                            <div class="col-md-1"></div>
+                            <label class="col-md-2"> Total Topup ( + ) </label>
+                            <div class="form-group col-sm-3">
+                              <input type="text" class="form-control form-control-sm" [(ngModel)]="userDTO.topup_balance_Str"
+                                [ngModelOptions]="{standalone: true}" step="500" min="0" disabled>
+                            </div>
+                         </div>
+
+                          <div class="row">
+                            <label class="col-md-2"> Phone No </label>
+                            <div class="form-group col-sm-3">
+                              <input class="form-control form-control-sm" [(ngModel)]="userDTO.phone_no" [ngModelOptions]="{standalone: true}" disabled>
+                            </div>
+                            <div class="col-md-1"></div>
+                            <label class="col-md-2"> Win Amount ( + ) </label>
+                            <div class="form-group col-sm-3">
+                              <input type="string" class="form-control form-control-sm" [(ngModel)]="userDTO.win_amount_Str"
+                                [ngModelOptions]="{standalone: true}" step="500" min="0" disabled>
+                            </div>
+                          </div>
+
+                          <div class="row">
+							              <label class="col-md-2"> Agent </label>
+                            <div class="form-group col-sm-3">
+                                <select (change)="flagAgent()" class="form-control form-control-sm col-md-12 col-sm-4 col-xs-4" [(ngModel)]="agentId" [ngModelOptions]="{standalone: true}" disabled>
+                                    <option *ngFor="let agent of agentList" value={{agent.id}}>{{agent.name}}
+                                </select>
+                            </div>
+                            <div class="col-md-1"></div>
+                            <label class="col-sm-2"> Total Withdraw ( - ) </label>
+                            <div class="col-sm-3">
+                              <input type="string" class="form-control form-control-sm" [(ngModel)]="userDTO.withdraw_balance_Str" 
+                              [ngModelOptions]="{standalone: true}" step="500" min="0" disabled>
+                            </div>
+                          </div>
+
+                         
+                          <div class="row">
+                            
+                           <!-- <label class="col-md-2"> KingMaker Wallet </label>
+                            <div class="form-group col-sm-3">
+                              <input type="string" class="form-control form-control-sm" [(ngModel)]="userDTO.kingmakerWallet"
+                                [ngModelOptions]="{standalone: true}" step="500" min="0" disabled>
+                            </div> -->
+                           <div class = "col-md-5"></div>
+                            
+                            
+                            <div class="col-md-1"></div>
+                              <label class="col-sm-2"> Total Game Withdraw ( + ) </label>
+                              <div class="col-sm-3">
+                                <input type="string" class="form-control form-control-sm" [(ngModel)]="userDTO.gs_game_withdrawal_balance" 
+                                [ngModelOptions]="{standalone: true}" step="500" min="0" disabled>
+                              </div>
+                              
+                        </div>
+
+                        <br/>
+
+                        <div class="row">
+
+                          <label class="col-md-2"> Status </label>
+                          <div class="form-group col-md-3 radio">
+                            <div class="form-group clearfix">
+                              <div class="icheck-success d-inline">
+                                <input type="radio" name="r3" checked id="radioSuccess1" value="ACTIVE" [(ngModel)]="userDTO.status" [ngModelOptions]="{standalone: true}">
+                                <label for="radioSuccess1">Active &nbsp;&nbsp;
+                                </label>
+                              </div>
+                              <div class="icheck-success d-inline">
+                                <input type="radio" name="r3" id="radioSuccess2" value="INACTIVE" [(ngModel)]="userDTO.status" [ngModelOptions]="{standalone: true}">
+                                <label for="radioSuccess2">Inactive
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                            <div class="col-md-1"></div>
+                            <label class="col-sm-2"> Total Game Deposit ( - ) </label>
+                            <div class="col-sm-3">
+                              <input type="string" class="form-control form-control-sm" [(ngModel)]="userDTO.gs_game_deposit_balance" 
+                              [ngModelOptions]="{standalone: true}" step="500" min="0" disabled>
+                            </div>
+                        </div>
+
+                        <div class = "row">
+                          <label class="col-md-2"> 2D Bet Amount Limitation </label>
+                          <div class="col-sm-3">
+                            <input type="string" class="form-control form-control-sm" [(ngModel)]="userDTO.twodbetlimit" [ngModelOptions]="{standalone: true}" step="500" min="0">
+                          </div>
+
+                         
+                          <div class="col-md-1"></div>
+                          
+                            <label class="col-md-2"> Total Bet Amount ( - ) </label>
+                            <div class="col-sm-3">
+                              <input type="string" class="form-control form-control-sm" [(ngModel)]="userDTO.bet_amount_Str" 
+                              [ngModelOptions]="{standalone: true}" step="500" min="0" disabled>
+                            </div>
+                        </div>
+                        <br/>
+
+                        <div class = "row">
+                          <label class="col-md-2"> 3D Bet Amount Limitation </label>
+                          <div class="col-sm-3">
+                            <input type="string" class="form-control form-control-sm" [(ngModel)]="userDTO.threedbetlimit" [ngModelOptions]="{standalone: true}" step="500" min="0">
+                          </div>
+
+                          <div class="col-md-1"></div>
+
+                          <label class="col-md-2"> Total Promotion Wallet ( + ) </label>
+                          <div class="col-sm-3">
+                            <input type="string" class="form-control form-control-sm" [(ngModel)]="userDTO.total_promotion_balance_Str" 
+                            [ngModelOptions]="{standalone: true}" step="500" min="0" disabled>
+                          </div>
+                        </div>
+
+                      
+                        <br/>
+                          <div class = "row">
+                            <div class="col-md-2 col-sm-6">
+                              <button type="button" class="btn btn-block btn-success" (click)="goSave()">Save</button>&nbsp;
+                            </div>
+                              <div class="col-md-2 col-sm-6">
+                              <button type="button" class="btn btn-block btn-danger" [routerLink] = "['/confirmed-promotion-users']">Cancel</button>
+                            </div>
+
+                             <div class="col-md-2"></div>
+                             <label class="col-md-2"> Wallet </label>
+                             <div class="col-sm-3">
+                               <input type="string" class="form-control form-control-sm" [(ngModel)]="userDTO.balance_Str" [ngModelOptions]="{standalone: true}" step="500" min="0" disabled>
+                             </div>
+
+                          </div>
+
+                          <div class="row">
+							               <label class="col-md-2"></label>
+                            <div class="form-group col-md-3"> 
+                            </div> 
+                          </div>
+                          
+                    <!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
+                         <!-- <div class="row">
+                            <div class="col-md-2 col-sm-6">
+                            <button type="button" class="btn btn-block btn-success" (click)="goSave()">Save</button>&nbsp;</div>
+                            <div class="col-md-2 col-sm-6">
+                            <button type="button" class="btn btn-block btn-danger" [routerLink] = "['/user-list']">Cancel</button></div>
+                          </div>
+                        -->
+
+                        </form>
+                      </div>
+                      <!-- /.card-body -->
+                    </div>
+                  </div>
+                </div>
+
+                
+                
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="card">
+                      <div class="card-body">
+                        <form>
+                          <div class="row" style="margin-top: 2%;">
+                            <label class="col-md-2"> Register Date </label>
+                            <div class="form-group col-md-3">
+                              <input class="form-control form-control-sm" [(ngModel)]="userDTO.created_date"
+                                [ngModelOptions]="{standalone: true}" disabled>
+                            </div>
+                          </div>
+      
+                          <div class="row" style="margin-top: 1%;">
+                            <label class="col-md-2"> Updated Date </label>
+                            <div class="form-group col-md-3">
+                              <input class="form-control form-control-sm" [(ngModel)]="userDTO.updated_date"
+                                [ngModelOptions]="{standalone: true}" disabled>
+                            </div>
+                            <div class="col-md-1"></div>
+                            <label class="col-md-2"> Updated By </label>
+                            <div class="col-md-3">
+                              <input class="form-control form-control-sm" [(ngModel)]="userDTO.updated_by_name"
+                                [ngModelOptions]="{standalone: true}" disabled>
+                            </div>
+                          </div>
+      
+                        </form>
+                      </div>
+                      <!-- /.card-body -->
+                    </div>
+                  </div>
+                </div> <!--end of reg date section-->
+
+                <!-- User Game Wallet List-->
+
+                <div class="col-md-12" style="margin-top: 0.5%;">
+                  <div class="card">
+                    <div class="card-body">
+                      <table width='100%' id="{{'tblgamewallet' + idgamewallet}}" datatable [dtTrigger]="dtTriggergamewallet"
+                        [dtOptions]="dtOptionsgamewallet" class="table table-bordered table-hover">
+                        <thead>
+                          <tr>
+                            <th style="font-family: unicode;">No</th>
+                            <th style="font-family: unicode;">Game Provider</th>
+                            <th style="font-family: unicode;">Balance</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let item of userDTO.gameWalletModel | keyvalue, let i = index">
+                            <td style="font-family: unicode; padding: 0.35rem 0.75rem 0.30rem 0.75rem;">{{ i + 1 }}</td>
+                            <td style="font-family: unicode; padding: 0.35rem 0.75rem 0.30rem 0.75rem;">{{item.key}}
+                            </td>
+                            <td style="font-family: unicode; padding: 0.35rem 0.75rem 0.30rem 0.75rem;">{{item.value}}
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="col-md-12">  <!--Bank Information-->
+                  <div class="card">
+                    <div class="card-header">
+                      <h3 class="card-title" style="font-weight: bold;">User Bank Account Information</h3>
+                    </div>
+                    <div class="card-body">
+                      <table width='100%' id="{{'tblBank' + bankidIndex}}" datatable [dtTrigger]="dtTrigger1" [dtOptions]="dtOptions1" class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                          <th style="font-family: unicode; width:100px" class="text-left">Bank Logo</th>
+                          <th style="font-family: unicode; width:100px" class="text-left">Bank Name</th>
+                          <th style="font-family: unicode; width:100px" class="text-left">Account Number</th>
+                          <th style="font-family: unicode; width:100px" class="text-left">Created Date</th>
+                          <th style="font-family: unicode; width:100px" class="text-left">Approved Date</th>
+                          <th style="font-family: unicode; width:100px" class="text-left">Approved By</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                         <tr *ngFor="let wallet of tempUserBankInfoDTOList">
+                          <td style="font-family: unicode;"><img [src] ="wallet.banklogo" height="110" width="110" *ngIf="wallet.banklogo"></td> 
+                          <td style="font-family: unicode;">{{wallet.bank_name}}</td> 
+                          <td style="font-family: unicode;">{{wallet.account_number}}</td> 
+                          <td style="font-family: unicode;">{{wallet.created_date}}</td> 
+                          <td style="font-family: unicode;">{{wallet.updated_date}}</td> 
+                          <td style="font-family: unicode;">{{wallet.updated_by_name}}</td> 
+                        </tr>                         
+                        </tbody>
+                      </table>
+                    </div> <!-- /.card-body -->
+                  </div>
+                </div> <!--./end of bank information -->
+                
+                
+
+              </form> <!-- end for all above section -->
+             
+
+              <form> <!--start of tabs -->
+                <div class="row">
+                  <div class="col-md-12">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs nav-pills">
+                      <li (click)="getTransactionAllByParams()" style="display: none;">
+                        <a  id="all-tab" data-toggle="tab" href="#transactionall"> Transaction ALL </a>
+                      </li>
+                      <li (click)="getTwodbetHistoryByParams()">
+                        <a class="active" id="added-tab" data-toggle="tab" href="#twodbethistory">2D Bet History</a>
+                      </li>
+                      <li (click)="getTwoDwinnerList()">
+                        <a id="pending-tab" data-toggle="tab" href="#twodwin"> 2D Winning </a>
+                      </li>
+                      <li (click)="getTopupList()">
+                        <a id="approve-tab" data-toggle="tab" href="#topup"> Top UP </a>
+                      </li>
+                      <li (click)="getWithdrawalList()">
+                        <a id="denied-tab" data-toggle="tab" href="#withdrawal"> Withdrawal </a>
+                      </li>
+                      <li (click)="getThreedbetHistoryByParams()">
+                        <a id="denied-tab" data-toggle="tab" href="#threedbethistory"> 3D Bet History </a>
+                      </li>
+                      <li (click)="getThreeDwinnerList()">
+                        <a id="denied-tab" data-toggle="tab" href="#threedwin"> 3D Winning </a>
+                      </li>
+
+                      <li (click)="getQueenMakerTransactionHistory()">
+                        <a id="denied-tab" data-toggle="tab" href="#gametransactionhistory"> Game Transaction History </a>
+                      </li>
+
+                      <li (click)="getQueenMakerTransactionHistory()" style="display: none;">
+                        <a id="denied-tab" data-toggle="tab" href="#cq9transactionhistory"> CQ9 Transaction History </a>
+                      </li>
+
+                      <li (click)="getGameBalanceLog()">
+                        <a id="denied-tab" data-toggle="tab" href="#gamewinlose"> Game Win/Lose </a>
+                      </li>
+                      <li (click)="getUserById()" style="display: none;">
+                        <a id="denied-tab" data-toggle="tab" href="#bonus"> Bonus </a>
+                      </li>
+                    </ul>
+      
+                    <!-- Tab panes -->
+                    <div class="tab-content clearfix">
+      
+                      <div class="tab-pane" id="transactionall">
+                        <div class="row">
+      
+                         <div class="form-group col-md-2"  style="display: none;">
+                            <label>Amount</label>
+                            <input type="number" 
+                              class="form-control form-control-sm" [(ngModel)]="amount"
+                              [ngModelOptions]="{standalone: true}" (keypress)="numericOnly($event)">
+                          </div>
+
+                          <div class="form-group col-md-2"  style="display: none;">
+                            <label>Wallet Amount</label>
+                            <input type="number" 
+                              class="form-control form-control-sm" [(ngModel)]="wallet"
+                              [ngModelOptions]="{standalone: true}" (keypress)="numericOnly($event)">
+                          </div>
+      
+                          <div class="form-group col-md-2">
+                            <label>From Date</label>
+                            <input id="singleDate" readonly class="form-control form-control-sm" placeholder="Select Date"
+                              [ngxDatePicker]="dateInstanceSingle" [value]="singleDate" [(ngModel)]="alldate"
+                              [ngModelOptions]="{standalone: true}" (valueChange)="onChangeSingle()">
+                            <ngx-date-picker #dateInstanceSingle></ngx-date-picker>
+                          </div>
+      
+                          <div class="form-group col-md-2">
+                            <label>To Date</label>
+                            <input id="alltodate" readonly class="form-control form-control-sm" placeholder="Select Date"
+                              [ngxDatePicker]="dateInstanceSingle1" [value]="alltoDate" [(ngModel)]="alltodate"
+                              [ngModelOptions]="{standalone: true}" (valueChange)="onChangeAllToDate()">
+                            <ngx-date-picker #dateInstanceSingle1></ngx-date-picker>
+                          </div>
+                          <div class="form-group col-md-2 col-sm-4 col-xs-4">
+                            <label></label>
+                            <button id="search" type="button" class="btn btn-block btn-primary btn-sm" style="margin-top: 4%;"
+                              (click)="getTransactionAllByParams()">Search</button>
+                          </div>
+      
+                          <div class="col-md-12"> <!--transaction all-->
+                            <div class="card">
+                              <div class="card-header">
+                                <h3 class="card-title" style="font-weight: bold;"> Transaction All </h3>
+                              </div>
+                              <!-- /.card-header -->
+                              <div class="card-body">
+                                <table width='100%' id="{{'tblUser' + idIndex}}" datatable [dtTrigger]="dtTrigger" [dtOptions]="dtOptions" class="table table-bordered table-hover">
+                                  <thead>
+                                  <tr>
+                                    <th style="font-family: unicode; width:120px" class="text-center">Cash In</th>
+                                    <th style="font-family: unicode; width:120px" class="text-center">Cash Out</th>
+                                    <th style="font-family: unicode; width:130px" class="text-center">Amount</th>
+                                    <th style="font-family: unicode; width: 130px;" class="text-center">Wallet or Balance</th>
+                                    <th style="font-family: unicode;" class="text-center">Created Date</th>
+                                    <th style="font-family: unicode;" class="text-center">Updated Date</th>
+                                  </tr>
+                                  </thead>
+                                  <tbody>
+                                  <tr *ngFor="let wallet of walletHistoryDTOLit">
+                                  <td style="font-family: unicode;">
+                                        <button type="button" *ngIf="wallet.cashIn == 'Topup'" (click) ="getDetail(wallet.id)" class="btn btn-block btn-success" style="width : 50px; padding : 1px 0px 1px 0px;font-size: 12px;border-radius: 90px;color:white"> Top Up </button>
+                                        <button type="button" *ngIf="wallet.cashIn == '2D Win'" (click) ="getTwodWinnerDetail(wallet.id)" class="btn btn-block btn-warning" style="width : 50px; padding : 1px 0px 1px 0px;font-size: 12px;border-radius: 90px;color:white"> 2D Win 
+                                        </button>
+                                        <button type="button" *ngIf="wallet.cashIn == '3D Win'" (click) ="getThreedWinnerDetail(wallet.id)"  class="btn btn-block btn-warning" style=" width : 50px; padding : 1px 0px 1px 0px;font-size: 12px;border-radius: 90px;color:white"> 3D Win </button>
+                                        <button type="button" *ngIf="wallet.cashIn == 'Game'" (click) ="getGameTranDetail(wallet.id)" class="btn btn-block btn-success" style="width : 100px; padding : 1px 0px 1px 0px;font-size: 12px;border-radius: 90px;color:white"> Game </button>
+
+                                      </td>
+                                   <!-- <td style="font-family: unicode;">{{wallet.cashIn}}</td>-->
+                                    <td style="font-family: unicode;">
+                                      <button type="button" *ngIf="wallet.cashOut == '2D Bet'" (click) ="goModal1(wallet.id)"  class="btn btn-block btn-info" style="width : 50px; padding : 1px 0px 1px 0px;font-size: 12px;border-radius: 90px;color:white"> Bet 2D </button>
+                                      <button type="button" *ngIf="wallet.cashOut == '3D Bet'" (click) ="goModal(wallet.id)" class="btn btn-block btn-info" style="width : 50px; padding : 1px 0px 1px 0px;font-size: 12px;border-radius: 90px;color:white"> Bet 3D </button>
+                                      <button type="button" *ngIf="wallet.cashOut == 'Withdrawal'" (click) ="getDetail1(wallet.id)" class="btn btn-block" style="background-color : orange; width : 90px; padding : 1px 0px 1px 0px;font-size: 12px;border-radius: 90px;color:white"> Withdrawal </button>
+                                      <button type="button" *ngIf="wallet.cashOut == 'GAME-DEPOSIT'" (click) ="getGameTranDetail(wallet.id)"  class="btn btn-block" style="background-color:chocolate; width : 100px; padding : 1px 0px 1px 0px;font-size: 12px;border-radius: 90px;color:white"> Game</button>
+                                    </td>
+                                    <td style="font-family: unicode;" class="text-right">{{wallet.amount}}</td>
+                                    <td style="font-family: unicode;" class="text-right">{{wallet.wallet}}</td>
+                                    <td style="font-family: unicode;">{{wallet.createdDate | date: 'dd/MM/yyyy HH:mm:ss'}} </td>
+                                    <td style="font-family: unicode;">{{wallet.approvedDate | date: 'dd/MM/yyyy HH:mm:ss'}} </td>
+                                  </tr>                        
+                                  </tbody>
+                                </table>
+            
+                              </div>
+                              <!-- /.card-body -->
+                            </div>
+                          </div>
+                          <!-- /.row -->
+                        </div>
+                      </div>
+      
+                      <div class="tab-pane  show active" id="twodbethistory">
+                        <div class="row">
+
+                          <div class="form-group col-md-2" style="display: none;">
+                            <label>Bet Amount</label>
+                            <input type="number" onKeyPress="if(this.value.length==6) return false;"
+                              class="form-control form-control-sm" [(ngModel)]="twodhitamount"
+                              [ngModelOptions]="{standalone: true}" (keypress)="numericOnly($event)">
+                          </div>
+
+                          <div class="form-group col-md-2"  style="display: none;">
+                            <label>Wallet Amount</label>
+                            <input type="number"
+                              class="form-control form-control-sm" [(ngModel)]="twodhitwallet"
+                              [ngModelOptions]="{standalone: true}" (keypress)="numericOnly($event)">
+                          </div>
+
+                          <div class="form-group col-md-2">
+                            <label>From Date</label>
+                            <input id="twodbetDate" readonly class="form-control form-control-sm" placeholder="Select Date"
+                              [ngxDatePicker]="dateInstanceTwodbet" [value]="twodbetDate" [(ngModel)]="twodbetdate"
+                              [ngModelOptions]="{standalone: true}"  (valueChange)="onChangeTwodbet()">
+                            <ngx-date-picker #dateInstanceTwodbet></ngx-date-picker>
+                          </div>
+                           
+                          <div class="form-group col-md-2">
+                            <label>To Date</label>
+                            <input id="towdbettodate" readonly class="form-control form-control-sm" placeholder="Select Date"
+                              [ngxDatePicker]="dateInstanceTwodbet1" [value]="twodbettoDate" [(ngModel)]="twodbettodate"
+                              [ngModelOptions]="{standalone: true}" (valueChange)="onChangeTwodbetToDate()">
+                            <ngx-date-picker #dateInstanceTwodbet1></ngx-date-picker>
+                          </div>
+
+                          <div class="form-group col-md-2 col-sm-4 col-xs-4">
+                            <label></label>
+                            <button id="search" type="button" class="btn btn-block btn-primary btn-sm" style="margin-top: 4%;"
+                              (click)="getTwodbetHistoryByParams()">Search</button>
+                          </div>
+      
+                          <div class="col-md-12">
+                            <div class="card">
+                              <div class="card-header">
+                                <h3 class="card-title" style="font-weight: bold;">2D Bet History List</h3>
+                              </div>
+                              <div class="card-body">
+                                <table width='100%' id="{{'tbl2dbet' + idtwodindex}}" datatable
+                                  [dtTrigger]="dtTrigger2" [dtOptions]="dtOptions2" class="table table-bordered table-hover">
+                                  <thead>
+                                    <tr>
+                                      <th style="font-family: unicode;">S/N</th>
+                                      <th style="font-family: unicode;">Created Date</th>
+                                      <th style="font-family: unicode;">Bet Date</th>
+                                      <th style="font-family: unicode;">Bet Detail</th>
+                                      <th style="font-family: unicode;">Odds</th>
+                                      <th style="font-family: unicode;">Bet Amount</th>
+                                      <th style="font-family: unicode;">Current Wallet</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr *ngFor="let wallet of tempBetHistoryDTOList, let j = index">
+                                      <td style="font-family: unicode;">{{j+1}}</td> 
+                                      <td style="font-family: unicode;">{{wallet.createdDate | date: 'dd/MM/yyyy HH:mm:ss'}}</td> 
+                                      <td style="font-family: unicode;">{{wallet.approvedDate | date: 'dd/MM/yyyy HH:mm:ss'}}</td> 
+                                      <td style="font-family: unicode;"><i class="far fa-eye" style="color:#4b88eb;cursor: pointer;"
+                                        (click)="goModal1(wallet.twodbet_id)"></i>
+                                     </td>
+                                      <td style="font-family: unicode;">{{wallet.odds}}</td>
+                                      <td style="font-family: unicode;">{{wallet.amount}} </td>
+                                      <td style="font-family: unicode;">{{wallet.wallet}} </td>
+                                    </tr>     
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+      
+                        </div>
+                      </div>
+      
+                      <div class="tab-pane" id="twodwin">
+                        <div class="row">
+      
+                          <div class="form-group col-md-2"  style="display: none;">
+                            <label>Amount</label>
+                            <input type="number" onKeyPress="if(this.value.length==6) return false;"
+                              class="form-control form-control-sm" [(ngModel)]="twodwinamount"
+                              [ngModelOptions]="{standalone: true}" (keypress)="numericOnly($event)">
+                          </div>
+
+                          <div class="form-group col-md-2"  style="display: none;">
+                            <label>Wallet Amount</label>
+                            <input type="number" onKeyPress="if(this.value.length==6) return false;"
+                              class="form-control form-control-sm" [(ngModel)]="twodwinwallet"
+                              [ngModelOptions]="{standalone: true}" (keypress)="numericOnly($event)">
+                          </div>
+
+
+                          <div class="form-group col-md-2">
+                            <label>From Date</label>
+                            <input id="towdwinDate" readonly class="form-control form-control-sm" placeholder="Select Date"
+                              [ngxDatePicker]="dateInstanceTwodwin" [value]="twodwinDate" [(ngModel)]="twodwindate"
+                              [ngModelOptions]="{standalone: true}" (valueChange)="onChangeTwodWin()">
+                            <ngx-date-picker #dateInstanceTwodwin></ngx-date-picker>
+                          </div>
+      
+                          <div class="form-group col-md-2">
+                            <label>To Date</label>
+                            <input id="twodwintodate" readonly class="form-control form-control-sm" placeholder="Select Date"
+                              [ngxDatePicker]="dateInstanceTwodwin1" [value]="twodwintoDate" [(ngModel)]="twodwintodate"
+                              [ngModelOptions]="{standalone: true}" (valueChange)="onChangeTwoDwinToDate()">
+                            <ngx-date-picker #dateInstanceTwodwin1></ngx-date-picker>
+                          </div>
+      
+                             <!-- <div class="col-md-4"></div> -->
+      
+                          <div class="form-group col-md-2 col-sm-4 col-xs-4">
+                            <label></label>
+                            <button id="search" type="button" class="btn btn-block btn-primary btn-sm" style="margin-top: 4%;"
+                              (click)="getTwoDwinnerList()">Search</button>
+                          </div>
+      
+                          <div class="col-md-12">
+                            <div class="card">
+                              <div class="card-header">
+                                <h3 class="card-title" style="font-weight: bold;">2D Winning List</h3>
+                              </div>
+                              <div class="card-body">
+                                <table width='100%' id="{{'tbltwodwin' + idtwodwinIndex}}" datatable [dtTrigger]="dtTrigger3"
+                                  [dtOptions]="dtOptions3" class="table table-bordered table-hover">
+                                  <thead>
+                                    <tr>
+                                      <th style="font-family: unicode;">Date</th>
+                                      <th style="font-family: unicode;">Section</th>
+                                      <th style="font-family: unicode;">Number</th>
+                                      <th style="font-family: unicode;">Odds</th>
+                                      <th style="font-family: unicode;">Bet Amount</th>
+                                      <th style="font-family: unicode;">Status</th>
+                                      <th style="font-family: unicode;">Updated By</th>
+                                      <th style="font-family: unicode;">Win Amount</th>
+                                      <th style="font-family: unicode;">Current Wallet</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr *ngFor="let wallet of tempWinnerDTOList">
+                                        <td style="font-family: unicode;">{{wallet.createdDate | date: 'dd/MM/yyyy HH:mm:ss'}}</td> 
+                                        <td style="font-family: unicode;">{{wallet.bet_time}}</td> 
+                                        <td style="font-family: unicode;">{{wallet.number}}</td>
+                                        <td style="font-family: unicode;">{{wallet.odds}}</td>
+                                        <td style="font-family: unicode;">{{wallet.bet_amount}} </td>
+                                        <td style="font-family: unicode;">
+                                          <button type="button" *ngIf="wallet.status == 'CONFIRMED'" class="btn btn-block btn-success" style="width : 90px; padding : 1px 0px 1px 0px;font-size: 12px;border-radius: 90px;color:white"> Approved </button>
+                                          <button type="button" *ngIf="wallet.status == 'PENDING'" class="btn btn-block btn-primary" style="width : 90px; padding : 1px 0px 1px 0px;font-size: 12px;border-radius: 90px;color:white"> Pending </button>
+                                        </td>
+                                        <td style="font-family: unicode;">{{wallet.created_by}} </td>
+                                        <td style="font-family: unicode;">{{wallet.amount}} </td>
+                                        <td style="font-family: unicode;">{{wallet.wallet}} </td>
+                                      </tr>         
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+      
+                        </div>
+                      </div>
+      
+                      <div class="tab-pane" id="topup">
+                        <div class="row">
+
+                         <div class="form-group col-md-2"  style="display: none;">
+                            <label>Transaction No</label>
+                            <input type="text"
+                              class="form-control form-control-sm" [(ngModel)]="topuptran"
+                              [ngModelOptions]="{standalone: true}" (keypress)="numericOnly($event)">
+                          </div>
+
+                          <div class="form-group col-md-2"  style="display: none;">
+                            <label>Amount</label>
+                            <input type="number"
+                              class="form-control form-control-sm" [(ngModel)]="topupamount"
+                              [ngModelOptions]="{standalone: true}" (keypress)="numericOnly($event)">
+                          </div>
+
+                          <div class="form-group col-md-2"  style="display: none;">
+                            <label>Wallet Amount</label>
+                            <input type="number"
+                              class="form-control form-control-sm" [(ngModel)]="topupwallet"
+                              [ngModelOptions]="{standalone: true}" (keypress)="numericOnly($event)">
+                          </div>
+
+                          <div class="form-group col-md-2">
+                            <label>From Date</label>
+                            <input id="topupDate" readonly class="form-control form-control-sm" placeholder="Select Date"
+                              [ngxDatePicker]="dateInstancePending" [value]="topupDate" [(ngModel)]="topupdate"
+                              [ngModelOptions]="{standalone: true}" (valueChange)="onChangeTopup()">
+                            <ngx-date-picker #dateInstancePending></ngx-date-picker>
+                          </div>
+                          
+                          <div class="form-group col-md-2">
+                            <label>To Date</label>
+                            <input id="topuptodate" readonly class="form-control form-control-sm" placeholder="Select Date"
+                              [ngxDatePicker]="dateInstancePending1" [value]="topuptoDate" [(ngModel)]="topuptodate"
+                              [ngModelOptions]="{standalone: true}" (valueChange)="onChangeTopupToDate()">
+                            <ngx-date-picker #dateInstancePending1></ngx-date-picker>
+                          </div>
+      
+                         <!-- <div class="col-md-4"></div> -->
+                          <div class="form-group col-md-2 col-sm-4 col-xs-4">
+                            <label></label>
+                            <button id="search" type="button" class="btn btn-block btn-primary btn-sm" style="margin-top: 4%;"
+                              (click)="getTopupList()">Search</button>
+                          </div>
+      
+                          <div class="col-md-12">
+                            <div class="card">
+                              <div class="card-header">
+                                <h3 class="card-title" style="font-weight: bold;">Top UP List</h3>
+                              </div>
+                              <div class="card-body">
+                                <table width='100%' id="{{'tbltopup' + idtopupIndex}}" datatable
+                                  [dtTrigger]="dtTrigger4" [dtOptions]="dtOptions4" class="table table-bordered table-hover">
+                                  <thead>
+                                    <tr>
+                                      <th style="font-family: unicode;">Created Date</th>
+                                      <th style="font-family: unicode;">Updated Date</th>
+                                      <th style="font-family: unicode;">Bank Type</th>
+                                      <th style="font-family: unicode;">Transaction Number</th>
+                                      <th style="font-family: unicode;">Status</th>
+                                      <th style="font-family: unicode;">Updated By</th>
+                                      <th style="font-family: unicode;">Amount</th>
+                                      <th style="font-family: unicode;">Current Wallet</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr *ngFor="let topup of tempFinancialTransactionDTOList">
+                                      <td style="font-family: unicode;">{{topup.createdDate | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
+                                      <td style="font-family: unicode;">{{topup.approvedDate | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
+                                      <td style="font-family: unicode;">{{topup.name}} </td>
+                                      <td style="font-family: unicode;">{{topup.transaction_no}} </td> 
+                                      <td style="font-family: unicode;">  
+                                      <button type="button" class="btn btn-block btn-success" style=" width : 90px; padding : 1px 0px 1px 0px;font-size: 12px;border-radius: 90px;color:white"> {{topup.status}} </button>
+                                      </td>
+                                      <td style="font-family: unicode;">{{topup.updated_by}} </td> 
+                                      <td style="font-family: unicode;">{{topup.amount}} </td> 
+                                      <td style="font-family: unicode;">{{topup.wallet}} </td> 
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+      
+                        </div>
+                      </div>
+      
+                      <div class="tab-pane" id="withdrawal">
+                        <div class="row">
+      
+                          <div class="form-group col-md-2" style="display: none;">
+                            <label>Account No</label>
+                            <input type="text"
+                              class="form-control form-control-sm" [(ngModel)]="withdrawalAcc"
+                              [ngModelOptions]="{standalone: true}" (keypress)="numericOnly($event)">
+                          </div>
+
+                          <div class="form-group col-md-2" style="display: none;">
+                            <label>Amount</label>
+                            <input type="number"
+                              class="form-control form-control-sm" [(ngModel)]="withdrawalamount"
+                              [ngModelOptions]="{standalone: true}" (keypress)="numericOnly($event)">
+                          </div>
+
+                          <div class="form-group col-md-2" style="display: none;">
+                            <label>Wallet Amount</label>
+                            <input type="number"
+                              class="form-control form-control-sm" [(ngModel)]="withdrawalwallet"
+                              [ngModelOptions]="{standalone: true}" (keypress)="numericOnly($event)">
+                          </div>
+
+                          <div class="form-group col-md-2">
+                            <label>From Date</label>
+                            <input id="withDate" readonly class="form-control form-control-sm" placeholder="Select Date"
+                              [ngxDatePicker]="dateInstanceDenied" [value]="withDate" [(ngModel)]="withdate"
+                              [ngModelOptions]="{standalone: true}" (valueChange)="onChangeWith()">
+                            <ngx-date-picker #dateInstanceDenied></ngx-date-picker>
+                          </div>
+      
+                          <div class="form-group col-md-2">
+                            <label>To Date</label>
+                            <input id="withtodate" readonly class="form-control form-control-sm" placeholder="Select Date"
+                              [ngxDatePicker]="dateInstanceDenied1" [value]="withtoDate" [(ngModel)]="withtodate"
+                              [ngModelOptions]="{standalone: true}" (valueChange)="onChangeWithToDate()">
+                            <ngx-date-picker #dateInstanceDenied1></ngx-date-picker>
+                          </div>
+                         <!-- <div class="col-md-4"></div> -->
+                          <div class="form-group col-md-2 col-sm-4 col-xs-4">
+                            <label></label>
+                            <button id="search" type="button" class="btn btn-block btn-primary btn-sm" style="margin-top: 4%;"
+                              (click)="getWithdrawalList()">Search</button>
+                          </div>   
+      
+                          <div class="col-md-12">
+                            <div class="card">
+                              <div class="card-header">
+                                <h3 class="card-title" style="font-weight: bold;">Withdrawal List</h3>
+                              </div>
+                              <div class="card-body">
+                                <table width='100%' id="{{'tblwithdrawal' + idwithdrawalIndex}}" datatable
+                                  [dtTrigger]="dtTrigger5" [dtOptions]="dtOptions5" class="table table-bordered table-hover">
+                                  <thead>
+                                    <tr>
+                                      <th style="font-family: unicode;">Created Date</th>
+                                      <th style="font-family: unicode;">Updated Date</th>
+                                      <th style="font-family: unicode;">Bank Type</th>
+                                      <th style="font-family: unicode;">Bank Number</th>
+                                      <th style="font-family: unicode;">Status</th>
+                                      <th style="font-family: unicode;">Updated By</th>
+                                      <th style="font-family: unicode;">Amount</th>
+                                      <th style="font-family: unicode;">Current Wallet</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr *ngFor="let topup of tempFinancialTransactionDTOList1">
+                                      <td style="font-family: unicode;">{{topup.createdDate | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
+                                      <td style="font-family: unicode;">{{topup.approvedDate | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
+                                      <td style="font-family: unicode;">{{topup.name}} </td>
+                                      <td style="font-family: unicode;">{{topup.account_no}} </td> 
+                                      <td style="font-family: unicode;">  
+                                      <button type="button" class="btn btn-block btn-success" style=" width : 90px; padding : 1px 0px 1px 0px;font-size: 12px;border-radius: 90px;color:white"> {{topup.status}} </button>
+                                       </td>
+                                      <td style="font-family: unicode;">{{topup.updated_by}} </td> 
+                                      <td style="font-family: unicode;">{{topup.amount}} </td> 
+                                      <td style="font-family: unicode;">{{topup.wallet}} </td> 
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+      
+                        </div>
+                      </div>
+      
+
+                      <div class="tab-pane" id="threedbethistory">
+                        <div class="row">
+                          <div class="form-group col-md-2" style="display: none;">
+                            <label>Bet Amount</label>
+                            <input type="number" onKeyPress="if(this.value.length==6) return false;"
+                              class="form-control form-control-sm" [(ngModel)]="threedhitamount"
+                              [ngModelOptions]="{standalone: true}" (keypress)="numericOnly($event)">
+                          </div>
+
+                          <div class="form-group col-md-2" style="display: none;">
+                            <label>Wallet Amount</label>
+                            <input type="number"
+                              class="form-control form-control-sm" [(ngModel)]="threedhitwallet"
+                              [ngModelOptions]="{standalone: true}" (keypress)="numericOnly($event)">
+                          </div>
+                          <div class="form-group col-md-2">
+                            <label>From Date</label>
+                            <input id="threedbetDate" readonly class="form-control form-control-sm" placeholder="Select Date"
+                              [ngxDatePicker]="dateInstanceThreedbet" [value]="threedbetDate" [(ngModel)]="threedbetdate"
+                              [ngModelOptions]="{standalone: true}" (valueChange)="onChangeThreeDBetDate()">
+                            <ngx-date-picker #dateInstanceThreedbet></ngx-date-picker>
+                          </div>
+      
+                          <div class="form-group col-md-2">
+                            <label>To Date</label>
+                            <input id="threedbettodate" readonly class="form-control form-control-sm" placeholder="Select Date"
+                              [ngxDatePicker]="dateInstanceThreedbet1" [value]="threedbettoDate" [(ngModel)]="threedbettodate"
+                              [ngModelOptions]="{standalone: true}" (valueChange)="onChangethreedbetToDate()">
+                            <ngx-date-picker #dateInstanceThreedbet1></ngx-date-picker>
+                          </div>
+                         <!-- <div class="col-md-4"></div> -->
+                          <div class="form-group col-md-2 col-sm-4 col-xs-4">
+                            <label></label>
+                            <button id="search" type="button" class="btn btn-block btn-primary btn-sm" style="margin-top: 4%;"
+                              (click)="getThreedbetHistoryByParams()">Search</button>
+                          </div>  
+
+                          <div class="col-md-12">
+                            <div class="card">
+                              <div class="card-header">
+                                <h3 class="card-title" style="font-weight: bold;">3D Bet History List</h3>
+                              </div>
+                              <div class="card-body">
+                                <table width='100%' id="{{'tblthreedbet' + idthreedbetIndex}}" datatable
+                                  [dtTrigger]="dtTrigger6" [dtOptions]="dtOptions6" class="table table-bordered table-hover">
+                                  <thead>
+                                    <tr>
+                                      <th style="font-family: unicode;">S/N</th>
+                                      <th style="font-family: unicode;">Created Date</th>
+                                      <th style="font-family: unicode;">Bet Date</th>
+                                      <th style="font-family: unicode;">Bet Detail</th>
+                                      <th style="font-family: unicode;">Odds</th>
+                                      <th style="font-family: unicode;">Bet Amount</th>
+                                      <th style="font-family: unicode;">Current Wallet</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr *ngFor="let wallet of tempBetHistoryDTOList1, , let k = index">
+                                      <td style="font-family: unicode;">{{k+1}}</td> 
+                                      <td style="font-family: unicode;">{{wallet.createdDate | date: 'dd/MM/yyyy HH:mm:ss'}}</td> 
+                                      <td style="font-family: unicode;">{{wallet.approvedDate | date: 'dd/MM/yyyy HH:mm:ss'}}</td> 
+                                      <td style="font-family: unicode;"><i class="far fa-eye" style="color:#4b88eb;cursor: pointer;;"
+                                        (click)="goModal(wallet.threedbet_id)"></i>
+                                     </td>
+                                      <td style="font-family: unicode;">{{wallet.odds}}</td>
+                                      <td style="font-family: unicode;">{{wallet.amount}} </td>
+                                      <td style="font-family: unicode;">{{wallet.wallet}} </td>
+                                    </tr> 
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+      
+                        </div>
+                      </div>
+
+                      <div class="tab-pane" id="threedwin">
+                        <div class="row">
+      
+                          <div class="form-group col-md-2">
+                            <label>From Date</label>
+                            <input id="threedwinDate" readonly class="form-control form-control-sm" placeholder="Select Date"
+                              [ngxDatePicker]="dateInstanceThreedwin" [value]="threedwinDate" [(ngModel)]="threedwindate"
+                              [ngModelOptions]="{standalone: true}" (valueChange)="onChangeThreedWin()">
+                            <ngx-date-picker #dateInstanceThreedwin></ngx-date-picker>
+                          </div>
+      
+                          <div class="form-group col-md-2">
+                            <label>To Date</label>
+                            <input id="threeedwintodate" readonly class="form-control form-control-sm" placeholder="Select Date"
+                              [ngxDatePicker]="dateInstanceThreedwin1" [value]="threedwintoDate" [(ngModel)]="threedwintodate"
+                              [ngModelOptions]="{standalone: true}" (valueChange)="onChangeThreeDwinToDate()">
+                            <ngx-date-picker #dateInstanceThreedwin1></ngx-date-picker>
+                          </div>
+                          <div class="form-group col-md-2 col-sm-4 col-xs-4">
+                            <label></label>
+                            <button id="search" type="button" class="btn btn-block btn-primary btn-sm" style="margin-top: 4%;"
+                              (click)="getThreeDwinnerList()">Search</button>
+                          </div>  
+                          
+                          <div class="col-md-12">
+                            <div class="card">
+                              <div class="card-header">
+                                <h3 class="card-title" style="font-weight: bold;">3D Winning</h3>
+                              </div>
+                              <div class="card-body">
+                                <table width='100%' id="{{'tblthreedwin' + idthreedwinIndex}}" datatable
+                                  [dtTrigger]="dtTrigger7" [dtOptions]="dtOptions7" class="table table-bordered table-hover">
+                                  <thead>
+                                    <tr>
+                                      <th style="font-family: unicode;">Created Date</th>
+                                      <th style="font-family: unicode;">For Date</th>
+                                      <th style="font-family: unicode;">Number</th>
+                                      <th style="font-family: unicode;">Odds</th>
+                                      <th style="font-family: unicode;">Bet Amount</th>
+                                      <th style="font-family: unicode;">Status</th>
+                                      <th style="font-family: unicode;">Updated By</th>
+                                      <th style="font-family: unicode;">Win Amount</th>
+                                      <th style="font-family: unicode;">Current Wallet</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr *ngFor="let wallet of tempWinnerDTOList1">
+                                      <td style="font-family: unicode;">{{wallet.createdDate | date: 'dd/MM/yyyy HH:mm:ss'}}</td> 
+                                      <td style="font-family: unicode;">{{wallet.for_date | date: 'dd/MM/yyyy HH:mm:ss'}}</td> 
+                                      <td style="font-family: unicode;">{{wallet.number}}</td>
+                                      <td style="font-family: unicode;">{{wallet.odds}}</td>
+                                      <td style="font-family: unicode;">{{wallet.bet_amount}} </td>
+                                      <td style="font-family: unicode;">
+                                        <button type="button" *ngIf="wallet.status == 'CONFIRMED'" class="btn btn-block btn-success" style="width : 90px; padding : 1px 0px 1px 0px;font-size: 12px;border-radius: 90px;color:white"> Approved </button>
+                                        <button type="button" *ngIf="wallet.status == 'PENDING'" class="btn btn-block btn-primary" style="width : 90px; padding : 1px 0px 1px 0px;font-size: 12px;border-radius: 90px;color:white"> Pending </button>
+                                      </td>
+                                      <td style="font-family: unicode;">{{wallet.created_by}} </td>
+                                      <td style="font-family: unicode;">{{wallet.amount}} </td>
+                                      <td style="font-family: unicode;">{{wallet.wallet}} </td>
+                                    </tr>  
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+      
+                        </div>
+                      </div>
+
+                      <div class="tab-pane" id="gamebethistory" style="display: none;">
+                        <div class="row">
+      
+                          <div class="form-group col-md-2">
+                            <label>From Date</label>
+                            <input id="gameDate" readonly class="form-control form-control-sm" placeholder="Select Date"
+                              [ngxDatePicker]="dateInstanceGame" [value]="gameDate" [(ngModel)]="gamedate"
+                              [ngModelOptions]="{standalone: true}" (valueChange)="onChangeThreeDBetDate()">
+                            <ngx-date-picker #dateInstanceGame></ngx-date-picker>
+                          </div>
+      
+                          <div class="form-group col-md-2">
+                            <label>To Date</label>
+                            <input id="gametodate" readonly class="form-control form-control-sm" placeholder="Select Date"
+                              [ngxDatePicker]="dateInstanceGame1" [value]="gametoDate" [(ngModel)]="gametodate"
+                              [ngModelOptions]="{standalone: true}" (valueChange)="onChangethreedbetToDate()">
+                            <ngx-date-picker #dateInstanceGame1></ngx-date-picker>
+                          </div>
+                          <div class="form-group col-md-2 col-sm-4 col-xs-4">
+                            <label></label>
+                            <button id="search" type="button" class="btn btn-block btn-primary btn-sm" style="margin-top: 4%;"
+                              (click)="getUserById()">Search</button>
+                          </div>  
+                          
+                          <div class="col-md-12">
+                            <div class="card">
+                              <div class="card-header">
+                                <h3 class="card-title" style="font-weight: bold;">Game Bet History </h3>
+                              </div>
+                              <div class="card-body">
+                                <table width='100%' id="{{'tblgame' + idgameIndex}}" datatable
+                                  [dtTrigger]="dtTrigger8" [dtOptions]="dtOptions8" class="table table-bordered table-hover">
+                                  <thead>
+                                    <tr>
+                                      <th style="font-family: unicode;">S/N</th>
+                                      <th style="font-family: unicode;">Created Date</th>
+                                      <th style="font-family: unicode;">Bet Date</th>
+                                      <th style="font-family: unicode;">Bet Detail</th>
+                                      <th style="font-family: unicode;">Odds</th>
+                                      <th style="font-family: unicode;">Bet Amount</th>
+                                      <th style="font-family: unicode;">Current Wallet</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+      
+                        </div>
+                      </div>
+
+
+                      <div class="tab-pane" id="gamewinlose">
+                        <div class="row">
+      
+                          <div class="form-group col-md-2">
+                            <label>From Date</label>
+                            <input id="gamewinDate" readonly class="form-control form-control-sm" placeholder="Select Date"
+                              [ngxDatePicker]="dateInstanceGamewin" [value]="gamewinDate" [(ngModel)]="gamewindate"
+                              [ngModelOptions]="{standalone: true}" (valueChange)="onWinLostDate()">
+                            <ngx-date-picker #dateInstanceGamewin></ngx-date-picker>
+                          </div>
+      
+                          <div class="form-group col-md-2">
+                            <label>To Date</label>
+                            <input id="gamewintodate" readonly class="form-control form-control-sm" placeholder="Select Date"
+                              [ngxDatePicker]="dateInstanceGamewin1" [value]="gamewintoDate" [(ngModel)]="gamewintodate"
+                              [ngModelOptions]="{standalone: true}" (valueChange)="onChangeonWinLosttoDate()">
+                            <ngx-date-picker #dateInstanceGamewin1></ngx-date-picker>
+                          </div>
+
+                          <div class="form-group col-md-2">
+                            <label>Game Provider</label>
+                            <select (change) = "flagProvider1()" id ="providerId1" class="form-control form-control-sm col-md-12 col-sm-4 col-xs-4"
+                             [(ngModel)]="providerId" [ngModelOptions]="{standalone: true}">
+                              <option *ngFor="let provider of gameproviderList" value = "{{provider.id}}" >
+                                {{provider.name}}
+                              </option>
+                           </select>
+                          </div> 
+
+                          <div class="form-group col-md-2 col-sm-4 col-xs-4">
+                            <label></label>
+                            <button id="search" type="button" class="btn btn-block btn-primary btn-sm" style="margin-top: 4%;"
+                              (click)="getGameBalanceLog()">Search</button>
+                          </div>  
+                          
+                          <div class="col-md-12">
+                            <div class="card">
+                              <div class="card-header">
+                                <h3 class="card-title" style="font-weight: bold;">Game Win/Lose</h3>
+                              </div>
+                              <div class="card-body">
+                                <table width='100%' id="{{'tblgamewinlose' + idgamewinIndex}}" datatable
+                                  [dtTrigger]="dtTriggergwinlose" [dtOptions]="dtOptionswinlose" class="table table-bordered table-hover">
+                                  <thead>
+                                    <tr>
+                                      <th style="font-family: unicode;">S/N</th>
+                                      <td style="font-family: unicode;">Game User ID</td> 
+                                      <th style="font-family: unicode;">Created Date</th>
+                                      <th style="font-family: unicode;">Game Provider</th>
+                                      <th style="font-family: unicode;">Balance Before</th>
+                                      <th style="font-family: unicode;">Post Balance</th>
+                                      <th style="font-family: unicode;">Win/Lose Amount</th>
+                                      <th style="font-family: unicode;">Win/Lose Status</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr *ngFor="let wallet of userGameLogList, let j = index">
+                                      <td style="font-family: unicode;">{{j+1}}</td> 
+                                      <td style="font-family: unicode;">{{'tddm'+displayUserId}}</td> 
+                                      <td style="font-family: unicode;">{{wallet.created_date | date: 'dd/MM/yyyy HH:mm:ss'}}</td> 
+                                      <td style="font-family: unicode;">{{wallet.display_name}}</td>
+                                      <td style="font-family: unicode;">{{wallet.balanceBefore | number :0 }}</td> 
+                                      <td style="font-family: unicode;">{{wallet.postBalance | number :0 }}</td> 
+                                      <td style="font-family: unicode;" *ngIf = "wallet.status == 'Win' ">(+) {{wallet.differentAmt | number :0 }}</td> 
+                                      <td style="font-family: unicode;" *ngIf = "wallet.status == 'Lose' ">(-) {{wallet.differentAmt | number :0 }}</td> 
+                                      <td style="font-family: unicode;" *ngIf = "wallet.status == 'Win' "><button type ="button" style="background-color: green;border-radius: 5px;width: 100px;color: white;pointer-events: none;">{{wallet.status}}</button></td> 
+                                      <td style="font-family: unicode;" *ngIf = "wallet.status == 'Lose' "><button type ="button" style="background-color: orange;border-radius: 5px;width: 100px;color: white;pointer-events: none;">{{wallet.status}}</button></td>
+                                    </tr>     
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+      
+                        </div>
+                      </div>
+
+
+                      <div class="tab-pane" id="gametransactionhistory">
+                        <div class="row">
+                             
+                          <div class="form-group col-md-2">
+                              <label>Game Provider</label>
+                              <select (change) = "flagProvider()" id = "providerId" class="form-control form-control-sm col-md-12 col-sm-4 col-xs-4"
+                               [(ngModel)]="providerId" [ngModelOptions]="{standalone: true}">
+                                <option *ngFor="let provider of gameproviderList" value = "{{provider.id}}" >
+                                  {{provider.name}}
+                                </option>
+                             </select>
+                            </div> 
+                      
+
+                          <div class="form-group col-md-2" style="display: none;">
+                            <label>Bet Amount</label>
+                            <input type="number" onKeyPress="if(this.value.length==6) return false;"
+                              class="form-control form-control-sm" [(ngModel)]="twodhitamount"
+                              [ngModelOptions]="{standalone: true}" (keypress)="numericOnly($event)">
+                          </div>
+
+                          <div class="form-group col-md-2"  style="display: none;">
+                            <label>Wallet Amount</label>
+                            <input type="number"
+                              class="form-control form-control-sm" [(ngModel)]="twodhitwallet"
+                              [ngModelOptions]="{standalone: true}" (keypress)="numericOnly($event)">
+                          </div>
+
+                          <div class="form-group col-md-2">
+                            <label>From Date</label>
+                            <input id="queenmakerdate" readonly class="form-control form-control-sm" placeholder="Select Date"
+                              [ngxDatePicker]="dateInstanceqm" [value]="qmdate" [(ngModel)]="queenmakerdate"
+                              [ngModelOptions]="{standalone: true}"  (valueChange)="onchangeQmDate()">
+                            <ngx-date-picker #dateInstanceqm></ngx-date-picker>
+                          </div>
+                           
+                          <div class="form-group col-md-2">
+                            <label>To Date</label>
+                            <input id="queenmakertodate" readonly class="form-control form-control-sm" placeholder="Select Date"
+                              [ngxDatePicker]="dateInstanceqm1" [value]="qmtodate" [(ngModel)]="queenmakertodate"
+                              [ngModelOptions]="{standalone: true}" (valueChange)="onchangeQmToDate()">
+                            <ngx-date-picker #dateInstanceqm1></ngx-date-picker>
+                          </div>
+
+                          <div class="form-group col-md-2 col-sm-4 col-xs-4">
+                            <label></label>
+                            <button id="search" type="button" class="btn btn-block btn-primary btn-sm" style="margin-top: 4%;"
+                              (click)="getQueenMakerTransactionHistory()">Search</button>
+                          </div>
+      
+                          <div class="col-md-12">
+                            <div class="card">
+                              <div class="card-header">
+                                <h3 class="card-title" style="font-weight: bold;">Game Transaction History List</h3>
+                              </div>
+                              <div class="card-body">
+                                <table width='100%' id="{{'tblqmtran' + tblqmtranid}}" datatable
+                                  [dtTrigger]="dtTriggerKM" [dtOptions]="dtOptionsKM" class="table table-bordered table-hover">
+                                  <thead>
+                                    <tr>
+                                      <th style="font-family: unicode;">S/N</th>
+                                      <th style="font-family: unicode;">Game User ID</th>
+                                      <th style="font-family: unicode;">Created Date</th>
+                                      <th style="font-family: unicode;">Game Provider</th>
+                                      <th style="font-family: unicode;">Amount</th>
+                                      <th style="font-family: unicode;">Transaction Id</th>
+                                      <th style="font-family: unicode;">Type</th>
+                                     <!-- <th style="font-family: unicode;">Current Wallet</th> -->
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr *ngFor="let wallet of tempQMfinancialTransactionDTOList, let j = index">
+                                      <td style="font-family: unicode;">{{j+1}}</td> 
+                                      <td style="font-family: unicode;">{{'tddm'+displayUserIdTran}}</td> 
+                                      <td style="font-family: unicode;">{{wallet.created_date | date: 'dd/MM/yyyy HH:mm:ss'}}</td> 
+                                      <td style="font-family: unicode;">{{wallet.company_name}}</td> 
+                                      <td style="font-family: unicode;">{{wallet.amount | number :0 }}</td> 
+                                      <td style="font-family: unicode;">{{wallet.referenceid}}</td> 
+                                      <td style="font-family: unicode;">{{wallet.method}}</td> 
+                                      <!--<td style="font-family: unicode;">{{wallet.wallet}} </td> -->
+                                    </tr>     
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+      
+                        </div>
+                      </div>
+
+                      <div class="tab-pane" id="bonus" style="display: none;">
+                        <div class="row">
+
+                          <div class="form-group col-md-2">
+                            <label>From Date</label>
+                            <input id="bonusDate" readonly class="form-control form-control-sm" placeholder="Select Date"
+                              [ngxDatePicker]="dateInstanceBonus" [value]="bonusDate" [(ngModel)]="bonusdate"
+                              [ngModelOptions]="{standalone: true}" (valueChange)="onChangeThreeDBetDate()">
+                            <ngx-date-picker #dateInstanceBonus></ngx-date-picker>
+                          </div>
+      
+                          <div class="form-group col-md-2">
+                            <label>To Date</label>
+                            <input id="bonustodate" readonly class="form-control form-control-sm" placeholder="Select Date"
+                              [ngxDatePicker]="dateInstanceBonus1" [value]="bonustoDate" [(ngModel)]="bonustodate"
+                              [ngModelOptions]="{standalone: true}" (valueChange)="onChangethreedbetToDate()">
+                            <ngx-date-picker #dateInstanceBonus1></ngx-date-picker>
+                          </div>
+                          <div class="form-group col-md-2 col-sm-4 col-xs-4">
+                            <label></label>
+                            <button id="search" type="button" class="btn btn-block btn-primary btn-sm" style="margin-top: 4%;"
+                              (click)="getUserById()">Search</button>
+                          </div>  
+                          
+                          <div class="col-md-12">
+                            <div class="card">
+                              <div class="card-header">
+                                <h3 class="card-title" style="font-weight: bold;">Bonus</h3>
+                              </div>
+                              <div class="card-body">
+                                <table width='100%' id="{{'tblbonus' + idbonusIndex}}" datatable
+                                  [dtTrigger]="dtTrigger10" [dtOptions]="dtOptions10" class="table table-bordered table-hover">
+                                  <thead>
+                                    <tr>
+                                      <th style="font-family: unicode;">S/N</th>
+                                      <th style="font-family: unicode;"> Date</th>
+                                      <th style="font-family: unicode;"> Section</th>
+                                      <th style="font-family: unicode;"> Number</th>
+                                      <th style="font-family: unicode;"> Odds</th>
+                                      <th style="font-family: unicode;">Bet Amount</th>
+                                      <th style="font-family: unicode;">Current Wallet</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+      
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+      
+                </div>
+              </form> <!--end of all tabs form-->
+
+            </div><!--/. container-fluid -->
+          </section>
+          <!-- /.content -->
+        </div>
+        <aside class="control-sidebar control-sidebar-dark">
+          <!-- Control sidebar content goes here -->
+        </aside>
+  
+        <app-footer></app-footer>
+
+        <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="square-jelly-box">
+          <p style="font-size: 16px; color: white">Loading...</p>
+        </ngx-spinner>
+  
+    </div>
+
+
+    <div id="browseAccountData" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title" style="font-weight: bold;font-size: 1.1rem;"> 3D Bet History Detail </h3>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> x </button>
+          </div>
+    
+          <div class="modal-body">
+            <form>
+              <div class="col-md-12">
+    
+                <div class="col-md-12" style="margin-top: 0.5%;">
+                  <div class="card">
+                    <div class="card-body">
+                      <table width='100%' id="{{'tblthreedbetdetail' + idthreeddetailIndex}}" datatable [dtTrigger]="dtTrigger11"
+                        [dtOptions]="dtOptions11" class="table table-bordered table-hover">
+                        <thead>
+                          <tr>
+                            <th style="font-family: unicode;">No</th>
+                            <th style="font-family: unicode;">Bet Number</th>
+                            <th style="font-family: unicode;">Amount</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let twodbet of threeDBetDetailDTOList, let i = index">
+                            <td style="font-family: unicode; padding: 0.35rem 0.75rem 0.30rem 0.75rem;">{{ i + 1 }}</td>
+                            <td style="font-family: unicode; padding: 0.35rem 0.75rem 0.30rem 0.75rem;">{{twodbet.number}}
+                            </td>
+                            <td style="font-family: unicode; padding: 0.35rem 0.75rem 0.30rem 0.75rem;">{{twodbet.total_amount_Str}}
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+    
+              </div>
+    
+            </form>
+          </div>
+    
+        </div>
+      </div>
+    </div>
+
+
+    <div id="browseAccountData1" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title" style="font-weight: bold;font-size: 1.1rem;"> 2D Bet History Detail </h3>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> x </button>
+          </div>
+    
+          <div class="modal-body">
+            <form>
+              <div class="col-md-12">
+    
+                <div class="col-md-12" style="margin-top: 0.5%;">
+                  <div class="card">
+                    <div class="card-body">
+                      <table width='100%' id="{{'tbltwodbetdetail' + idtwoddetailIndex}}" datatable [dtTrigger]="dtTrigger12"
+                        [dtOptions]="dtOptions12" class="table table-bordered table-hover">
+                        <thead>
+                          <tr>
+                            <th style="font-family: unicode;">No</th>
+                            <th style="font-family: unicode;">Bet Number</th>
+                            <th style="font-family: unicode;">Amount</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let twodbet of twoDBetDetailDTOList, let i = index">
+                            <td style="font-family: unicode; padding: 0.35rem 0.75rem 0.30rem 0.75rem;">{{ i + 1 }}</td>
+                            <td style="font-family: unicode; padding: 0.35rem 0.75rem 0.30rem 0.75rem;">{{twodbet.number}}
+                            </td>
+                            <td style="font-family: unicode; padding: 0.35rem 0.75rem 0.30rem 0.75rem;">{{twodbet.total_amount_Str}}
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+    
+              </div>
+    
+            </form>
+          </div>
+    
+        </div>
+      </div>
+    </div>
+
+
+    <div id="browseAccountData2" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title" style="font-weight: bold;font-size: 1.1rem;"> Top-up Detail </h3>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> x </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="col-md-12">
+    
+                <div class="col-md-12">
+                  
+                    <div class="card-body">
+                      <table class="table table-bordered">
+                        <tr>
+                        <th>Amount</th><td>{{transactionDetailList.amount_Str}}</td>
+                        </tr>
+                        <tr>
+                          <th>Type</th><td>{{transactionDetailList.type}}</td>
+                        </tr>
+                        <tr>
+                          <th>Status</th><td>{{transactionDetailList.status}}</td>
+                        </tr>
+                        <tr>
+                          <th>Bank Type</th><td>{{transactionDetailList.bankName}}</td>
+                        </tr>
+                        <tr>
+                          <th>Account Number</th><td>{{transactionDetailList.accountNumber}}</td>
+                        </tr>
+                        <tr>
+                          <th>Requested Date</th><td>{{transactionDetailList.created_date_Str}}</td>
+                        </tr>
+                        <tr>
+                          <th>Approved Date</th><td>{{transactionDetailList.updated_date_Str}}</td>
+                        </tr>
+                        <tr>
+                          <th>Approved By</th><td>{{transactionDetailList.approvedBy}}</td>
+                        </tr>
+                      </table>
+                    </div>
+                </div>
+              </div>
+    
+            </form>
+          </div>
+    
+        </div>
+      </div>
+    </div>
+
+    <div id="browseAccountData3" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title" style="font-weight: bold;font-size: 1.1rem;"> Withdraw Detail </h3>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> x </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="col-md-12">
+    
+                <div class="col-md-12">
+                  
+                    <div class="card-body">
+                      <table class="table table-bordered">
+                        <tr>
+                        <th>Amount</th><td>{{transactionDetailList.amount_Str}}</td>
+                        </tr>
+                        <tr>
+                          <th>Type</th><td>{{transactionDetailList.type}}</td>
+                        </tr>
+                        <tr>
+                          <th>Status</th><td>{{transactionDetailList.status}}</td>
+                        </tr>
+                        <tr>
+                          <th>Bank Type</th><td>{{transactionDetailList.bankName}}</td>
+                        </tr>
+                        <tr>
+                          <th>Account Number</th><td>{{transactionDetailList.withdrawAccnumber}}</td>
+                        </tr>
+                        <tr>
+                          <th>Requested Date</th><td>{{transactionDetailList.created_date_Str}}</td>
+                        </tr>
+                        <tr>
+                          <th>Approved Date</th><td>{{transactionDetailList.updated_date_Str}}</td>
+                        </tr>
+                        <tr>
+                          <th>Approved By</th><td>{{transactionDetailList.approvedBy}}</td>
+                        </tr>
+                      </table>
+                    </div>
+                </div>
+              </div>
+    
+            </form>
+          </div>
+    
+        </div>
+      </div>
+    </div>
+
+
+    <div id="browseAccountData4" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title" style="font-weight: bold;font-size: 1.1rem;"> 2D Winner Detail </h3>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> x </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="col-md-12">
+    
+                <div class="col-md-12">
+                  
+                    <div class="card-body">
+                      <table class="table table-bordered">
+                        <tr>
+                          <th>Winning Number</th><td>{{winnerDetail.number}}</td>
+                        </tr>
+                        <tr>
+                          <th>Bet Amount</th><td>{{winnerDetail.betAmount_Str}}</td>
+                        <tr>
+                          <th>Odd</th><td>{{winnerDetail.odd}}</td>
+                        </tr>
+                        <tr>
+                          <th>Win Amount</th><td>{{winnerDetail.winAmount_Str}}</td>
+                        </tr>
+                        <tr>
+                          <th>Status</th><td>{{winnerDetail.status}}</td>
+                        </tr>
+                        <tr>
+                          <th>Winning Date</th><td>{{winnerDetail.created_date_Str}}</td>
+                        </tr>
+                        <tr>
+                      </table>
+                    </div>
+                </div>
+              </div>
+    
+            </form>
+          </div>
+    
+        </div>
+      </div>
+    </div>
+
+    <div id="browseAccountData5" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title" style="font-weight: bold;font-size: 1.1rem;"> 3D Winner Detail </h3>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> x </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="col-md-12">
+    
+                <div class="col-md-12">
+                  
+                    <div class="card-body">
+                      <table class="table table-bordered">
+                        <tr>
+                          <th>Winning Number</th><td>{{winnerDetail.number}}</td>
+                        </tr>
+                        <tr>
+                          <th>Bet Amount</th><td>{{winnerDetail.betAmount_Str}}</td>
+                        <tr>
+                          <th>Odd</th><td>{{winnerDetail.odd}}</td>
+                        </tr>
+                        <tr>
+                          <th>Win Amount</th><td>{{winnerDetail.winAmount_Str}}</td>
+                        </tr>
+                        <tr>
+                          <th>Status</th><td>{{winnerDetail.status}}</td>
+                        </tr>
+                        <tr>
+                          <th>Winning Date</th><td>{{winnerDetail.created_date_Str}}</td>
+                        </tr>
+                        <tr>
+                      </table>
+                    </div>
+                </div>
+              </div>
+    
+            </form>
+          </div>
+    
+        </div>
+      </div>
+    </div>
+
+    <div id="browseAccountData6" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title" style="font-weight: bold;font-size: 1.1rem;"> Game Cash Flow Detail </h3>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> x </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="col-md-12">
+    
+                <div class="col-md-12">
+                  
+                    <div class="card-body">
+                      <table class="table table-bordered">
+                        <tr>
+                          <th>Amount</th><td>{{gameTranDetailList.amount | number : 0}}</td>
+                        </tr>
+                        <tr>
+                          <th>Transaction Id</th><td>{{gameTranDetailList.referenceid}}</td>
+                        <tr>
+                          <th>Created Date</th><td>{{gameTranDetailList.created_date | date: 'dd-MM-yyyy HH:mm:ss'}}</td>
+                        </tr>
+                        <tr>
+                          <th>Game Provider</th><td>{{gameTranDetailList.providerName}}</td>
+                        </tr>
+                        <tr>
+                          <th>Type</th><td>{{gameTranDetailList.method}}</td>
+                        </tr>
+                      </table>
+                    </div>
+                </div>
+              </div>
+    
+            </form>
+          </div>
+    
+        </div>
+      </div>
+    </div>
+
+    <div id="deleteData" class="modal fade">
+      <div class="modal-dialog">
+          <div class="modal-content">
+  
+              <div class="modal-body">
+                  <form>
+  
+                      <div class="row" style="margin-top: 5%;margin-bottom: 3%;margin-left: 9%;">
+                          <div class="form-group col-md-12">
+                              <h5> This Account is used by another device. 
+                                  Please Sign Out. Login Again. </h5>
+                          </div>
+                      </div>
+  
+                      <div class="row" style="margin-left: 40%;margin-bottom: 3%;">
+                          <div class="col-md-5 col-sm-6" id="deleteBtn">
+                              <button type="button" class="btn btn-block btn-success" (click)="OkLogout()"> Ok </button>
+                          </div>
+                      </div>
+                  </form>
+              </div>
+  
+          </div>
+      </div>
+  </div>

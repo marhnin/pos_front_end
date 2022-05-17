@@ -1,0 +1,175 @@
+<div class="wrapper">
+    <!-- Navbar -->
+    <app-header-sidebar></app-header-sidebar>
+
+    <!-- here here here -->
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <form>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title" style="font-weight: bold;"> 3D Bet Amount Limitation Detail
+                                    </h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <form>
+
+                                            <div class="row" style="display: none;">
+                                                <label class="col-md-2"> From Date Time </label>
+                                                <div class="form-group col-md-3">
+
+                                                    <input type="datetime-local" id="singleDate" 
+                                                    [(ngModel)]="fromdate"
+                                                    [ngModelOptions]="{standalone: true}"
+                                                    class="form-control form-control-sm">
+
+                                                </div>
+                                            </div>
+
+                                       <div class="row" style="display: none;">
+                                            <label class="col-md-2"> To Date Time</label>
+                                         <div class="form-group col-md-3">
+                                            <input type="datetime-local" id="toDate" 
+                                            [(ngModel)]="todate" 
+                                            [ngModelOptions]="{standalone: true}" min="{{fromdate | date:'yyyy-MM-dd HH:mm:ss'}}"
+                                            class="form-control form-control-sm">
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row" style="display:none">
+                                            <label class="col-md-2"> Number </label>
+                                            <div class="form-group col-md-3">
+                                                <input type="text" onKeyPress="if(this.value.length==3) return false;"
+                                                    class="form-control form-control-sm"
+                                                    [(ngModel)]="threedbetDTO.number"
+                                                    [ngModelOptions]="{standalone: true}"
+                                                    (keypress)="numericOnly($event)">
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row">
+                                            <label class="col-md-2"> Amount </label>
+                                            <div class="form-group col-md-3">
+                                                <input type="number" class="form-control form-control-sm"
+                                                    [(ngModel)]="amount"
+                                                    [ngModelOptions]="{standalone: true}">
+                                            </div>
+                                        </div>
+
+                                            <div class="row">
+                                                <label class="col-md-2"> Status </label>
+                                                <div class="form-group radio">
+                                                  <div class="form-group clearfix">
+                                                    <div class="icheck-success d-inline">
+                                                      <input type="radio" name="r3" checked id="radioSuccess1" value="ACTIVE"
+                                                        [(ngModel)]="threedbetDTO.status" [ngModelOptions]="{standalone: true}">
+                                                      <label for="radioSuccess1">Active &nbsp;&nbsp;
+                                                      </label>
+                                                    </div>
+                                                    <div class="icheck-success d-inline">
+                                                      <input type="radio" name="r3" id="radioSuccess2" value="INACTIVE"
+                                                        [(ngModel)]="threedbetDTO.status" [ngModelOptions]="{standalone: true}">
+                                                      <label for="radioSuccess2">Inactive
+                                                      </label>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                            </div>
+
+                                        <div class="row">
+                                            <div class="col-md-2 col-sm-6">
+                                                <button type="button" class="btn btn-block btn-success"
+                                                    (click)="goSave()"> Apply </button>&nbsp;
+                                            </div>
+
+                                            <div class="col-md-2 col-sm-6">
+                                                <button type="button" class="btn btn-block btn-danger"
+                                                [routerLink] = "['/threed-bet-amount-limitation-list']"> Cancel </button>
+                                            </div>
+                                        </div>
+
+                                        <div class="row" style="margin-top: 2%;">
+                                        </div>
+
+                                        <div class="col-md-12" 
+                                            style="border: 1px solid #ced4da;border-radius: 0.25rem;">
+
+                                            <div class="col-md-2 col-sm-4 col-xs-4" style="margin-top: 1%;">
+                                                <button id="selectALL" type="button"
+                                                    class="btn btn-block btn-primary btn-sm" (click)="selectAll()">
+                                                    Select All
+                                                </button>
+                                            </div>
+
+                                            <div class="row" style="margin-top: 35px;margin-left: 17px;">
+                                                <div class="col-md-1 col-sm-1"
+                                                    *ngFor="let n of threedbetnumber; let j = index"> <!--threedbetnumber -->
+                                                    <div (click)="threeDSelect(n,j)"
+                                                        style="margin-top: 5px;margin-bottom: 5px;">
+                                                        <button *ngIf="n.number != 'aa'"
+                                                            [style.backgroundColor]="n.buttonColor"
+                                                            style="border-radius: 5px;width: 40px;height: 40px;" full>
+                                                            <span [style.color]="n.textcolor"
+                                                                style="text-transform: none;"> {{n.number}}
+                                                            </span>
+                                                        </button>
+                                                    </div>
+
+                                                    <div style="margin-top: 5px;margin-bottom: 5px;">
+                                                        <button *ngIf="n.number == 'aa'"
+                                                            [style.backgroundColor]="n.buttonColor"
+                                                            style="height: 4.8rem !important;border-radius: 5px;opacity: -1.5;width: 40px;height: 40px;"
+                                                            full>
+                                                            <span [style.color]="n.textcolor"
+                                                                style="text-transform: none;"> {{n.number}}
+                                                            </span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                           
+                                        </div>
+
+                                    </form>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+                <!-- /.row -->
+
+                <!-- /.row -->
+            </div>
+            <!--/. container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+
+    <app-footer></app-footer>
+
+    <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="square-jelly-box">
+        <p style="font-size: 16px; color: white">Loading...</p>
+    </ngx-spinner>
+
+</div>

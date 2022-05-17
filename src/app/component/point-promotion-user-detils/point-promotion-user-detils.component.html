@@ -1,0 +1,268 @@
+
+    <div class="wrapper">
+        <!-- Navbar -->
+        <app-header-sidebar></app-header-sidebar>
+  
+        <!-- here here here -->
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+      
+          <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid">
+              <form>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="card">
+                      <div class="card-header">
+                        <h3 class="card-title" style="font-weight: bold;"><i class="nav-icon fas fa-star"></i> Point Promotion User Detail </h3>
+                      </div>
+                      <!-- /.card-header -->
+                      <div class="card-body">
+                        <form>
+                          <div class = "row">
+                            <label class="col-md-2"> Profile Picture </label>
+                            <div class="form-group col-md-3" *ngIf = "isProfile">
+                             <!-- <input #file type="file" accept='image/*'
+                                  (change)="preview(file.files)" />  
+                                 -->
+                                 <img [src] ="imgURL" height="150" width="160" *ngIf="imgURL">
+                            </div>  
+                            <div class="form-group col-md-3" *ngIf = "!isProfile">
+                               <img src ="assets/image/userProfile.jpg" height="150" width="160">
+                           </div> 
+                          </div>
+
+                          <div class = "row">
+                          
+                            <label class="col-md-2"> Name </label>
+                            <div class="form-group col-sm-3">
+                              <input disabled class="form-control form-control-sm" [(ngModel)]="userDTO.name" [ngModelOptions]="{standalone: true}">
+                            </div>
+
+                            <div class="col-md-1"></div>
+                            <label class="col-md-2"> Total Topup ( + ) </label>
+                            <div class="form-group col-sm-3">
+                              <input type="text" class="form-control form-control-sm" [(ngModel)]="userDTO.topup_balance_Str"
+                                [ngModelOptions]="{standalone: true}" step="500" min="0" disabled>
+                            </div>
+                         </div>
+
+                          <div class="row">
+                            <label class="col-md-2"> Phone No </label>
+                            <div class="form-group col-sm-3">
+                              <input class="form-control form-control-sm" [(ngModel)]="userDTO.phone_no" [ngModelOptions]="{standalone: true}" disabled>
+                            </div>
+                            <div class="col-md-1"></div>
+                            <label class="col-md-2"> Win Amount ( + ) </label>
+                            <div class="form-group col-sm-3">
+                              <input type="string" class="form-control form-control-sm" [(ngModel)]="userDTO.win_amount_Str"
+                                [ngModelOptions]="{standalone: true}" step="500" min="0" disabled>
+                            </div>
+                          </div>
+
+                          <div class="row">
+							              <label class="col-md-2"> Agent </label>
+                            <div class="form-group col-sm-3">
+                                <select (change)="flagAgent()" class="form-control form-control-sm col-md-12 col-sm-4 col-xs-4" [(ngModel)]="agentId" [ngModelOptions]="{standalone: true}" disabled>
+                                    <option *ngFor="let agent of agentList" value={{agent.id}}>{{agent.name}}
+                                </select>
+                            </div>
+                            <div class="col-md-1"></div>
+                            <label class="col-sm-2"> Total Withdraw ( - ) </label>
+                            <div class="col-sm-3">
+                              <input type="string" class="form-control form-control-sm" [(ngModel)]="userDTO.withdraw_balance_Str" 
+                              [ngModelOptions]="{standalone: true}" step="500" min="0" disabled>
+                            </div>
+                          </div>
+
+                         
+                          <div class="row">
+                            
+                           <!-- <label class="col-md-2"> KingMaker Wallet </label>
+                            <div class="form-group col-sm-3">
+                              <input type="string" class="form-control form-control-sm" [(ngModel)]="userDTO.kingmakerWallet"
+                                [ngModelOptions]="{standalone: true}" step="500" min="0" disabled>
+                            </div> -->
+                           <div class = "col-md-5"></div>
+                            
+                            
+                            <div class="col-md-1"></div>
+                              <label class="col-sm-2"> Total Game Withdraw ( + ) </label>
+                              <div class="col-sm-3">
+                                <input type="string" class="form-control form-control-sm" [(ngModel)]="userDTO.gs_game_withdrawal_balance" 
+                                [ngModelOptions]="{standalone: true}" step="500" min="0" disabled>
+                              </div>
+                              
+                        </div>
+
+                        <br/>
+
+                        <div class="row">
+
+                          <label class="col-md-2"> Status </label>
+                          <div class="form-group col-md-3 radio">
+                            <div class="form-group clearfix">
+                              <div class="icheck-success d-inline">
+                                <input type="radio" name="r3" checked id="radioSuccess1" value="ACTIVE" [(ngModel)]="userDTO.status" [ngModelOptions]="{standalone: true}">
+                                <label for="radioSuccess1">Active &nbsp;&nbsp;
+                                </label>
+                              </div>
+                              <div class="icheck-success d-inline">
+                                <input type="radio" name="r3" id="radioSuccess2" value="INACTIVE" [(ngModel)]="userDTO.status" [ngModelOptions]="{standalone: true}">
+                                <label for="radioSuccess2">Inactive
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                            <div class="col-md-1"></div>
+                            <label class="col-sm-2"> Total Game Deposit ( - ) </label>
+                            <div class="col-sm-3">
+                              <input type="string" class="form-control form-control-sm" [(ngModel)]="userDTO.gs_game_deposit_balance" 
+                              [ngModelOptions]="{standalone: true}" step="500" min="0" disabled>
+                            </div>
+                        </div>
+
+                        <div class = "row">
+                          <label class="col-md-2"> Point Wallet&nbsp;&nbsp;<i class="nav-icon fas fa-star"></i> </label>
+                          <div class="col-sm-3">
+                            <input type="string" class="form-control form-control-sm" [(ngModel)]="userDTO.point_wallet_Str" [ngModelOptions]="{standalone: true}" step="500" min="0" disabled>
+                          </div>
+
+                         
+                          <div class="col-md-1"></div>
+                          
+                            <label class="col-md-2"> Total Bet Amount ( - ) </label>
+                            <div class="col-sm-3">
+                              <input type="string" class="form-control form-control-sm" [(ngModel)]="userDTO.bet_amount_Str" 
+                              [ngModelOptions]="{standalone: true}" step="500" min="0" disabled>
+                            </div>
+                        </div>
+                        <br/>
+
+                        <div class = "row">
+                          <label class="col-md-2"> Point Percentage (%) </label>
+                          <div class="col-sm-3">
+                            <input type="string" class="form-control form-control-sm" [(ngModel)]="userDTO.point_percentage" [ngModelOptions]="{standalone: true}" step="500" min="0" disabled>
+                          </div>
+
+                          <div class="col-md-1"></div>
+                          <label class="col-md-2"> Wallet &nbsp; <i class="fa fa-star" aria-hidden="true"></i></label>
+                          <div class="col-sm-3">
+                            <input type="string" class="form-control form-control-sm" [(ngModel)]="userDTO.balance_Str" [ngModelOptions]="{standalone: true}" step="500" min="0" disabled>
+                          </div>
+                        </div>
+
+                      
+                        <br/>
+                          <div class = "row">
+                            <div class="col-md-2 col-sm-6" *ngIf = "isAddSuccess == false">
+                              <button type="button" class="btn btn-block btn-success" (click)="goSave()">Add Point Wallet</button>&nbsp;
+                            </div>
+
+                            <div class="col-md-2 col-sm-6"  *ngIf = "isAddSuccess == true">
+                              <button type="button" class="btn btn-block btn-primary">Added</button>&nbsp;
+                            </div>
+
+                            <div class="col-md-2 col-sm-6" style="display: none;">
+                              <button type="button" class="btn btn-block btn-info" (click)="goReset()">Reset Point Wallet</button>&nbsp;
+                            </div>
+
+                              <div class="col-md-2 col-sm-6">
+                              <button type="button" class="btn btn-block btn-danger" [routerLink] = "['/point-promotion-users']">Cancel</button>
+                            </div>
+
+                             <div class="col-md-1"></div>
+                          </div>
+
+                          <div class="row">
+							               <label class="col-md-2"></label>
+                            <div class="form-group col-md-3"> 
+                            </div> 
+                          </div>
+                          
+                    <!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
+                         <!-- <div class="row">
+                            <div class="col-md-2 col-sm-6">
+                            <button type="button" class="btn btn-block btn-success" (click)="goSave()">Save</button>&nbsp;</div>
+                            <div class="col-md-2 col-sm-6">
+                            <button type="button" class="btn btn-block btn-danger" [routerLink] = "['/user-list']">Cancel</button></div>
+                          </div>
+                        -->
+
+                        </form>
+                      </div>
+                      <!-- /.card-body -->
+                    </div>
+                  </div>
+                </div>
+
+                
+                
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="card">
+                      <div class="card-body">
+                        <form>
+                          <div class="row" style="margin-top: 2%;">
+                            <label class="col-md-2"> Register Date </label>
+                            <div class="form-group col-md-3">
+                              <input class="form-control form-control-sm" [(ngModel)]="userDTO.created_date"
+                                [ngModelOptions]="{standalone: true}" disabled>
+                            </div>
+                          </div>
+      
+                          <div class="row" style="margin-top: 1%;">
+                            <label class="col-md-2"> Updated Date </label>
+                            <div class="form-group col-md-3">
+                              <input class="form-control form-control-sm" [(ngModel)]="userDTO.updated_date"
+                                [ngModelOptions]="{standalone: true}" disabled>
+                            </div>
+                            <div class="col-md-1"></div>
+                            <label class="col-md-2"> Updated By </label>
+                            <div class="col-md-3">
+                              <input class="form-control form-control-sm" [(ngModel)]="userDTO.updated_by_name"
+                                [ngModelOptions]="{standalone: true}" disabled>
+                            </div>
+                          </div>
+      
+                        </form>
+                      </div>
+                      <!-- /.card-body -->
+                    </div>
+                  </div>
+                </div> <!--end of reg date section-->
+
+               
+
+           
+
+
+              
+                
+                
+
+              </form> <!-- end for all above section -->
+            </div><!--/. container-fluid -->
+          </section>
+          <!-- /.content -->
+        </div>
+        <aside class="control-sidebar control-sidebar-dark">
+          <!-- Control sidebar content goes here -->
+        </aside>
+  
+        <app-footer></app-footer>
+
+        <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="square-jelly-box">
+          <p style="font-size: 16px; color: white">Loading...</p>
+        </ngx-spinner>
+  
+    </div>

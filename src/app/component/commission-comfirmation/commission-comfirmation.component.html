@@ -1,0 +1,201 @@
+
+<div class="wrapper">
+
+    <app-header-sidebar></app-header-sidebar>
+
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2" style="border: 1px solid #ced4da;border-radius: 0.25rem;">
+                    <div class="col-sm-8">
+                        <h3 class="m-0 text-dark" style="font-weight: bold;padding: 3px 0px 3px 5px;"> Commission Comfirmation List </h3>
+                    </div>
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <form>
+                    <div class="row">
+                        <div class="form-group col-md-2">
+                        <label>Referral Code</label>
+                            <input class="form-control form-control-sm" [(ngModel)]="referralCode" id = "referralCode"
+                                [ngModelOptions]="{standalone: true}">
+                        </div>
+
+                        <div class="form-group col-md-2">
+                            <label>Wallet Amount</label>
+                            <input class="form-control form-control-sm" [(ngModel)]="walletAmount" id = "walletAmount"
+                                [ngModelOptions]="{standalone: true}">
+                        </div>
+                        
+                        <div class="form-group col-md-2">
+                            <label> Name </label>
+                            <input type = "text" class="form-control form-control-sm" [(ngModel)]="name"
+                            [ngModelOptions]="{standalone: true}">
+                        </div>       
+                        <div class="form-group">
+                            <label>Calculated Date</label>
+                            <input id="createdDate" readonly class="form-control form-control-sm"
+                            placeholder="Select Date" [ngxDatePicker]="dateInstanceSingle"
+                            [ngModelOptions]="{standalone: true}"
+                             [value] = "singleDate" [(ngModel)]="date"
+                            (valueChange)="onChangeDate()">
+                            <ngx-date-picker #dateInstanceSingle></ngx-date-picker>
+                        </div>
+                       
+                        <div class="form-group col-md-2"> 
+                            <label> Status </label>
+                            <select class="form-control form-control-sm col-md-12 col-sm-4 col-xs-4"
+                                [(ngModel)]="status" [ngModelOptions]="{standalone: true}">
+                                <option value="CONFIRMED"> Confirmed </option>
+                                <option value="PENDING" selected> Pending </option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-2 col-sm-4 col-xs-4">
+                            <label></label>
+                            <button id="search" type="button" class="btn btn-block btn-primary btn-sm"
+                                style="margin-top: 4%;" (click)="search()">Search</button>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title" style="font-weight: bold;"> Commission Confirmation List </h3>
+                                </div>
+                                <!-- /.card-header  {{'tblcommission' + idIndex}}  {{'#'+objComission.id}} [id]="objComission.id"   (click)="goModal(objComission.id)"-->
+                                <div class="card-body">
+                                    <div class="col-md-2 col-sm-4 col-xs-4" style="margin-left: -0.7%;">
+                                        <button id="confirm" type="button" class="btn btn-block btn-primary btn-sm"
+                                            style="margin-bottom: 12%;" (click)="confirmAll()"> Confirm </button>
+                                    </div>
+                                    <table width='100%' id="{{'tblcommission' + idIndex}}" datatable
+                                        [dtTrigger]="dtTrigger" [dtOptions]="dtOptions"
+                                        class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    <input type="checkbox" name="commissioncheck" (click)="checkuncheckall()"
+                                                        style="width: 1.10rem;height: 1.10rem;margin-left: 28%;" (change)="changeSelection($event,0)"> 
+                                                </th>
+                                                <th style="font-family: unicode;">Name</th>
+                                                <th style="font-family: unicode;">Phone No</th>
+                                                <th style="font-family: unicode;">Batch No</th>
+										                         		<th style="font-family: unicode;">Ref Code</th>
+                                                <th style="font-family: unicode;">Wallet</th>
+                                                <th style="font-family: unicode;">Total Bet Amount</th>
+                                                <th style="font-family: unicode;">Commission Amount</th>
+                                                <th style="font-family: unicode;">Calculated Date</th>
+                                                <th style="font-family: unicode;">Payment</th>
+                                                <th style="font-family: unicode;">Confirm By</th>
+                                                <th style="font-family: unicode;">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                          <ng-container *ngFor="let objComission of commissionList">
+                                            <tr>
+                                                <td style="font-family: unicode;">
+                                                    <input type="checkbox" name="winnerscheck" [checked]="isChecked" value="{{objComission.id}}"
+                                                        style="width: 1.10rem; height: 1.10rem;margin-left: 28%;" (change)="changeSelection($event,objComission.id)">
+                                                </td>
+                                                <td style="font-family: unicode;" class = "details-control">{{objComission.name}}</td>
+                                                <td style="font-family: unicode;">{{objComission.phoneno}}</td> 
+                                                <td style="font-family: unicode; width: 110px">{{objComission.batchNo}}</td>                                              
+                                                <td style="font-family: unicode;">{{objComission.refcode}}</td>
+                                                <td style="font-family: unicode;">{{objComission.wallet}}</td>
+                                                <td style="font-family: unicode;">{{objComission.balance}}</td>
+                                                <td style="font-family: unicode;" *ngIf="objComission.size == true"><a (click)= "goModal(objComission.id)" style="cursor: pointer; color : blue; text-decoration: underline;" >{{objComission.comission}}</a></td>
+                                                <td style="font-family: unicode;" *ngIf="objComission.size == false">{{objComission.comission}}</td>
+                                                <td style="font-family: unicode;">{{objComission.created_date}}</td>
+                                                
+                                                <td style="font-family: unicode;">{{objComission.payment}}</td>
+                                                <td style="font-family: unicode;">{{objComission.confirm_by}}</td>
+                                              <td style="font-family: unicode;" *ngIf="objComission.uiDisable">
+                                                    <a style="color: #28a745;cursor: pointer;"> Confirmed </a>
+                                               </td>
+
+                                               <td style="font-family: unicode;" *ngIf="!objComission.uiDisable">
+                                                 <a style="color: #007bff;cursor: pointer;" (click)="confirmOne(objComission.id)"> Confirm </a>
+                                               </td>
+                                            </tr>
+                                      </ng-container>
+                                      </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+                <!-- /.row -->
+
+            </div>
+            <!--/. container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <app-footer></app-footer>
+    <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="square-jelly-box">
+        <p style="font-size: 16px; color: white">Loading...</p>
+    </ngx-spinner>
+</div>
+<div id="commussionDetailData" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content" style="width : 600px;">
+        <div class="modal-header">
+          <h3 class="modal-title" style="font-weight: bold;font-size: 1.1rem;"> Commission Detail </h3>
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> x </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="col-md-12">
+                <div class="card">
+                  <div class="card-body" style = "width : 100%">
+                    <table width='100%' id="{{'tblcommissiondetail' + idCommissionDetailIndex}}" datatable
+                                        [dtTrigger]="dtTrigger2" [dtOptions]="dtOptions2"
+                                        class="table table-bordered table-hover">
+                      <thead>
+                        <tr>
+                          <th style="font-family: unicode;">No</th>
+                          <th style="font-family: unicode;" class = "text-center">Agent</th>
+                          <th style="font-family: unicode;" class = "text-center">Commission Amount</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <ng-container *ngFor="let commissionDTO of commissionDetailDTOList, let i = index">
+                        <tr>
+                          <td style="font-family: unicode;padding: 0.35rem 0.75rem 0.30rem 0.75rem;">{{ i + 1 }}
+                          </td>
+                          <td style="font-family: unicode;padding: 0.35rem 0.75rem 0.30rem 0.75rem;width : 200px">
+                            {{commissionDTO.name}}
+                          </td>
+                          <td style="font-family: unicode;padding: 0.35rem 2rem 0.30rem 0.75rem;text-align: right;width : 200px">
+                                {{commissionDTO.directCommission}}
+                          </td>
+                        </tr>
+                      </ng-container>
+                        <tr>
+                          <td style="font-family: unicode;padding: 0.35rem 0.75rem 0.30rem 0.75rem; text-align: right;" colspan="2">Total Commission</td>
+                          <td style="font-family: unicode;padding: 0.35rem 2rem 0.30rem 0.75rem;text-align: right; width : 200px">{{totalCommission}}</td>
+                          <td class = "hidden" style="display: none; border: 0px ;"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ 

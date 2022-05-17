@@ -1,0 +1,130 @@
+<div class="wrapper">
+    <!-- Navbar -->
+    <app-header-sidebar></app-header-sidebar>
+
+    <!-- here here here -->
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <!--                 <div class="row mb-2">
+                    <div class="col-sm-8">
+                        <h1 class="m-0 text-dark"> 2D Bet Amount Limitation</h1>
+                    </div>
+                </div> -->
+                <!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+        <!-- Main content -->
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <form>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title" style="font-weight: bold;">Marquee Text Detail
+                                    </h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <form>
+
+                                        <div class="row">
+                                            <label class="col-md-2">Game Provider</label>
+                                              <div class="form-group col-md-4">
+                                              <select (change) = "flagProvider()" id = "providerId" class="form-control form-control-sm col-md-12 col-sm-4 col-xs-4"
+                                               [(ngModel)]="marqueeDTO.providerId" [ngModelOptions]="{standalone: true}">
+                                                <option *ngFor="let provider of gameproviderList" value = "{{provider.id}}" >
+                                                  {{provider.name}}
+                                                </option>
+                                                <option value = "0">Home</option>
+                                             </select>
+                                            </div> 
+                                        </div>
+
+                                        <div class="row">
+                                            <label class="col-md-2"> Marquee Ads Text </label>
+                                            <div class="form-group col-md-4">
+                                                <input type="text" class="form-control form-control-sm"
+                                                    [(ngModel)]="marqueeDTO.marqueeText"
+                                                    [ngModelOptions]="{standalone: true}">
+                                            </div>
+                                        </div>
+
+                                        <div class="row" style="display: none;">
+                                            <label class="col-md-2"> Dream Book </label>
+                                            <div class="form-group col-md-4">
+                                                <input type="text" class="form-control form-control-sm"
+                                                    [(ngModel)]="marqueeDTO.dreamBookLink"
+                                                    [ngModelOptions]="{standalone: true}">
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <label class="col-md-2"> Status </label>
+                                            <div class="form-group col-md-3 radio">
+                                                <div class="form-group clearfix">
+                                                    <div class="icheck-success d-inline">
+                                                        <input type="radio" name="r3" checked id="radioSuccess1"
+                                                            value="ACTIVE" [(ngModel)]="marqueeDTO.status"
+                                                            [ngModelOptions]="{standalone: true}">
+                                                        <label for="radioSuccess1">Active &nbsp;&nbsp;
+                                                        </label>
+                                                    </div>
+                                                    <div class="icheck-success d-inline">
+                                                        <input type="radio" name="r3" id="radioSuccess2"
+                                                            value="INACTIVE" [(ngModel)]="marqueeDTO.status"
+                                                            [ngModelOptions]="{standalone: true}">
+                                                        <label for="radioSuccess2">Inactive
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                   
+                                     <div class="row">    
+                                        <div class="col-md-2 col-sm-2 col-xs-2">
+                                            <button id="apply" type="button"
+                                                class="btn btn-block btn-success btn-sm" (click)="goSave()">
+                                                Save
+                                            </button>
+                                        </div>
+                                    
+                                        <div class="col-md-2 col-sm-2 col-xs-2">
+                                            <button id="save" type="button"
+                                                class="btn btn-block btn-danger btn-sm"  [routerLink] = "['/marquee-list']">
+                                                Cancel
+                                            </button>
+                                        </div>
+                                   </div>
+
+                                </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- /.row -->
+                <!-- /.row -->
+            </div>
+            <!--/. container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+
+    <app-footer></app-footer>
+
+    <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="square-jelly-box">
+        <p style="font-size: 16px; color: white">Loading...</p>
+    </ngx-spinner>
+
+</div>

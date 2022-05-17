@@ -1,0 +1,697 @@
+<div class="wrapper">
+  <app-header-sidebar></app-header-sidebar>
+
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2" style="border: 1px solid #ced4da;border-radius: 0.25rem;">
+          <div class="col-sm-6">
+            <h3 class="m-0 text-dark" style="font-weight: bold;padding: 3px 0px 3px 5px;"> Top-up </h3>
+          </div>
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <form>
+          <div class="row">
+
+            <div class="col-md-12">
+              <!-- Nav tabs -->
+              <ul class="nav nav-tabs nav-pills">
+                <li (click)="allSearch()">
+                  <a id="all-tab" data-toggle="tab" href="#all"> ALL </a>
+                </li>
+                <li (click)="addedSearch()">
+                  <a id="added-tab" data-toggle="tab" href="#added"> ADDED </a>
+                </li>
+                <li  (click)="pendingSearch()">
+                  <a  class="active" id="pending-tab" data-toggle="tab" href="#pending"> PENDING </a>
+                </li>
+                <li (click)="approveSearch()">
+                  <a id="approve-tab" data-toggle="tab" href="#approve"> APPROVE </a>
+                </li>
+                <li (click)="deniedSearch()">
+                  <a id="denied-tab" data-toggle="tab" href="#denied"> DENIED </a>
+                </li>
+              </ul>
+
+              <!-- Tab panes -->
+              <div class="tab-content clearfix">
+
+                <div class="tab-pane" id="all">
+                  <div class="row">
+
+                    <div class="form-group col-md-2">
+                      <label>Transaction No</label>
+                      <input type="number" onKeyPress="if(this.value.length==6) return false;"
+                        class="form-control form-control-sm" [(ngModel)]="accountNo"
+                        [ngModelOptions]="{standalone: true}" (keypress)="numericOnly($event)">
+                    </div>
+
+                    <div class="form-group col-md-2">
+                      <label>From Date</label>
+                      <input id="singleDate" readonly class="form-control form-control-sm" placeholder="Select Date"
+                        [ngxDatePicker]="dateInstanceSingle" [value]="singleDate" [(ngModel)]="alldate"
+                        [ngModelOptions]="{standalone: true}" (valueChange)="onChangeSingle()">
+                      <ngx-date-picker #dateInstanceSingle></ngx-date-picker>
+                    </div>
+
+                    <div class="form-group col-md-2">
+                      <label>To Date</label>
+                      <input id="alltodate" readonly class="form-control form-control-sm" placeholder="Select Date"
+                        [ngxDatePicker]="dateInstanceSingle1" [value]="alltoDate" [(ngModel)]="alltodate"
+                        [ngModelOptions]="{standalone: true}" (valueChange)="onChangeAllToDate()">
+                      <ngx-date-picker #dateInstanceSingle1></ngx-date-picker>
+                    </div>
+
+                        <!-- <div class="col-md-4"></div> -->
+
+
+                    <div class="form-group col-md-2 col-sm-4 col-xs-4">
+                      <label></label>
+                      <button id="search" type="button" class="btn btn-block btn-primary btn-sm" style="margin-top: 4%;"
+                        (click)="allSearch()">Search</button>
+                    </div>
+
+                    <div class="form-group col-md-2 col-sm-4 col-xs-4">
+                      <label></label>
+                      <button type="button" class="btn btn-block btn-success btn-sm" style="margin-top: 4%;"
+                        [routerLink]="['/topup-check-detail']">
+                        Add Top-up
+                      </button>
+                    </div>
+
+                    <div class="form-group col-md-2 col-sm-4 col-xs-4">
+                      <label></label>
+                      <button type="button" class="btn btn-block btn-success btn-sm" style="margin-top: 4%;"
+                        (click) ="goModal()">
+                        <i class="fas fa-dollar-sign" style="color: white;"></i> My Amount
+                      </button>
+                    </div>
+                    </div> <!--row-->
+
+                    <div class="col-md-12">
+                      <div class="card">
+                        <div class="card-header">
+                          <h3 class="card-title" style="font-weight: bold;">Top-up All List</h3>
+                        </div>
+                        <div class="card-body">
+                          <table width='100%' id="{{'tblTopup' + idIndex}}" datatable [dtTrigger]="dtTrigger"
+                            [dtOptions]="dtOptions" class="table table-bordered table-hover">
+                            <thead>
+                              <tr>
+                                <th style="font-family: unicode;">Transaction No</th>
+                                <th style="font-family: unicode;">Amount</th>
+                                <th style="font-family: unicode;">Payment</th>
+                                <th style="font-family: unicode;">Phone No</th>
+                                <th style="font-family: unicode;">Status</th>
+                                <th style="font-family: unicode;">Added By</th>
+                                <th style="font-family: unicode;">Added Date</th>
+                                <th style="font-family: unicode;">Requested By</th>
+                                <th style="font-family: unicode;">Requested Date</th>
+                                <th style="font-family: unicode;">Updated Date</th>
+                                <th style="font-family: unicode;">Updated By</th>
+                                <th style="font-family: unicode;">Handle Bank Account</th>
+                                <th style="font-family: unicode;">Action</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let topup of topupallList">
+                                <td style="font-family: unicode;">{{topup.transaction_no}}</td>
+                                <td style="font-family: unicode;" class="text-right">{{topup.amount_Str}}</td>
+                                <td style="font-family: unicode;">{{topup.payment}}</td>
+                                <td style="font-family: unicode;"><a [routerLink] = "['/user-detail', topup.uid]">{{topup.phone_no}}</a></td>
+                                <td style="font-family: unicode;">{{topup.status}}</td>
+                                <td style="font-family: unicode;">{{topup.admin_name}}</td>
+                                <td style="font-family: unicode;">{{topup.added_date_string}}</td>
+                                <td style="font-family: unicode;">{{topup.name}}</td>
+                                <td style="font-family: unicode;">{{topup.created_date_string}}</td>
+                                <td style="font-family: unicode;">{{topup.updated_date_string}}</td>
+                                <td style="font-family: unicode;">{{topup.updated_by_name}}</td>
+                                <td style="font-family: unicode;">{{topup.account_name}} - {{topup.account_number}}</td>
+                                <td style="font-family: unicode;">
+                                  <a [routerLink]="['/topup-check-detail-update', topup.id]">
+                                    <i class="fas fa-edit" style="color:#4b88eb"></i>
+                                  </a>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  <!--</div>-->
+                </div>
+
+                <div class="tab-pane" id="approve">
+                  <div class="row">
+
+                    <div class="form-group col-md-2">
+                      <label>Transaction No</label>
+                      <input type="number" onKeyPress="if(this.value.length==6) return false;"
+                        class="form-control form-control-sm" [(ngModel)]="approveaccountNo"
+                        [ngModelOptions]="{standalone: true}" (keypress)="numericOnly($event)">
+                    </div>
+
+                    <div class="form-group col-md-2">
+                      <label>From Date</label>
+                      <input id="approveDate" readonly class="form-control form-control-sm" placeholder="Select Date"
+                        [ngxDatePicker]="dateInstanceApprove" [value]="approveDate" [(ngModel)]="approvedate"
+                        [ngModelOptions]="{standalone: true}"  (valueChange)="onChangeApprove()">
+                      <ngx-date-picker #dateInstanceApprove></ngx-date-picker>
+                    </div>
+                     
+                    <div class="form-group col-md-2">
+                      <label>To Date</label>
+                      <input id="approvetodate" readonly class="form-control form-control-sm" placeholder="Select Date"
+                        [ngxDatePicker]="dateInstanceApprove1" [value]="approvetoDate" [(ngModel)]="approvetodate"
+                        [ngModelOptions]="{standalone: true}" (valueChange)="onChangeApproveToDate()">
+                      <ngx-date-picker #dateInstanceApprove1></ngx-date-picker>
+                    </div>
+
+                        <!-- <div class="col-md-4"></div> -->
+
+
+                    <div class="form-group col-md-2 col-sm-4 col-xs-4">
+                      <label></label>
+                      <button id="search" type="button" class="btn btn-block btn-primary btn-sm" style="margin-top: 4%;"
+                        (click)="approveSearch()">Search</button>
+                    </div>
+
+                    <div class="form-group col-md-2 col-sm-4 col-xs-4">
+                      <label></label>
+                      <button type="button" class="btn btn-block btn-success btn-sm" style="margin-top: 4%;"
+                        [routerLink]="['/topup-check-detail']">
+                        Add Top-up
+                      </button>
+                    </div>
+
+                    <div class="form-group col-md-2 col-sm-4 col-xs-4">
+                      <label></label>
+                      <button type="button" class="btn btn-block btn-success btn-sm" style="margin-top: 4%;"
+                        (click) ="goModal()">
+                        <i class="fas fa-dollar-sign" style="color: white;"></i>  My Amount
+                      </button>
+                    </div>
+
+                    <div class="col-md-12">
+                      <div class="card">
+                        <div class="card-header">
+                          <h3 class="card-title" style="font-weight: bold;">Top-up Approved List</h3>
+                        </div>
+                        <div class="card-body">
+                          <table width='100%' id="{{'tblapproveTopup' + idapproveIndex}}" datatable
+                            [dtTrigger]="dtTrigger1" [dtOptions]="dtOptions1" class="table table-bordered table-hover">
+                            <thead>
+                              <tr>
+                                <th style="font-family: unicode;">Transaction No</th>
+                                <th style="font-family: unicode;">Amount</th>
+                                <th style="font-family: unicode;">Payment</th>
+                                <th style="font-family: unicode;">Phone No</th>
+                                <th style="font-family: unicode;">Status</th>
+                                <th style="font-family: unicode;">Added By</th>
+                                <th style="font-family: unicode;">Added Date</th>
+                                <th style="font-family: unicode;">Requested By</th>
+                                <th style="font-family: unicode;">Requested Date</th>
+                                <th style="font-family: unicode;">Updated Date</th>
+                                <th style="font-family: unicode;">Updated By</th>
+                                <th style="font-family: unicode;">Handel Bank Accuount</th>
+                                <th style="font-family: unicode;">Action</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let topup of topupapproveList">
+                                <td style="font-family: unicode;">{{topup.transaction_no}}</td>
+                                <td style="font-family: unicode;" class="text-right">{{topup.amount_Str}}</td>
+                                <td style="font-family: unicode;">{{topup.payment}}</td>
+                                <td style="font-family: unicode;"><a [routerLink] = "['/user-detail', topup.uid]">{{topup.phone_no}}</a></td>
+                                <td style="font-family: unicode;">{{topup.status}}</td>
+                                <td style="font-family: unicode;">{{topup.admin_name}}</td>
+                                <td style="font-family: unicode;">{{topup.added_date_string}}</td>
+                                <td style="font-family: unicode;">{{topup.name}}</td>
+                                <td style="font-family: unicode;">{{topup.created_date_string}}</td>
+                                <td style="font-family: unicode;">{{topup.updated_date_string}}</td>
+                                <td style="font-family: unicode;">{{topup.updated_by_name}}</td>
+                                <td style="font-family: unicode;">{{topup.account_name}} - {{topup.account_number}}</td>
+                                <td style="font-family: unicode;">
+                                  <a [routerLink]="['/topup-check-detail-update', topup.id]">
+                                    <i class="fas fa-edit" style="color:#4b88eb"></i>
+                                  </a>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="tab-pane" id="added">
+                  <div class="row">
+
+                    <div class="form-group col-md-2">
+                      <label>Transaction No</label>
+                      <input type="number" onKeyPress="if(this.value.length==6) return false;"
+                        class="form-control form-control-sm" [(ngModel)]="addedaccountNo"
+                        [ngModelOptions]="{standalone: true}" (keypress)="numericOnly($event)">
+                    </div>
+
+                    <div class="form-group col-md-2">
+                      <label>From Date</label>
+                      <input id="addedDate" readonly class="form-control form-control-sm" placeholder="Select Date"
+                        [ngxDatePicker]="dateInstanceAdded" [value]="addedDate" [(ngModel)]="addeddate"
+                        [ngModelOptions]="{standalone: true}" (valueChange)="onChangeAdded()">
+                      <ngx-date-picker #dateInstanceAdded></ngx-date-picker>
+                    </div>
+
+                    <div class="form-group col-md-2">
+                      <label>To Date</label>
+                      <input id="addedtodate" readonly class="form-control form-control-sm" placeholder="Select Date"
+                        [ngxDatePicker]="dateInstanceAdded1" [value]="addedtoDate" [(ngModel)]="addedtodate"
+                        [ngModelOptions]="{standalone: true}" (valueChange)="onChangeAddedToDate()">
+                      <ngx-date-picker #dateInstanceAdded1></ngx-date-picker>
+                    </div>
+
+
+                       <!-- <div class="col-md-4"></div> -->
+
+
+                    <div class="form-group col-md-2 col-sm-4 col-xs-4">
+                      <label></label>
+                      <button id="search" type="button" class="btn btn-block btn-primary btn-sm" style="margin-top: 4%;"
+                        (click)="addedSearch()">Search</button>
+                    </div>
+
+                    <div class="form-group col-md-2 col-sm-4 col-xs-4">
+                      <label></label>
+                      <button type="button" class="btn btn-block btn-success btn-sm" style="margin-top: 4%;"
+                        [routerLink]="['/topup-check-detail']">
+                        Add Top-up
+                      </button>
+                    </div>
+
+                    <div class="form-group col-md-2 col-sm-4 col-xs-4">
+                      <label></label>
+                      <button type="button" class="btn btn-block btn-success btn-sm" style="margin-top: 4%;"
+                        (click) ="goModal()">
+                        <i class="fas fa-dollar-sign" style="color: white;"></i>  My Amount
+                      </button>
+                    </div>
+
+                    <div class="col-md-12">
+                      <div class="card">
+                        <div class="card-header">
+                          <h3 class="card-title" style="font-weight: bold;">Top-up Add List</h3>
+                        </div>
+                        <div class="card-body">
+                          <table width='100%' id="{{'tbladdTopup' + idaddIndex}}" datatable [dtTrigger]="dtTrigger2"
+                            [dtOptions]="dtOptions2" class="table table-bordered table-hover">
+                            <thead>
+                              <tr>
+                                <th style="font-family: unicode;">Transaction No</th>
+                                <th style="font-family: unicode;">Amount</th>
+                                <th style="font-family: unicode;">Payment</th>
+                                <th style="font-family: unicode;">Phone No</th>
+                                <th style="font-family: unicode;">Status</th>
+                                <th style="font-family: unicode;">Added By</th>
+                                <th style="font-family: unicode;">Added Date</th>
+                                <th style="font-family: unicode;">Requested By</th>
+                                <th style="font-family: unicode;">Requested Date</th>
+                                <th style="font-family: unicode;">Updated Date</th>
+                                <th style="font-family: unicode;">Updated By</th>
+                                <th style="font-family: unicode;">Hamdel Bank Account</th>
+                                <th style="font-family: unicode;">Action</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let topup of topupaddList">
+                                <td style="font-family: unicode;">{{topup.transaction_no}}</td>
+                                <td style="font-family: unicode;" class="text-right">{{topup.amount_Str}}</td>
+                                <td style="font-family: unicode;">{{topup.payment}}</td>
+                                <td style="font-family: unicode;"><a [routerLink] = "['/user-detail', topup.uid]">{{topup.phone_no}}</a></td>
+                                <td style="font-family: unicode;">{{topup.status}}</td>
+                                <td style="font-family: unicode;">{{topup.admin_name}}</td>
+                                <td style="font-family: unicode;">{{topup.added_date_string}}</td>
+                                <td style="font-family: unicode;">{{topup.name}}</td>
+                                <td style="font-family: unicode;"></td> <!--{{topup.created_date_string}}-->
+                                <td style="font-family: unicode;">{{topup.updated_date_string}}</td>
+                                <td style="font-family: unicode;">{{topup.updated_by_name}}</td>
+                                <td style="font-family: unicode;">{{topup.account_name}} - {{topup.account_number}}</td>
+                                <td style="font-family: unicode;">
+                                  <a [routerLink]="['/topup-check-detail-update', topup.id]">
+                                    <i class="fas fa-edit" style="color:#4b88eb"></i>
+                                  </a>
+                             
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="tab-pane show active" id="pending">
+                  <div class="row">
+
+                    <div class="form-group col-md-2">
+                      <label>Transaction No</label>
+                      <input type="number" onKeyPress="if(this.value.length==6) return false;"
+                        class="form-control form-control-sm" [(ngModel)]="pendingaccountNo"
+                        [ngModelOptions]="{standalone: true}" (keypress)="numericOnly($event)">
+                    </div>
+
+                    <div class="form-group col-md-2">
+                      <label>From Date</label>
+                      <input id="pendingDate" readonly class="form-control form-control-sm" placeholder="Select Date"
+                        [ngxDatePicker]="dateInstancePending" [value]="pendingDate" [(ngModel)]="pendingdate"
+                        [ngModelOptions]="{standalone: true}" (valueChange)="onChangePending()">
+                      <ngx-date-picker #dateInstancePending></ngx-date-picker>
+                    </div>
+                    
+                    <div class="form-group col-md-2">
+                      <label>To Date</label>
+                      <input id="pendingtodate" readonly class="form-control form-control-sm" placeholder="Select Date"
+                        [ngxDatePicker]="dateInstancePending1" [value]="pendingtoDate" [(ngModel)]="pendingtodate"
+                        [ngModelOptions]="{standalone: true}" (valueChange)="onChangePendingToDate()">
+                      <ngx-date-picker #dateInstancePending1></ngx-date-picker>
+                    </div>
+
+                   <!-- <div class="col-md-4"></div> -->
+
+                    <div class="form-group col-md-2 col-sm-4 col-xs-4">
+                      <label></label>
+                      <button id="search" type="button" class="btn btn-block btn-primary btn-sm" style="margin-top: 4%;"
+                        (click)="pendingSearch()">Search</button>
+                    </div>
+
+                    <div class="form-group col-md-2 col-sm-4 col-xs-4">
+                      <label></label>
+                      <button type="button" class="btn btn-block btn-success btn-sm" style="margin-top: 4%;"
+                        [routerLink]="['/topup-check-detail']">
+                        Add Top-up
+                      </button>
+                    </div>
+
+                    <div class="form-group col-md-2 col-sm-4 col-xs-4">
+                      <label></label>
+                      <button type="button" class="btn btn-block btn-success btn-sm" style="margin-top: 4%;"
+                        (click) ="goModal()">
+                        <i class="fas fa-dollar-sign" style="color: white;"></i>  My Amount
+                      </button>
+                    </div>
+
+                    <div class="col-md-12">
+                      <div class="card">
+                        <div class="card-header">
+                          <h3 class="card-title" style="font-weight: bold;">Top-up Pending List</h3>
+                        </div>
+                        <div class="card-body">
+                          <table width='100%' id="{{'tblpendingTopup' + idpendingIndex}}" datatable
+                            [dtTrigger]="dtTrigger3" [dtOptions]="dtOptions3" class="table table-bordered table-hover">
+                            <thead>
+                              <tr>
+                                <th style="font-family: unicode;">Transaction No</th>
+                                <th style="font-family: unicode;">Amount</th>
+                                <th style="font-family: unicode;">Payment</th>
+                                <th style="font-family: unicode;">Phone No</th>
+                                <th style="font-family: unicode;">Status</th>
+                                <th style="font-family: unicode;">Added By</th>
+                                <th style="font-family: unicode;">Added Date</th>
+                                <th style="font-family: unicode;">Requested By</th>
+                                <th style="font-family: unicode;">Requested Date</th>
+                                <th style="font-family: unicode;">Updated Date</th>
+                                <th style="font-family: unicode;">Updated By</th>
+                                <th style="font-family: unicode;">Handel Bank Account</th>
+                                <th style="font-family: unicode;">Action</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let topup of topuppengingList">
+                                <td style="font-family: unicode;">{{topup.transaction_no}}</td>
+                                <td style="font-family: unicode;" class="text-right">{{topup.amount_Str}}</td>
+                                <td style="font-family: unicode;">{{topup.payment}}</td>
+                                <td style="font-family: unicode;"><a [routerLink] = "['/user-detail', topup.uid]">{{topup.phone_no}}</a></td>
+                                <td style="font-family: unicode;">{{topup.status}}</td>
+                                <td style="font-family: unicode;">{{topup.admin_name}}</td>
+                                <td style="font-family: unicode;">{{topup.added_date_string}}</td>
+                                <td style="font-family: unicode;">{{topup.name}}</td>
+                                <td style="font-family: unicode;">{{topup.created_date_string}}</td>
+                                <td style="font-family: unicode;">{{topup.updated_date_string}}</td>
+                                <td style="font-family: unicode;">{{topup.updated_by_name}}</td>
+                                <td style="font-family: unicode;">{{topup.account_name}} - {{topup.account_number}}</td>
+                                <td style="font-family: unicode;">
+                                  <a [routerLink]="['/topup-check-detail-update', topup.id]">
+                                    <i class="fas fa-edit" style="color:#4b88eb"></i>
+                                  </a>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="tab-pane" id="denied">
+                  <div class="row">
+
+                    <div class="form-group col-md-2">
+                      <label>Transaction No</label>
+                      <input type="number" onKeyPress="if(this.value.length==6) return false;"
+                        class="form-control form-control-sm" [(ngModel)]="deniedaccountNo"
+                        [ngModelOptions]="{standalone: true}" (keypress)="numericOnly($event)">
+                    </div>
+
+                    <div class="form-group col-md-2">
+                      <label>From Date</label>
+                      <input id="deniedDate" readonly class="form-control form-control-sm" placeholder="Select Date"
+                        [ngxDatePicker]="dateInstanceDenied" [value]="deniedDate" [(ngModel)]="denieddate"
+                        [ngModelOptions]="{standalone: true}" (valueChange)="onChangeDenied()">
+                      <ngx-date-picker #dateInstanceDenied></ngx-date-picker>
+                    </div>
+
+                    <div class="form-group col-md-2">
+                      <label>To Date</label>
+                      <input id="deniedtodate" readonly class="form-control form-control-sm" placeholder="Select Date"
+                        [ngxDatePicker]="dateInstanceDenied1" [value]="deniedtoDate" [(ngModel)]="deniedtodate"
+                        [ngModelOptions]="{standalone: true}" (valueChange)="onChangeDeniedToDate()">
+                      <ngx-date-picker #dateInstanceDenied1></ngx-date-picker>
+                    </div>
+
+
+                   <!-- <div class="col-md-4"></div> -->
+
+                    <div class="form-group col-md-2 col-sm-4 col-xs-4">
+                      <label></label>
+                      <button id="search" type="button" class="btn btn-block btn-primary btn-sm" style="margin-top: 4%;"
+                        (click)="deniedSearch()">Search</button>
+                    </div>
+
+                    <div class="form-group col-md-2 col-sm-4 col-xs-4">
+                      <label></label>
+                      <button type="button" class="btn btn-block btn-success btn-sm" style="margin-top: 4%;"
+                        [routerLink]="['/topup-check-detail']">
+                        Add Top-up
+                      </button>
+                    </div>
+
+                    <div class="form-group col-md-2 col-sm-2 col-xs-2">
+                      <label></label>
+                      <button type="button" class="btn btn-block btn-success btn-sm" style="margin-top: 4%;"
+                        (click) ="goModal()">
+                        <i class="fas fa-dollar-sign" style="color: white;"></i> My Amount
+                      </button>
+                    </div>
+
+                    <div class="col-md-12">
+                      <div class="card">
+                        <div class="card-header">
+                          <h3 class="card-title" style="font-weight: bold;">Top-up Denied List</h3>
+                        </div>
+                        <div class="card-body">
+                          <table width='100%' id="{{'tbldeniedTopup' + iddeniedIndex}}" datatable
+                            [dtTrigger]="dtTrigger4" [dtOptions]="dtOptions4" class="table table-bordered table-hover">
+                            <thead>
+                              <tr>
+                                <th style="font-family: unicode;">Transaction No</th>
+                                <th style="font-family: unicode;">Amount</th>
+                              <!--  <th style="font-family: unicode;">Total Amount</th>-->
+                                <th style="font-family: unicode;">Payment</th>
+                                <th style="font-family: unicode;">Phone No</th>
+                                <th style="font-family: unicode;">Status</th>
+                                <th style="font-family: unicode;">Added By</th>
+                                <th style="font-family: unicode;">Added Date</th>
+                                <th style="font-family: unicode;">Requested By</th>
+                                <th style="font-family: unicode;">Requested Date</th>
+                                <th style="font-family: unicode;">Updated Date</th>
+                                <th style="font-family: unicode;">Updated By</th>
+                                <th style="font-family: unicode;">Handel Bank Account</th>
+                                <th style="font-family: unicode;">Action</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let topup of topupdeniedList">
+                                <td style="font-family: unicode;">{{topup.transaction_no}}</td>
+                                <td style="font-family: unicode;" class="text-right">{{topup.amount_Str}}</td>
+                               <!-- <td style="font-family: unicode;" class="text-right">{{topup.total_amount}}</td>-->
+                                <td style="font-family: unicode;">{{topup.payment}}</td>
+                                <td style="font-family: unicode;"><a [routerLink] = "['/user-detail', topup.uid]">{{topup.phone_no}}</a></td>
+                                <td style="font-family: unicode;">{{topup.status}}</td>
+                                <td style="font-family: unicode;">{{topup.admin_name}}</td>
+                                <td style="font-family: unicode;">{{topup.added_date_string}}</td>
+                                <td style="font-family: unicode;">{{topup.name}}</td>
+                                <td style="font-family: unicode;">{{topup.created_date_string}}</td>
+                                <td style="font-family: unicode;">{{topup.updated_date_string}}</td>
+                                <td style="font-family: unicode;">{{topup.updated_by_name}}</td>
+                                <td style="font-family: unicode;">{{topup.account_name}} - {{topup.account_number}}</td>
+                                <td style="font-family: unicode;">
+                                  <a [routerLink]="['/topup-check-detail-update', topup.id]">
+                                    <i class="fas fa-edit" style="color:#4b88eb"></i>
+                                  </a>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </form>
+        <!-- /.row -->
+
+        <!-- /.row -->
+      </div>
+      <!--/. container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+
+  <app-footer></app-footer>
+  <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="square-jelly-box">
+    <p style="font-size: 16px; color: white">Loading...</p>
+  </ngx-spinner>
+</div>
+
+<div id="deleteData" class="modal fade">
+  <div class="modal-dialog">
+      <div class="modal-content">
+
+          <div class="modal-body">
+              <form>
+
+                  <div class="row" style="margin-top: 5%;margin-bottom: 3%;margin-left: 9%;">
+                      <div class="form-group col-md-12">
+                          <h5> This Account is used by another device. 
+                              Please Sign Out. Login Again. </h5>
+                      </div>
+                  </div>
+
+                  <div class="row" style="margin-left: 40%;margin-bottom: 3%;">
+                      <div class="col-md-5 col-sm-6" id="deleteBtn">
+                          <button type="button" class="btn btn-block btn-success" (click)="OkLogout()"> Ok </button>
+                      </div>
+                  </div>
+              </form>
+          </div>
+
+      </div>
+  </div>
+</div>
+
+<!--account detail report 2021-10-05-->
+<div id="accountDetailData" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content" style="width : 1000px; margin-left: -200px;">
+      <div class="modal-header">
+        <h3 class="modal-title" style="font-weight: bold;font-size: 1.1rem;"> Bank Account Detail </h3>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> x </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="col-md-12">
+              <div class="card">
+                <div class="card-body"> <!--{{'tblServicePhone' + accidIndex}}-->
+                  <table width='100%'  id="{{'tblServicePhone' + accidIndex}}" datatable  [dtTrigger]="dtTriggeracc" [dtOptions]="dtOptionsacc"
+                  class="table table-bordered table-hover">
+                    <thead>
+                      <tr>
+                        <th style="font-family: unicode;">No</th>
+                        <th style="font-family: unicode;" class = "text-center">Bank Type</th>
+                        <th style="font-family: unicode;" class = "text-center">Account Name</th>
+                        <th style="font-family: unicode;" class = "text-center">Account Number</th>
+                        <th style="font-family: unicode;" class = "text-center">Limited Amount</th>
+                        <th style="font-family: unicode;" class = "text-center">Today Reach Amount</th>
+                        <th style="font-family: unicode;" class = "text-center">My Amount</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <ng-container *ngFor="let accDTO of accountDetailList, let i = index">
+                      <tr>
+                        <td style="font-family: unicode;padding: 0.35rem 0.75rem 0.30rem 0.75rem;">{{ i + 1 }}
+                        </td>
+                        <td style="font-family: unicode;padding: 0.35rem 2rem 0.30rem 0.75rem;text-align: left;width : 200px">
+                          {{accDTO.payment_type}}
+                        </td>
+                        <td style="font-family: unicode;padding: 0.35rem 2rem 0.30rem 0.75rem;text-align: left;width : 200px">
+                          {{accDTO.account_name}}
+                        </td>
+                        <td style="font-family: unicode;padding: 0.35rem 0.75rem 0.30rem 0.75rem;width : 200px">
+                          {{accDTO.account_no}}
+                        </td>
+                        <td style="font-family: unicode;padding: 0.35rem 2rem 0.30rem 0.75rem;text-align: right;width : 200px">
+                              {{accDTO.limited_amt_Str}}
+                        </td>
+                        <td style="font-family: unicode;padding: 0.35rem 2rem 0.30rem 0.75rem;text-align: right;width : 200px">
+                          {{accDTO.today_reach_amt_Str}}
+                       </td>
+                       <td style="font-family: unicode;padding: 0.35rem 2rem 0.30rem 0.75rem;text-align: right;width : 200px">
+                        {{accDTO.my_amount_Str}}
+                      </td>
+                      </tr>
+                    </ng-container>
+
+                      <tr style="background-color:steelblue; color: white">
+                        <td style="font-family: unicode;padding: 0.35rem 0.75rem 0.30rem 0.75rem; text-align: right;" colspan="5">Today Total Reach Amount & My Amount</td>
+                        <td style="font-family: unicode;padding: 0.35rem 2rem 0.30rem 0.75rem;text-align: right; width : 200px">{{total_today_reach_amt}}</td>
+                        <td style="font-family: unicode;padding: 0.35rem 2rem 0.30rem 0.75rem;text-align: right; width : 200px">{{total_my_amount}}</td>
+                        <td class = "hidden" style="display: none; border: 0px ;"></td>
+                        <td class = "hidden" style="display: none; border: 0px ;"></td>
+                        <td class = "hidden" style="display: none; border: 0px ;"></td>
+                        <td class = "hidden" style="display: none; border: 0px ;"></td>
+                        <!--<td class = "hidden" style="display: none; border: 0px ;"></td>-->
+                      </tr>
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

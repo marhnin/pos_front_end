@@ -1,0 +1,222 @@
+<div class="wrapper">
+    <app-header-sidebar></app-header-sidebar>
+
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2" style="border: 1px solid #ced4da;border-radius: 0.25rem;">
+                    <div class="col-sm-8">
+                        <h3 class="m-0 text-dark" style="font-weight: bold;padding: 3px 0px 3px 5px;"> 2D Winners </h3>
+                    </div>
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <form>
+                    <div class="row">
+
+                        <div class="form-group col-md-2">
+                            <label>Phone No</label>
+                            <input class="form-control form-control-sm" [(ngModel)]="phoneNo"
+                                [ngModelOptions]="{standalone: true}">
+                        </div>
+
+                        <div class="form-group col-md-2">
+                            <label>Name</label>
+                            <input class="form-control form-control-sm" [(ngModel)]="name"
+                                [ngModelOptions]="{standalone: true}">
+                        </div>
+
+                        <div class="form-group col-md-2">
+                            <label> From Date </label>
+                            <input id="singleDate" readonly class="form-control form-control-sm"
+                                placeholder="Select Date" [ngxDatePicker]="dateInstanceSingle" [value]="singleDate"
+                                [(ngModel)]="winnerDate" [ngModelOptions]="{standalone: true}"
+                                (valueChange)="onChangeSingle()">
+                            <ngx-date-picker #dateInstanceSingle></ngx-date-picker>
+                        </div>
+
+                        <div class="form-group col-md-2">
+                            <label>To Date</label>
+                            <input id="alltodate" readonly class="form-control form-control-sm" placeholder="Select Date"
+                              [ngxDatePicker]="dateInstanceSingle1" [value]="alltoDate" [(ngModel)]="alltodate"
+                              [ngModelOptions]="{standalone: true}" (valueChange)="onChangeAllToDate()">
+                            <ngx-date-picker #dateInstanceSingle1></ngx-date-picker>
+                          </div>
+
+                        <div class="form-group col-md-2">
+                            <label> Time </label>
+                            <select class="time form-control form-control-sm col-md-12 col-sm-4 col-xs-4"
+                                [(ngModel)]="time" [ngModelOptions]="{standalone: true}">
+                                <option value="AM" selected>AM</option>
+                                <option value="PM">PM</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-2">
+                            <label> Status </label>
+                            <select class="form-control form-control-sm col-md-12 col-sm-4 col-xs-4"
+                                [(ngModel)]="status" [ngModelOptions]="{standalone: true}">
+                                <option value="CONFIRMED" selected> Confirmed </option>
+                                <option value="PENDING"> Pending </option>
+                                <option value=""> All </option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-2"> </div> 
+                        <div class="form-group col-md-2"> </div> 
+                         <div class="form-group col-md-2"> </div> 
+						 <div class="form-group col-md-2"> </div>
+                          <div class="form-group col-md-2"> </div> 
+                        <div class="form-group col-md-2 col-sm-4 col-xs-4">
+                           <!-- <label></label> -->
+                            <button id="search" type="button" class="btn btn-block btn-primary btn-sm"
+                                style="margin-top: 4%;" (click)="search()">Search</button>
+                        </div>
+						
+						<!-- <div class="form-group col-md-2"> </div> <div class="form-group col-md-2"> </div> 
+                         <div class="form-group col-md-2"> </div> 
+						 <div class="form-group col-md-2"> </div> <div class="form-group col-md-2"> </div> 
+						 <div class="form-group col-md-2"> 
+							<a href="/assets/twoDWinnerReport.html" target="_blank">Click To Download Report</a>
+						</div>-->
+
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title" style="font-weight: bold;"> 2D Winners </h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                <div class = "row">
+                                    <div class="col-md-2 col-sm-4 col-xs-4" style="margin-left: -0.7%;">
+                                        <button id="confirm" type="button" class="btn btn-block btn-primary btn-sm"
+                                            style="margin-bottom: 12%;" (click)="confirmAll()"> Confirm  </button>
+                                    </div>
+                                </div>
+                                    <table width='100%' id="{{'tblWinners' + idIndex}}" datatable
+                                        [dtTrigger]="dtTrigger" [dtOptions]="dtOptions"
+                                        class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    <input type="checkbox" name="winnerscheck"
+                                                        (click)="checkuncheckall()"
+                                                        style="width: 1.10rem;height: 1.10rem;margin-left: 28%;"
+                                                        (change)="changeSelection($event,0)">
+                                                </th>
+                                                <th style="font-family: unicode;">Phone No</th>
+                                                <th style="font-family: unicode;">Name</th>
+												<th style="font-family: unicode;">Number</th>
+                                                <th style="font-family: unicode;">Bet Amount</th>
+                                                <th style="font-family: unicode;">Odds Amount</th>
+                                                <th style="font-family: unicode;">Win Amount</th>
+                                                <th style="font-family: unicode;">Bet Date</th>
+                                                <th style="font-family: unicode;">Created Date</th>
+                                                <th style="font-family: unicode;">Result Calculated Date</th>
+                                                <th style="font-family: unicode;">Section</th>
+                                                <th style="font-family: unicode;">Confirm By</th>
+                                                <th style="font-family: unicode;">Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                           <tr *ngFor="let twodwin of twodwinnerList"> 
+                                                <td>
+                                                    <input type="checkbox" name="winnerscheck" [checked]="isChecked"
+                                                        value="{{twodwin.id}}"
+                                                        style="width: 1.10rem;height: 1.10rem;margin-left: 28%;"
+                                                        (change)="changeSelection($event,twodwin.id)">
+                                                </td>
+                                                <td style="font-family: unicode;"><a [routerLink] = "['/user-detail', twodwin.user_id]">{{twodwin.phone_no}}</a></td>
+                                                <td style="font-family: unicode;">{{twodwin.name}}</td>
+												<td style="font-family: unicode;">{{twodwin.number}}</td>
+                                                <td style="font-family: unicode;">{{twodwin.amount_Str}}</td>
+                                                <td style="font-family: unicode;">{{twodwin.odd}}</td>
+                                                <td style="font-family: unicode;">{{twodwin.balance_Str}}</td>
+                                                <td style="font-family: unicode;">{{twodwin.bet_date_Str}}</td>
+                                                <td style="font-family: unicode;">{{twodwin.created_date_Str}}</td>
+                                                <td style="font-family: unicode;">{{twodwin.result_calculated_date_Str}}</td>
+                                                <td style="font-family: unicode;">{{twodwin.for_time}}</td>
+                                                <td style="font-family: unicode;">{{twodwin.created_by}}</td>
+                                                <td style="font-family: unicode;" *ngIf="twodwin.uiDisable">
+                                                    <a style="color: #28a745;" > Confirmed </a>
+                                                </td>
+                                                <td style="font-family: unicode;" *ngIf="!twodwin.uiDisable">
+                                                     <a style="color: #007bff;cursor: pointer;" (click)="confirmOne(twodwin.id)"> Confirm </a>
+                                                </td>
+                                            </tr>
+
+                                        <!-- <tr class = "total">
+                                            <td style="font-family: unicode;padding: 0.35rem 0.75rem 0.30rem 0.75rem; text-align: right;" colspan="4">Total Bet Amount</td>
+                                            <td style="font-family: unicode;padding: 0.35rem 2rem 0.30rem 0.75rem;text-align: right;">{{tbet_amount}}</td>
+                                            <td style="font-family: unicode;padding: 0.35rem 2rem 0.30rem 0.75rem;text-align: right;">Total Win Amount</td>
+                                            <td style="font-family: unicode;padding: 0.35rem 2rem 0.30rem 0.75rem;text-align: right;">20000</td>
+                                            <td style="font-family: unicode;padding: 0.35rem 2rem 0.30rem 0.75rem;text-align: right;">&nbsp;</td>
+                                            <td style="font-family: unicode;padding: 0.35rem 2rem 0.30rem 0.75rem;text-align: right;">&nbsp;</td>
+                                            <td style="font-family: unicode;padding: 0.35rem 2rem 0.30rem 0.75rem;text-align: right;">&nbsp;</td>
+                                            <td style="font-family: unicode;padding: 0.35rem 2rem 0.30rem 0.75rem;text-align: right;">&nbsp;</td>
+                                            <td style="font-family: unicode;padding: 0.35rem 2rem 0.30rem 0.75rem;text-align: right;">&nbsp;</td>
+                                            <td style="font-family: unicode;padding: 0.35rem 2rem 0.30rem 0.75rem;text-align: right;"></td>
+                                            <td class = "hidden" style="display: none; border: 0px ;"></td>
+                                            <td class = "hidden" style="display: none; border: 0px ;"></td>
+                                            <td class = "hidden" style="display: none; border: 0px ;"></td>
+                                          </tr> -->
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+                <!-- /.row -->
+
+                <!-- /.row -->
+            </div>
+            <!--/. container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+
+    <app-footer></app-footer>
+    <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="square-jelly-box">
+        <p style="font-size: 16px; color: white">Loading...</p>
+    </ngx-spinner>
+</div>
+
+<div id="deleteData" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <form>
+
+                    <div class="row" style="margin-top: 5%;margin-bottom: 3%;margin-left: 9%;">
+                        <div class="form-group col-md-12">
+                            <h5> This Account is used by another device. 
+                                Please Sign Out. Login Again. </h5>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-left: 40%;margin-bottom: 3%;">
+                        <div class="col-md-5 col-sm-6" id="deleteBtn">
+                            <button type="button" class="btn btn-block btn-success" (click)="OkLogout()"> Ok </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

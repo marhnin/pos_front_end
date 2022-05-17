@@ -1,0 +1,167 @@
+<div class="wrapper">
+    <!-- Navbar -->
+    <app-header-sidebar></app-header-sidebar>
+
+    <!-- here here here -->
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <form>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title" style="font-weight: bold;"> Service Phone Detail </h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <form>
+                                        <div class="row">
+                                            <label class="col-md-2"> Phone No</label>
+                                            <div class="form-group col-md-3">
+                                                <input class="form-control form-control-sm" [(ngModel)]="serviceDTO.phone_no" [ngModelOptions]="{standalone: true}">
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <label class="col-md-2"> Type</label>
+                                            <div class="form-group col-md-3">
+                                                <select class="status form-control form-control-sm col-md-12 col-sm-4 col-xs-4" [(ngModel)]="serviceDTO.type" [ngModelOptions]="{standalone: true}">
+                                                    <option value="TRANSACTION" selected> Transaction </option>
+                                                    <option value="AGENT"> Agent </option>
+                                                    <option value="ERROR"> Error </option>
+                                                    <option value="CUSTOMERSERVICE"> Customer Service </option>
+                                                  </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <label class="col-md-2"> Title</label>
+                                            <div class="form-group col-md-3">
+                                                <select class="status form-control form-control-sm col-md-12 col-sm-4 col-xs-4" [(ngModel)]="serviceDTO.title" [ngModelOptions]="{standalone: true}">
+                                                    <option value="service_transaction" selected> Service_Transaction </option>
+                                                    <option value="service_agent"> Service_Agent </option>
+                                                    <option value="service_error"> Service_Error </option>
+                                                    <option value="customer_service"> Customer_Service </option>
+                                                  </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <label class="col-md-2">Messanger Id</label>
+                                            <div class="form-group col-md-3">
+                                                <input class="form-control form-control-sm" [(ngModel)]="serviceDTO.messanger_id" [ngModelOptions]="{standalone: true}">
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row">
+                                            <label class="col-md-2"> Viber Id</label>
+                                            <div class="form-group col-md-3">
+                                                <input class="form-control form-control-sm" [(ngModel)]="serviceDTO.viber" [ngModelOptions]="{standalone: true}">
+                                            </div>
+                                        </div>
+<!-- 
+    
+                                        <div class="row">
+                                            <label class="col-md-2"> Status:</label>
+                                            <div class="form-group col-md-3">
+                                                <select class="status form-control form-control-sm col-md-12 col-sm-4 col-xs-4" [(ngModel)]="serviceDTO.status" [ngModelOptions]="{standalone: true}">
+                                                    <option value="ACTIVE" selected> Active </option>
+                                                    <option value="INACTIVE"> Inactive </option>
+                                                  </select>
+                                            </div>
+                                        </div> -->
+
+                                        <div class="row">
+                                            <label class="col-md-2">Status</label>
+                                            <div class="form-group col-md-3 radio">
+                                              <div class="form-group clearfix">
+                                                <div class="icheck-success d-inline">
+                                                  <input type="radio" name="r3" checked id="radioSuccess1" value="ACTIVE" [(ngModel)]="serviceDTO.status" [ngModelOptions]="{standalone: true}">
+                                                  <label for="radioSuccess1">Active &nbsp;&nbsp;
+                                                  </label>
+                                                </div>
+                                                <div class="icheck-success d-inline">
+                                                  <input type="radio" name="r3" id="radioSuccess2" value="INACTIVE" [(ngModel)]="serviceDTO.status" [ngModelOptions]="{standalone: true}">
+                                                  <label for="radioSuccess2">Inactive
+                                                  </label>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+
+                                        <div class="row">
+                                            <div class="col-md-2 col-sm-6">
+                                               <button type="button" class="btn btn-block btn-success" (click)="goSave()">
+                                                 Save
+                                               </button> &nbsp;
+                                            </div>
+                                            <div class="col-md-2 col-sm-6">
+                                               <button type="button" class="btn btn-block btn-danger" [routerLink] = "['/servicephone-list']">
+                                                 Cancel
+                                               </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- /.row -->
+                <!-- /.row -->
+            </div>
+            <!--/. container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+
+    <app-footer></app-footer>
+
+    <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="square-jelly-box">
+        <p style="font-size: 16px; color: white">Loading...</p>
+    </ngx-spinner>
+
+</div>
+
+
+<div id="deleteData" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <form>
+
+                    <div class="row" style="margin-top: 5%;margin-bottom: 3%;margin-left: 9%;">
+                        <div class="form-group col-md-12">
+                            <h5> This Account is used by another device. 
+                                Please Sign Out. Login Again. </h5>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-left: 40%;margin-bottom: 3%;">
+                        <div class="col-md-5 col-sm-6" id="deleteBtn">
+                            <button type="button" class="btn btn-block btn-success" (click)="OkLogout()"> Ok </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

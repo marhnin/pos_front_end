@@ -1,0 +1,106 @@
+<link rel="stylesheet" href='https://mmwebfonts.comquas.com/fonts/?font=myanmar3' />
+<link rel="stylesheet" href='https://mmwebfonts.comquas.com/fonts/?font=zawgyi' />	
+<div class="wrapper" ng-app="" >
+  <app-header-sidebar></app-header-sidebar>
+
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+          <div class="container-fluid">
+            <!--<div class="row mb-2" style="border: 1px solid #ced4da;border-radius: 0.25rem;">
+              <div class="col-sm-8">
+                <h3 class="m-0 text-dark" style="font-weight: bold;padding: 3px 0px 3px 5px;"> 2D Bet History Report </h3>
+              </div>
+            </div>-->
+          </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+    
+        <!-- Main content -->
+        <section class="content">
+          <div class="container-fluid">
+           
+            <div class="card">
+              <div class="card-header">
+                  <h3 class="card-title" style="font-weight: bold;">  Notification </h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+            <form>
+              <div class="row">
+                <div class="form-group col-md-2">
+                    <label>Title </label><span class ="req">*</span>
+                </div>
+                <div class="form-group col-md-2">
+                  <input type = "text" maxlength="100" style="width:250px;height : 50px;font-family:Myanmar3,Yunghkio,'Masterpiece Uni Sans'"  [(ngModel)]="model.title" name = "title" class="form-control form-control-sm" id = "fdate">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-2">
+                    <label>Message</label><span class ="req">*</span>
+                </div>
+                <div class="form-group col-md-2">
+                  <textarea  style="width:250px; height : 150px;font-family:Myanmar3,Yunghkio,'Masterpiece Uni Sans'" name = "body" [(ngModel)]="model.body" [ngModelOptions]="{standalone: true}" class="form-control form-control-sm" id = "body">
+                  </textarea>
+                  </div>
+            </div>
+
+                <div class="row">
+                  <div class="col-md-2 col-sm-6">
+                     <button type="button" class="btn btn-block btn-success"
+                      (click)="goSave()">Send</button>&nbsp;
+                    </div>
+
+                  <div class="col-md-2 col-sm-6">
+                      <button type="button" class="btn btn-block btn-danger"
+                      [routerLink]="['/notification']"> Cancel </button>
+                  </div>
+
+                </div>
+            </form>
+            </div><!--card body-->
+            </div><!--card-->
+            <!-- /.row -->
+          </div><!--/. container-fluid -->
+        </section>
+        <!-- /.content -->
+      </div>
+
+      <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+      </aside>
+    
+ <app-footer></app-footer>
+     <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="square-jelly-box">
+      <p style="font-size: 16px; color: white">Loading...</p>
+    </ngx-spinner> 
+</div>
+
+
+<div id="deleteData" class="modal fade">
+  <div class="modal-dialog">
+      <div class="modal-content">
+
+          <div class="modal-body">
+              <form>
+
+                  <div class="row" style="margin-top: 5%;margin-bottom: 3%;margin-left: 9%;">
+                      <div class="form-group col-md-12">
+                          <h5> This Account is used by another device. 
+                              Please Sign Out. Login Again. </h5>
+                      </div>
+                  </div>
+
+                  <div class="row" style="margin-left: 40%;margin-bottom: 3%;">
+                      <div class="col-md-5 col-sm-6" id="deleteBtn">
+                          <button type="button" class="btn btn-block btn-success" (click)="OkLogout()"> Ok </button>
+                      </div>
+                  </div>
+              </form>
+          </div>
+
+      </div>
+  </div>
+</div>
+

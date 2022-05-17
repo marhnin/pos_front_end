@@ -1,0 +1,269 @@
+
+    <div class="wrapper">
+      <!-- Navbar -->
+      <app-header-sidebar></app-header-sidebar>
+
+      <!-- here here here -->
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+                <h1 class="m-0 text-dark">Dashboard</h1>
+              </div><!-- /.col -->
+            </div><!-- /.row -->
+          </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+    
+        <!-- Main content -->
+        <section class="content">
+          <div class="container-fluid">
+            <!-- Info boxes -->
+            <div class="row">
+              <div class="col-12 col-sm-6 col-md-3">
+                <div class="info-box">
+                  <span class="info-box-icon bg-info elevation-1"><i class="fas fa-bullhorn"></i></span>
+    
+                  <div class="info-box-content" [routerLink]="['/twod-list']" style="cursor: pointer;">
+                    <span class="info-box-text">Last 2D number</span>
+                    <span class="info-box-number">
+                      {{twod_number}}
+                      <small>{{show_time}}</small>
+                    </span>
+                  </div>
+                  <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+              </div>
+
+              <div class="col-12 col-sm-6 col-md-3">
+                <div class="info-box">
+                  <span class="info-box-icon bg-dark elevation-1"><i class="fas fa-bullhorn"></i></span>
+    
+                  <div class="info-box-content" [routerLink]="['/threed-list']" style="cursor: pointer; ">
+                    <span class="info-box-text">Last 3D number</span>
+                    <span class="info-box-number">
+                      {{threed_number}}
+                    </span>
+                  </div>
+                  <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+              </div>
+
+              <!-- /.col -->
+              <div class="col-12 col-sm-6 col-md-3">
+                <div class="info-box mb-3">
+                  <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-comment-dots"></i></span>
+    
+                  <div class="info-box-content"  [routerLink]="['/feedback-list']" style="cursor: pointer;">
+                    <span class="info-box-text">Feedback</span>
+                    <span class="info-box-number">{{feedback_count}} <small>total</small></span>
+                  </div>
+                  <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+              </div>
+              <!-- /.col -->
+    
+              <!-- /.col -->
+              <div class="col-12 col-sm-6 col-md-3">
+                <div class="info-box mb-3" style="cursor: pointer;" [routerLink]="['/user-list']">
+                  <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users" style="color : white"></i></span>
+                  <div class="info-box-content">
+                    <span class="info-box-text">Total Active Members</span>
+                    <span class="info-box-number">{{total_active_users}}</span>
+                  </div>
+                  <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+              </div>
+
+               <!-- /.col -->
+               <div class="col-12 col-sm-6 col-md-3">
+                <div class="info-box mb-3">
+                  <span class="info-box-icon elevation-1" style="background-color: rgb(184, 228, 82);"><i class="fas fa-dollar-sign"  style="color: white;"></i></span>
+                  <div class="info-box-content">
+                    <span class="info-box-text">Total User Balance &nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-redo" title= "Refresh" style="color: green;cursor: pointer;" (click) = "refreshUserBalancecredit()"></i></span>
+                    <span class="info-box-number">{{total_user_balance}}</span>
+                  </div>
+                  <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+              </div>
+
+              
+              <!-- fix for small devices only -->
+              <div class="clearfix hidden-md-up"></div>
+              <div class="col-12 col-sm-6 col-md-3">
+                <div class="info-box mb-3" [routerLink]="['/topup-check-list']" style="cursor: pointer;">
+                  <span class="info-box-icon bg-success elevation-1"><i class="fas fa-dollar-sign"></i></span>
+                  <div class="info-box-content">
+                    <span class="info-box-text">Today Income </span>
+                    <span class="info-box-number">{{total_income}} <small>MMK</small></span>
+                  </div>
+                  <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+              </div>
+
+              <div class="col-12 col-sm-6 col-md-3">
+                <div class="info-box mb-3"  [routerLink]="['/withdraw-check-list']" style="cursor: pointer;">
+                  <span class="info-box-icon elevation-1" style="background-color: purple;"><i class="fas fa-dollar-sign" style="color: white;"></i></span>
+                  <div class="info-box-content">
+                    <span class="info-box-text">Today Withdraw </span>
+                    <span class="info-box-number">{{total_outcome}} <small>MMK</small></span>
+                  </div>
+                  <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+              </div>
+
+              <!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+              <div class="col-12 col-sm-6 col-md-3 detail">
+                <div class="info-box mb-3" (click) = "goModal()" style= "cursor: pointer">
+                  <span class="info-box-icon elevation-1" style="background-color: #993300;"><i class="fas fa-dollar-sign" style="color: white;"></i></span>
+                  <div class="info-box-content">
+                    <span class="info-box-text">Today Reach Amount / My Amount </span>
+                    <span class="info-box-number">{{total_today_reach_amt}} / {{total_my_amount}} <small>MMK</small></span>
+                  </div>
+                  <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+                <span class="tooltiptext">View Detail From Here!!</span>
+              </div>
+
+              <div class="col-12 col-sm-6 col-md-3">
+                <div class="info-box mb-3">
+                  <span class="info-box-icon elevation-1" style="background-color: rgb(56, 13, 245);"><i class="fas fa-dollar-sign" style="color: white;"></i></span>
+                  <div class="info-box-content">
+                    <span class="info-box-text">Game (Credit) &nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-redo" title= "Refresh" style="color: green;cursor: pointer;" (click) = "refreshQMcredit()"></i>
+                    </span>
+                    <span class="info-box-number">{{total_qm_balance}} <small>MMK</small></span>
+                   
+                  </div>
+                  <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+              </div>
+
+              <!-- /.col -->
+            </div>
+            <!-- /.row -->
+
+            <!-- /.row -->
+          </div><!--/. container-fluid -->
+        </section>
+        <!-- /.content -->
+      </div>
+
+      <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+      </aside>
+
+      <app-footer></app-footer>
+    <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="square-jelly-box">
+        <p style="font-size: 16px; color: white">Loading...</p>
+    </ngx-spinner>
+
+    </div>
+
+    <div id="accountDetailData" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content" style="width : 1000px; margin-left: -200px;">
+          <div class="modal-header">
+            <h3 class="modal-title" style="font-weight: bold;font-size: 1.1rem;"> Bank Account Detail </h3>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> x </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="col-md-12">
+                  <div class="card">
+                    <div class="card-body">
+                      <table width='100%'  id="{{'tblServicePhone' + idIndex}}" datatable  [dtTrigger]="dtTrigger" [dtOptions]="dtOptions"
+                      class="table table-bordered table-hover">
+                        <thead>
+                          <tr>
+                            <th style="font-family: unicode;">No</th>
+                            <th style="font-family: unicode;" class = "text-center">Bank Type</th>
+                            <th style="font-family: unicode;" class = "text-center">Account Name</th>
+                            <th style="font-family: unicode;" class = "text-center">Account Number</th>
+                            <th style="font-family: unicode;" class = "text-center">Limited Amount</th>
+                            <th style="font-family: unicode;" class = "text-center">Today Reach Amount</th>
+                            <th style="font-family: unicode;" class = "text-center">My Amount</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <ng-container *ngFor="let accDTO of accountDetailList, let i = index">
+                          <tr>
+                            <td style="font-family: unicode;padding: 0.35rem 0.75rem 0.30rem 0.75rem;">{{ i + 1 }}
+                            </td>
+                            <td style="font-family: unicode;padding: 0.35rem 2rem 0.30rem 0.75rem;text-align: left;width : 200px">
+                              {{accDTO.payment_type}}
+                            </td>
+                            <td style="font-family: unicode;padding: 0.35rem 2rem 0.30rem 0.75rem;text-align: left;width : 200px">
+                              {{accDTO.account_name}}
+                            </td>
+                            <td style="font-family: unicode;padding: 0.35rem 0.75rem 0.30rem 0.75rem;width : 200px">
+                              {{accDTO.account_no}}
+                            </td>
+                            <td style="font-family: unicode;padding: 0.35rem 2rem 0.30rem 0.75rem;text-align: right;width : 200px">
+                                  {{accDTO.limited_amt_Str}}
+                            </td>
+                            <td style="font-family: unicode;padding: 0.35rem 2rem 0.30rem 0.75rem;text-align: right;width : 200px">
+                              {{accDTO.today_reach_amt_Str}}
+                           </td>
+                           <td style="font-family: unicode;padding: 0.35rem 2rem 0.30rem 0.75rem;text-align: right;width : 200px">
+                            {{accDTO.my_amount_Str}}
+                         </td>
+                          </tr>
+                        </ng-container>
+                          <tr style="background-color:steelblue; color: white">
+                            <td style="font-family: unicode;padding: 0.35rem 0.75rem 0.30rem 0.75rem; text-align: right;" colspan="5">Today Total Reach Amount & My Amount</td>
+                            <td style="font-family: unicode;padding: 0.35rem 2rem 0.30rem 0.75rem;text-align: right; width : 200px">{{total_today_reach_amt}}</td>
+                            <td style="font-family: unicode;padding: 0.35rem 2rem 0.30rem 0.75rem;text-align: right; width : 200px">{{total_my_amount}}</td>
+                            <td class = "hidden" style="display: none; border: 0px ;"></td>
+                            <td class = "hidden" style="display: none; border: 0px ;"></td>
+                            <td class = "hidden" style="display: none; border: 0px ;"></td>
+                            <td class = "hidden" style="display: none; border: 0px ;"></td>
+                            <td class = "hidden" style="display: none; border: 0px ;"></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="deleteData" class="modal fade">
+      <div class="modal-dialog">
+          <div class="modal-content">
+  
+              <div class="modal-body">
+                  <form>
+  
+                      <div class="row" style="margin-top: 5%;margin-bottom: 3%;margin-left: 9%;">
+                          <div class="form-group col-md-12">
+                              <h5> This Account is used by another device. 
+                                  Please Sign Out. Login Again. </h5>
+                          </div>
+                      </div>
+  
+                      <div class="row" style="margin-left: 40%;margin-bottom: 3%;">
+                          <div class="col-md-5 col-sm-6" id="deleteBtn">
+                              <button type="button" class="btn btn-block btn-success" (click)="OkLogout()"> Ok </button>
+                          </div>
+                      </div>
+                  </form>
+              </div>
+  
+          </div>
+      </div>
+  </div>

@@ -1,0 +1,144 @@
+    <div class="wrapper">
+        <!-- Navbar -->
+        <app-header-sidebar></app-header-sidebar>
+  
+        <!-- here here here -->
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2" style="border: 1px solid #ced4da;border-radius: 0.25rem;">
+                <div class="col-sm-8">
+                  <h3 class="m-0 text-dark" style="font-weight: bold;padding: 3px 0px 3px 5px;"> Admin </h3>
+                </div>
+              </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+      
+          <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid">
+              <form>
+                <div class="row">
+
+                  <div class="form-group col-md-2">
+                    <label>Name</label>
+                    <input class="form-control form-control-sm" [(ngModel)]="name" [ngModelOptions]="{standalone: true}">
+                  </div>
+
+                  <div class="form-group col-md-2">
+                    <label>Phone No</label>
+                    <input class="form-control form-control-sm" [(ngModel)]="phoneNo" [ngModelOptions]="{standalone: true}">
+                  </div>
+
+                  <div class="form-group col-md-2">
+                    <label>Referral Code</label>
+                    <input class="form-control form-control-sm" [(ngModel)]="referralCode" [ngModelOptions]="{standalone: true}">
+                  </div>
+
+                  <div class="form-group col-md-2">
+                    <label>Status</label>
+                    <select class="status form-control form-control-sm col-md-12 col-sm-4 col-xs-4" [(ngModel)]="status" [ngModelOptions]="{standalone: true}">
+                      <option value="ACTIVE" selected>Active</option>
+                      <option value="INACTIVE">Inactive</option>
+                      <option value="">All</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group col-md-2 col-sm-4 col-xs-4">
+                    <label></label>
+                    <button id="search" type="button" class="btn btn-block btn-primary btn-sm" style="margin-top: 4%;" (click)="search()">Search</button>
+                  </div>
+
+                  <div class="form-group col-md-2 col-sm-4 col-xs-4">
+                    <label></label>
+                    <button type="button" class="btn btn-block btn-success btn-sm" style="margin-top: 4%;" [routerLink] = "['/admin-detail']"> Add New </button>
+                   </div>
+
+                  <div class="col-md-12">
+                    <div class="card">
+                      <div class="card-header">
+                        <h3 class="card-title" style="font-weight: bold;"> Admin List </h3>
+                      </div>
+                      <!-- /.card-header -->
+                      <div class="card-body">
+                        <table width='100%' id="{{'tblAdmin' + idIndex}}" datatable [dtTrigger]="dtTrigger" [dtOptions]="dtOptions" class="table table-bordered table-hover">
+                          <thead>
+                          <tr>
+                            <th style="font-family: unicode;">Name</th>
+                            <th style="font-family: unicode;">Phone No</th>
+							 <th style="font-family: unicode;">Role</th>
+                            <th style="font-family: unicode;">Referral Code</th>
+                            <th style="font-family: unicode;">Status</th>
+                            <th style="font-family: unicode;">Updated Date</th>
+                            <th style="font-family: unicode;">Updated By</th>
+                            <th style="font-family: unicode;">Action</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <tr *ngFor="let admin of adminList">
+                            <td style="font-family: unicode;">{{admin.name}}</td>
+                            <td style="font-family: unicode;">{{admin.phone_no}}</td>
+					              		<td style="font-family: unicode;">{{admin.role_name}}</td>
+                            <td style="font-family: unicode;">{{admin.referral_code}}</td>
+                            <td style="font-family: unicode;">{{admin.status}}</td>
+                            <td style="font-family: unicode;">{{admin.updated_date_string}}</td>
+                            <td style="font-family: unicode;">{{admin.updated_by_name}}</td>
+                            <td style="font-family: unicode;"><a [routerLink] = "['/admin-detail', admin.id]"><i class="fas fa-edit" style="color:#4b88eb"></i></a>
+                            </td>
+                          </tr>                        
+                          </tbody>
+                        </table>
+                      </div>
+                      <!-- /.card-body -->
+                    </div>
+                  </div>
+
+                </div>
+              </form>
+              <!-- /.row -->
+  
+              <!-- /.row -->
+            </div><!--/. container-fluid -->
+          </section>
+          <!-- /.content -->
+        </div>
+  
+        <aside class="control-sidebar control-sidebar-dark">
+          <!-- Control sidebar content goes here -->
+        </aside>
+  
+        <app-footer></app-footer>
+
+        <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="square-jelly-box">
+          <p style="font-size: 16px; color: white">Loading...</p>
+        </ngx-spinner>
+  
+    </div>
+    <div id="deleteData" class="modal fade">
+      <div class="modal-dialog">
+          <div class="modal-content">
+  
+              <div class="modal-body">
+                  <form>
+  
+                      <div class="row" style="margin-top: 5%;margin-bottom: 3%;margin-left: 9%;">
+                          <div class="form-group col-md-12">
+                              <h5> This Account is used by another device. 
+                                  Please Sign Out. Login Again. </h5>
+                          </div>
+                      </div>
+  
+                      <div class="row" style="margin-left: 40%;margin-bottom: 3%;">
+                          <div class="col-md-5 col-sm-6" id="deleteBtn">
+                              <button type="button" class="btn btn-block btn-success" (click)="OkLogout()"> Ok </button>
+                          </div>
+                      </div>
+                  </form>
+              </div>
+  
+          </div>
+      </div>
+  </div>

@@ -1,0 +1,162 @@
+
+<div class="wrapper" ng-app="" >
+  <app-header-sidebar></app-header-sidebar>
+
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+          <div class="container-fluid">
+            <!--<div class="row mb-2" style="border: 1px solid #ced4da;border-radius: 0.25rem;">
+              <div class="col-sm-8">
+                <h3 class="m-0 text-dark" style="font-weight: bold;padding: 3px 0px 3px 5px;"> 2D Bet History Report </h3>
+              </div>
+            </div>-->
+          </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+    
+        <!-- Main content -->
+        <section class="content">
+          <div class="container-fluid">
+           
+            <div class="card">
+              <div class="card-header">
+                  <h3 class="card-title" style="font-weight: bold;">  2D Bet History Report </h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+            <form>
+              <div class="row">
+                <div class="form-group col-md-2">
+                    <label>From Date </label><span class ="req">*</span>
+                </div>
+                <div class="form-group col-md-2">
+                  <input type = "date" style="width:250px;"   [(ngModel)]="fromdate" name = "fromdate" class="form-control form-control-sm" id = "fdate">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-2">
+                    <label>To Date</label><span class ="req">*</span>
+                </div>
+                <div class="form-group col-md-2">
+                  <input type = "date" style="width:250px;"  name = "todate" [(ngModel)]="todate" [ngModelOptions]="{standalone: true}" min="{{fromdate | date:'yyyy-MM-dd'}}" class="form-control form-control-sm" id = "tdate">
+                </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group col-md-2">
+                  <label>Phone</label><span class ="req">*</span>
+              </div>
+              <div class="form-group col-md-2">
+                <input type = "text" style="width:250px;" name = "phoneno" [(ngModel)]="phoneno" [ngModelOptions]="{standalone: true}"  id = "phoneno">
+              </div>
+          </div>
+
+          <div class="row" style = "display: none;">
+            <label class="col-md-2"> Order By </label>
+            <div class="form-group col-md-3 radio">
+              <div class="form-group clearfix">
+                <div class="icheck-success d-inline">
+                  <input type="radio" name="r1" checked id="radioSuccess1" value="number"
+                    [(ngModel)]="orderby" [ngModelOptions]="{standalone: true}" selected>
+                  <label for="radioSuccess1"> Number &nbsp;&nbsp; </label>
+                </div>
+                <div class="icheck-success d-inline">
+                  <input type="radio" name="r1" id="radioSuccess2" value="amount"
+                    [(ngModel)]="orderby" [ngModelOptions]="{standalone: true}">
+                  <label for="radioSuccess2"> Amount </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+            <div class="row">
+                <div class="form-group col-md-2">
+                    <label>Section</label><span class ="req">*</span>
+                </div>
+                <div class="form-group col-md-2">
+                  <select id = "section" style="width:250px;"  class="form-control form-control-sm" [(ngModel)]="section" [ngModelOptions]="{standalone: true}">
+                      <option value = "AM" selected>AM</option>
+                      <option value = "PM">PM</option>
+                      <option value = "">All</option>
+                  </select>
+                </div>
+            </div>
+                <div class="row">
+                  <div class = "col-lg-2">
+                    <label> Choose Option</label>
+                   </div>
+                   <div class="form-group col-md-5" style="cursor: pointer;">
+                    <img *ngIf="!clickkbzpay" src="assets/image/excel_pm.png" (click) = "getReportOption('excel')"
+                      style="opacity: 0.3; height : 60px ;width: 60px;object-fit: cover;padding-left : 0px;border: 3px solid #ffffff;border-radius: 10px;border-color: #ffffff;">
+                    <img *ngIf="clickkbzpay" src="assets/image/excel_pm.png" (click) = "getReportOption('excel')"
+                     style="opacity: 1; height : 60px ; width: 60px; object-fit: cover;border: 3px sol;border-radius: 10px;padding-left : 0px;">
+                     &nbsp;&nbsp;
+    
+                    <img *ngIf="!clickwavepay" src="assets/image/pdf3.png" (click) = "getReportOption('pdf')"
+                      style="opacity: 0.3; margin-left : 2px; height : 60px ;width: 60px;object-fit: cover;border: 3px solid #ffffff;border-radius: 10px;border-color: #ffffff;">
+                    <img *ngIf="clickwavepay" src="assets/image/pdf3.png" (click) = "getReportOption('pdf')"
+                     style="opacity: 1; height : 60px ; margin-left : 2px; width: 60px;object-fit: cover;border: 3px sol;border-radius: 10px">
+    
+                     &nbsp;&nbsp;
+    
+                    <img *ngIf="!csvrep" src="assets/image/csv3.png" (click) = "getReportOption('csv')"
+                      style="opacity: 0.3; padding-left :0px; height : 60px ;width: 60px;object-fit: cover;border: 3px solid #ffffff;border-radius: 10px;border-color: #ffffff;">
+                    <img *ngIf="csvrep" src="assets/image/csv3.png" (click) = "getReportOption('csv')"
+                     style="opacity: 1; height : 60px ; padding-left : 0px; width: 60px;object-fit: cover;border: 3px sol;border-radius: 10px">
+                    </div> 
+                </div>
+                <div class="row">
+                  <div class="form-group col-md-2 col-sm-4 col-xs-4">
+                  </div>
+                <div class="form-group col-md-2 col-sm-4 col-xs-4">
+                    <label></label>
+                    <button id="generaterep" type="button" class="btn btn-block btn-primary btn-sm" style="margin-top: 4%;" (click)="twodReport()">Generate Report</button>
+                </div>
+                </div>
+            </form>
+            </div><!--card body-->
+            </div><!--card-->
+            <!-- /.row -->
+          </div><!--/. container-fluid -->
+        </section>
+        <!-- /.content -->
+      </div>
+
+      <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+      </aside>
+    
+ <app-footer></app-footer>
+     <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="square-jelly-box">
+      <p style="font-size: 16px; color: white">Loading...</p>
+    </ngx-spinner> 
+</div>
+
+
+<div id="deleteData" class="modal fade">
+  <div class="modal-dialog">
+      <div class="modal-content">
+
+          <div class="modal-body">
+              <form>
+
+                  <div class="row" style="margin-top: 5%;margin-bottom: 3%;margin-left: 9%;">
+                      <div class="form-group col-md-12">
+                          <h5> This Account is used by another device. 
+                              Please Sign Out. Login Again. </h5>
+                      </div>
+                  </div>
+
+                  <div class="row" style="margin-left: 40%;margin-bottom: 3%;">
+                      <div class="col-md-5 col-sm-6" id="deleteBtn">
+                          <button type="button" class="btn btn-block btn-success" (click)="OkLogout()"> Ok </button>
+                      </div>
+                  </div>
+              </form>
+          </div>
+
+      </div>
+  </div>
+</div>

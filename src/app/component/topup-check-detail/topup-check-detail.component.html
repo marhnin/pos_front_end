@@ -1,0 +1,183 @@
+<div class="wrapper">
+    <!-- Navbar -->
+    <app-header-sidebar></app-header-sidebar>
+
+    <!-- here here here -->
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <!--<div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0 text-dark">Top-up Detail</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a [routerLink]="['/topup-check-list']">Top-up List</a></li>
+                            <li class="breadcrumb-item active">Top-up Detail</li>
+                        </ol>
+                    </div> 
+                </div> -->
+                <!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <form>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title" style="font-weight: bold;"> Top-up Detail </h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+
+                                        <div class="row">
+                                            <label class="col-md-2">Payment</label>
+                                           
+                                            <div class="form-group col-md-10">
+                                                <div class="row">
+                                                    <div id="paymentId" class="col-md-6" align="left">
+                                                        <div class = "row">
+                                                        <a *ngFor = "let item of paymentList">
+                                                            <div class="col-lg-3">
+                                                                <img id="{{item.id}}" (click) ="changeAction(item.id)" [src]="item.image_url" width = "80px" hegith = "80px" style="margin-top: 5%;object-fit: cover;border: 3px solid #ffffff;border-radius: 10px;border-color: #ffffff;"
+                                                               >
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                        </div>
+                                                    <div id="paymentId1" class="col-md-6"  align="end">
+                                                       
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <label class="col-md-2">Choose Account Number</label>
+                                            <div class="form-group col-md-3">
+                                                <select (change) = "flagAcc()" id="acc" class="form-control form-control-sm col-md-12 col-sm-4 col-xs-4"
+                                                [(ngModel)]="model.account_no" [ngModelOptions]="{standalone: true}" >
+                                                    <option *ngFor="let acc of paymentAccList" value={{acc.id}}>
+                                                        {{acc.account_name}} - {{acc.account_no}}
+                                                </select>
+                                            </div>
+                                        </div> 
+
+                                        <div class="row">
+                                            <label class="col-md-2">Amount</label>
+                                            <div class="form-group col-md-3">
+                                                <input id="amount" type="string" class="form-control form-control-sm"
+                                                    [(ngModel)]="model.amount" [ngModelOptions]="{standalone: true}"
+                                                    (keypress)="numericOnly($event)">
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <label class="col-md-2">Transaction No</label>
+                                            <div class="form-group col-md-3">
+                                                <input id="transactionNo" type="text" maxlength="20" onKeyPress="if(this.value.length==20) return false;"
+                                                    class="form-control form-control-sm" [(ngModel)]="model.transaction_no"
+                                                    [ngModelOptions]="{standalone: true}" (keypress)="numericOnly($event)">
+                                            </div>
+                                        </div>     
+                                        
+                                        <div class="row" style="margin-top: 1%;">
+                                            <div class="col-md-2 col-sm-6">
+                                                <button type="button" class="btn btn-block btn-success"
+                                                    (click)="save()">Save</button></div>
+                                            <div class="col-md-2 col-sm-6">
+                                                <button type="button" class="btn btn-block btn-danger"
+                                                [routerLink] = "['/topup-check-list']">Cancel</button></div>
+                                           </div>
+                                    
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+                <!-- /.row -->
+
+                <!-- /.row -->
+            </div>
+            <!--/. container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+
+    <app-footer></app-footer>
+
+    <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="square-jelly-box">
+        <p style="font-size: 16px; color: white">Loading...</p>
+    </ngx-spinner>
+
+</div>
+
+<div id="deleteData" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <form>
+
+                    <div class="row" style="margin-top: 5%;margin-bottom: 3%;margin-left: 9%;">
+                        <div class="form-group col-md-12">
+                            <h5> This Account is used by another device. 
+                                Please Sign Out. Login Again. </h5>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-left: 40%;margin-bottom: 3%;">
+                        <div class="col-md-5 col-sm-6" id="deleteBtn">
+                            <button type="button" class="btn btn-block btn-success" (click)="OkLogout()"> Ok </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div id="confirmData" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <form>
+
+                    <div class="row" style="margin-top: 5%;margin-bottom: 3%;margin-left: 9%;">
+                        <div class="form-group col-md-12">
+                            <h5>Are you sure? Please check your data. </h5>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-left: 10%;margin-bottom: 3%;">
+                        <div class="col-md-5 col-sm-6" id="deleteBtn">
+                            <button type="button" class="btn btn-block btn-success" (click)="save()"> Ok </button>
+                        </div>
+
+                        <div class="col-md-5 col-sm-6">
+                            <button type="button" class="btn btn-block btn-danger" [routerLink]="['/topup-check-detail']"> Cancel </button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

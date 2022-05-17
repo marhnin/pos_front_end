@@ -1,0 +1,529 @@
+<div class="wrapper">
+  <app-header-sidebar></app-header-sidebar>
+
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2" style="border: 1px solid #ced4da;border-radius: 0.25rem;">
+          <div class="col-sm-6">
+            <h3 class="m-0 text-dark" style="font-weight: bold;padding: 3px 0px 3px 5px;"> Agent Withdraw List </h3>
+          </div>
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <form>
+          <div class="row">
+
+            <div class="col-md-12">
+              <!-- Nav tabs -->
+              <ul class="nav nav-tabs nav-pills">
+                <li (click)="search()">
+                  <a class="active" id="all-tab" data-toggle="tab" href="#all"> ALL </a>
+                </li>
+                <li (click)="pendingSearch()">
+                  <a id="pending-tab" data-toggle="tab" href="#pending"> PENDING </a>
+                </li>
+                <li (click)="checkedSearch()">
+                  <a id="checked-tab" data-toggle="tab" href="#checked"> CHECKED </a>
+                </li>
+                <li (click)="approveSearch()">
+                  <a id="approve-tab" data-toggle="tab" href="#approve"> APPROVED </a>
+                </li>
+                <li (click)="deniedSearch()">
+                  <a id="denied-tab" data-toggle="tab" href="#denied"> DENIED </a>
+                </li>
+              </ul>
+
+              <!-- Tab panes -->
+              <div class="tab-content clearfix">
+
+                <div class="tab-pane show active" id="all">
+                  <div class="row">
+
+                    <div class="form-group col-md-2">
+                      <label>Agent Name</label>
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="name"
+                        [ngModelOptions]="{standalone: true}">
+                    </div>
+
+                    <div class="form-group col-md-2">
+                      <label>Referral Code</label>
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="refCode"
+                        [ngModelOptions]="{standalone: true}">
+                    </div>
+
+                    <div class="form-group col-md-2">
+                      <label>Amount</label>
+                      <input type="number" class="form-control form-control-sm" [(ngModel)]="amount"
+                        [ngModelOptions]="{standalone: true}">
+                    </div>
+
+                    <div class="form-group col-md-2">
+                      <label>Account No</label>
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="accountNo"
+                        [ngModelOptions]="{standalone: true}">
+                    </div>
+                    <!--<div class="col-md-6"></div>-->
+                    <div class="form-group col-md-2 col-sm-4 col-xs-4">
+                      <label></label>
+                      <button id="search" type="button" class="btn btn-block btn-primary btn-sm" style="margin-top: 4%;"
+                        (click)="search()">Search</button>
+                    </div>
+
+                    <div class="form-group col-md-2 col-sm-4 col-xs-4">
+                      <label></label>
+                      <button type="button" class="btn btn-block btn-success btn-sm" style="margin-top: 4%;"
+                        [routerLink]="['/add-new-withdraw']">
+                        Add New
+                      </button>
+                    </div>
+
+                    <div class="col-md-12">
+                      <div class="card">
+                        <div class="card-header">
+                          <h3 class="card-title" style="font-weight: bold;"> Agent Withdraw All List </h3>
+                        </div>
+                        <div class="card-body">
+                          <table width='100%' id="{{'tblWithdraw' + idIndex}}" datatable [dtTrigger]="dtTrigger"
+                            [dtOptions]="dtOptions" class="table table-bordered table-hover">
+                            <thead>
+                              <tr>
+                                <th style="font-family: unicode;">Name</th>
+								                <th style="font-family: unicode;">Ref Code</th>
+                                <th style="font-family: unicode;">Account No</th>
+                                <th style="font-family: unicode;">Payment</th>
+                                <th style="font-family: unicode;">Wallet Amount</th>
+                                <th style="font-family: unicode;">Amount</th>
+                                <th style="font-family: unicode;">Requested Date</th>
+                               <!-- <th style="font-family: unicode;">Requested By</th>-->
+                                <th style="font-family: unicode;">Update Date</th>
+                                <th style="font-family: unicode;">Updated By</th>
+                                <th style="font-family: unicode;">Status</th>
+                                <th style="font-family: unicode;">Action</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let withdraw of withdrawList">
+                                <td style="font-family: unicode;">{{withdraw.name}}</td>
+                                <td style="font-family: unicode;">{{withdraw.refcode}}</td> <!--<a [routerLink] = "['/user-detail', withdraw.agentId]">{{withdraw.phoneNo}}</a>-->
+                                <td style="font-family: unicode;">{{withdraw.phoneNo}}</td>
+                                <td style="font-family: unicode;">{{withdraw.payment}}</td>
+							                	 <td style="font-family: unicode;" class="text-right">{{withdraw.balance}}</td>
+                                <td style="font-family: unicode;" class="text-right">{{withdraw.amount}}</td>
+                                <td style="font-family: unicode;">{{withdraw.createdDate}}</td>
+                                <!-- <td style="font-family: unicode;">{{withdraw.userName}}</td>-->
+                                <td style="font-family: unicode;">{{withdraw.updatedDate}}</td>
+                                <td style="font-family: unicode;">{{withdraw.updatedBy}}</td>
+                                <td style="font-family: unicode;">{{withdraw.status}}</td>
+                                <td style="font-family: unicode;"><a
+                                    [routerLink]="['/agent-withdraw-check-detail', withdraw.id]"><i class="fas fa-edit"
+                                      style="color:#4b88eb"></i></a>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="tab-pane" id="pending">
+                  <div class="row">
+
+                    <div class="form-group col-md-2">
+                      <label>Agent Name</label>
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="name"
+                        [ngModelOptions]="{standalone: true}">
+                    </div>
+
+                    <div class="form-group col-md-2">
+                      <label>Ref Code</label>
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="refCode"
+                        [ngModelOptions]="{standalone: true}">
+                    </div>
+
+                    <div class="form-group col-md-2">
+                      <label>Amount</label>
+                      <input type="number" class="form-control form-control-sm" [(ngModel)]="amount"
+                        [ngModelOptions]="{standalone: true}">
+                    </div>
+
+                    <div class="form-group col-md-2">
+                      <label>Account No</label>
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="pendingaccountNo"
+                        [ngModelOptions]="{standalone: true}">
+                    </div>
+                    <!--<div class="col-md-6"></div>-->
+                    <div class="form-group col-md-2 col-sm-4 col-xs-4">
+                      <label></label>
+                      <button id="search" type="button" class="btn btn-block btn-primary btn-sm" style="margin-top: 4%;"
+                        (click)="search()">Search</button>
+                    </div>
+
+                    <div class="form-group col-md-2 col-sm-4 col-xs-4">
+                      <label></label>
+                      <button type="button" class="btn btn-block btn-success btn-sm" style="margin-top: 4%;"
+                        [routerLink]="['/add-new-withdraw']">
+                        Add New
+                      </button>
+                    </div>
+
+                    <div class="col-md-12">
+                      <div class="card">
+                        <div class="card-header">
+                          <h3 class="card-title" style="font-weight: bold;"> Agent Withdraw Pending List </h3>
+                        </div>
+                        <div class="card-body">
+                          <table width='100%' id="{{'tblpendingWithdraw' + idpendingIndex}}" datatable
+                            [dtTrigger]="dtTrigger1" [dtOptions]="dtOptions1" class="table table-bordered table-hover">
+                            <thead>
+                              <tr>
+                                <th style="font-family: unicode;">Name</th>
+								                <th style="font-family: unicode;">Ref Code</th>
+                                <th style="font-family: unicode;">Account No</th>
+                                <th style="font-family: unicode;">Payment</th>
+                                <th style="font-family: unicode;">Wallet</th>
+                                <th style="font-family: unicode;">Amount</th>
+                                <th style="font-family: unicode;">Requested Date</th>
+                               <!-- <th style="font-family: unicode;">Requested By</th>-->
+                                <th style="font-family: unicode;">Update Date</th>
+                                <th style="font-family: unicode;">Updated By</th>
+                                <th style="font-family: unicode;">Status</th>
+                                <th style="font-family: unicode;">Action</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let withdraw of withdrawPendingList">
+                                <td style="font-family: unicode;">{{withdraw.name}}</td>
+                                <td style="font-family: unicode;">{{withdraw.refcode}}</td>
+                                <td style="font-family: unicode;">{{withdraw.phoneNo}}</td>
+                                <td style="font-family: unicode;">{{withdraw.payment}}</td>
+							                	 <td style="font-family: unicode;" class="text-right">{{withdraw.balance}}</td>
+                                <td style="font-family: unicode;" class="text-right">{{withdraw.amount}}</td>
+                                <td style="font-family: unicode;">{{withdraw.createdDate}}</td>
+                               <!-- <td style="font-family: unicode;">{{withdraw.userName}}</td>-->
+                                <td style="font-family: unicode;">{{withdraw.updatedDate}}</td>
+                                <td style="font-family: unicode;">{{withdraw.updatedBy}}</td>
+                                <td style="font-family: unicode;">{{withdraw.status}}</td>
+                                <td style="font-family: unicode;"><a
+                                    [routerLink]="['/agent-withdraw-check-detail', withdraw.id]"><i class="fas fa-edit"
+                                      style="color:#4b88eb"></i></a>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="tab-pane" id="checked">
+                  <div class="row">
+
+                    <div class="form-group col-md-2">
+                      <label>Agent Name</label>
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="name"
+                        [ngModelOptions]="{standalone: true}">
+                    </div>
+
+                    <div class="form-group col-md-2">
+                      <label>Ref Code</label>
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="refCode"
+                        [ngModelOptions]="{standalone: true}">
+                    </div>
+
+                    <div class="form-group col-md-2">
+                      <label>Amount</label>
+                      <input type="number" class="form-control form-control-sm" [(ngModel)]="amount"
+                        [ngModelOptions]="{standalone: true}">
+                    </div>
+
+                    <div class="form-group col-md-2">
+                      <label>Account No</label>
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="checkedaccountNo"
+                        [ngModelOptions]="{standalone: true}">
+                    </div>
+                    <!--<div class="col-md-6"></div>-->
+                    <div class="form-group col-md-2 col-sm-4 col-xs-4">
+                      <label></label>
+                      <button id="search" type="button" class="btn btn-block btn-primary btn-sm" style="margin-top: 4%;"
+                        (click)="search()">Search</button>
+                    </div>
+
+                    <div class="form-group col-md-2 col-sm-4 col-xs-4">
+                      <label></label>
+                      <button type="button" class="btn btn-block btn-success btn-sm" style="margin-top: 4%;"
+                        [routerLink]="['/add-new-withdraw']">
+                        Add New
+                      </button>
+                    </div>
+
+                    <div class="col-md-12">
+                      <div class="card">
+                        <div class="card-header">
+                          <h3 class="card-title" style="font-weight: bold;">Agent Withdraw Checked List </h3>
+                        </div>
+                        <div class="card-body">
+                          <table width='100%' id="{{'tblcheckedWithdraw' + idcheckedIndex}}" datatable
+                            [dtTrigger]="dtTrigger4" [dtOptions]="dtOptions4" class="table table-bordered table-hover">
+                            <thead>
+                              <tr>
+                                <th style="font-family: unicode;">Name</th>
+								                <th style="font-family: unicode;">Ref Code</th>
+                                <th style="font-family: unicode;">Account No</th>
+                                <th style="font-family: unicode;">Payment</th>
+                                <th style="font-family: unicode;">Wallet</th>
+                                <th style="font-family: unicode;">Amount</th>
+                                <th style="font-family: unicode;">Requested Date</th>
+                             <!--   <th style="font-family: unicode;">Requested By</th>-->
+                                <th style="font-family: unicode;">Update Date</th>
+                                <th style="font-family: unicode;">Updated By</th>
+                                <th style="font-family: unicode;">Status</th>
+                                <th style="font-family: unicode;">Action</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let withdraw of withdrawCheckedList">
+                                <td style="font-family: unicode;">{{withdraw.name}}</td>
+                                <td style="font-family: unicode;">{{withdraw.refcode}}</td>
+                                <td style="font-family: unicode;">{{withdraw.phoneNo}}</td>
+                                <td style="font-family: unicode;">{{withdraw.payment}}</td>
+							                	 <td style="font-family: unicode;" class="text-right">{{withdraw.balance}}</td>
+                                <td style="font-family: unicode;" class="text-right">{{withdraw.amount}}</td>
+                                <td style="font-family: unicode;">{{withdraw.createdDate}}</td>
+                               <!-- <td style="font-family: unicode;">{{withdraw.userName}}</td>-->
+                                <td style="font-family: unicode;">{{withdraw.updatedDate}}</td>
+                                <td style="font-family: unicode;">{{withdraw.updatedBy}}</td>
+                                <td style="font-family: unicode;">{{withdraw.status}}</td>
+                                <td style="font-family: unicode;"><a
+                                    [routerLink]="['/agent-withdraw-check-detail', withdraw.id]"><i class="fas fa-edit"
+                                      style="color:#4b88eb"></i></a>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="tab-pane" id="approve">
+                  <div class="row">
+
+                    <div class="form-group col-md-2">
+                      <label>Agent Name</label>
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="name"
+                        [ngModelOptions]="{standalone: true}">
+                    </div>
+
+                    <div class="form-group col-md-2">
+                      <label>Ref Code</label>
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="refCode"
+                        [ngModelOptions]="{standalone: true}">
+                    </div>
+
+                    <div class="form-group col-md-2">
+                      <label>Amount</label>
+                      <input type="number" class="form-control form-control-sm" [(ngModel)]="amount"
+                        [ngModelOptions]="{standalone: true}">
+                    </div>
+
+                    <div class="form-group col-md-2">
+                      <label>Account No</label>
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="approveaccountNo"
+                        [ngModelOptions]="{standalone: true}">
+                    </div>
+                    <!--<div class="col-md-6"></div>-->
+                    <div class="form-group col-md-2 col-sm-4 col-xs-4">
+                      <label></label>
+                      <button id="search" type="button" class="btn btn-block btn-primary btn-sm" style="margin-top: 4%;"
+                        (click)="search()">Search</button>
+                    </div>
+
+                    <div class="form-group col-md-2 col-sm-4 col-xs-4">
+                      <label></label>
+                      <button type="button" class="btn btn-block btn-success btn-sm" style="margin-top: 4%;"
+                        [routerLink]="['/add-new-withdraw']">
+                        Add New
+                      </button>
+                    </div>
+
+                    <div class="col-md-12">
+                      <div class="card">
+                        <div class="card-header">
+                          <h3 class="card-title" style="font-weight: bold;"> Agent Withdraw Approved List </h3>
+                        </div>
+                        <div class="card-body">
+                          <table width='100%' id="{{'tblapproveWithdraw' + idapproveIndex}}" datatable
+                            [dtTrigger]="dtTrigger2" [dtOptions]="dtOptions2" class="table table-bordered table-hover">
+                            <thead>
+                              <tr>
+                                <th style="font-family: unicode;">Name</th>
+								                <th style="font-family: unicode;">Ref Code</th>
+                                <th style="font-family: unicode;">Account No</th>
+                                <th style="font-family: unicode;">Payment</th>
+                                <th style="font-family: unicode;">Wallet</th>
+                                <th style="font-family: unicode;">Amount</th>
+                                <th style="font-family: unicode;">Requested Date</th>
+                               <!-- <th style="font-family: unicode;">Requested By</th> -->
+                                <th style="font-family: unicode;">Update Date</th>
+                                <th style="font-family: unicode;">Updated By</th>
+                                <th style="font-family: unicode;">Status</th>
+                                <th style="font-family: unicode;">Action</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let withdraw of withdrawApproveList">
+                                <td style="font-family: unicode;">{{withdraw.name}}</td>
+                                <td style="font-family: unicode;">{{withdraw.refcode}}</td>
+                                <td style="font-family: unicode;">{{withdraw.phoneNo}}</td>
+                                <td style="font-family: unicode;">{{withdraw.payment}}</td>
+							                	 <td style="font-family: unicode;" class="text-right">{{withdraw.balance}}</td>
+                                <td style="font-family: unicode;" class="text-right">{{withdraw.amount}}</td>
+                                <td style="font-family: unicode;">{{withdraw.createdDate}}</td>
+                             <!-- <td style="font-family: unicode;">{{withdraw.userName}}</td> --> 
+                                <td style="font-family: unicode;">{{withdraw.updatedDate}}</td>
+                                <td style="font-family: unicode;">{{withdraw.updatedBy}}</td>
+                                <td style="font-family: unicode;">{{withdraw.status}}</td>
+                                <td style="font-family: unicode;"><a
+                                    [routerLink]="['/agent-withdraw-check-detail', withdraw.id]"><i class="fas fa-edit"
+                                      style="color:#4b88eb"></i></a>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="tab-pane" id="denied">
+                  <div class="row">
+
+                    <div class="form-group col-md-2">
+                      <label>Agent Name</label>
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="name"
+                        [ngModelOptions]="{standalone: true}">
+                    </div>
+
+                    <div class="form-group col-md-2">
+                      <label>Ref Code</label>
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="refCode"
+                        [ngModelOptions]="{standalone: true}">
+                    </div>
+
+                    <div class="form-group col-md-2">
+                      <label>Amount</label>
+                      <input type="number" class="form-control form-control-sm" [(ngModel)]="amount"
+                        [ngModelOptions]="{standalone: true}">
+                    </div>
+
+                    <div class="form-group col-md-2">
+                      <label>Account No</label>
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="deniedaccountNo"
+                        [ngModelOptions]="{standalone: true}">
+                    </div>
+                    <!--<div class="col-md-6"></div>-->
+                    <div class="form-group col-md-2 col-sm-4 col-xs-4">
+                      <label></label>
+                      <button id="search" type="button" class="btn btn-block btn-primary btn-sm" style="margin-top: 4%;"
+                        (click)="search()">Search</button>
+                    </div>
+
+                    <div class="form-group col-md-2 col-sm-4 col-xs-4">
+                      <label></label>
+                      <button type="button" class="btn btn-block btn-success btn-sm" style="margin-top: 4%;"
+                        [routerLink]="['/add-new-withdraw']">
+                        Add New
+                      </button>
+                    </div>
+                    
+                    <div class="col-md-12">
+                      <div class="card">
+                        <div class="card-header">
+                          <h3 class="card-title" style="font-weight: bold;">Agent Withdraw Denied List</h3>
+                        </div>
+                        <div class="card-body">
+                          <table width='100%' id="{{'tbldeniedWithdraw' + iddeniedIndex}}" datatable
+                            [dtTrigger]="dtTrigger3" [dtOptions]="dtOptions3" class="table table-bordered table-hover">
+                            <thead>
+                              <tr>
+                                <th style="font-family: unicode;">Name</th>
+								                <th style="font-family: unicode;">Ref Code</th>
+                                <th style="font-family: unicode;">Account No</th>
+                                <th style="font-family: unicode;">Payment</th>
+                                <th style="font-family: unicode;">Wallet</th>
+                                <th style="font-family: unicode;">Amount</th>
+                                <th style="font-family: unicode;">Requested Date</th>
+                               <!--<th style="font-family: unicode;">Requested By</th>-->
+                                <th style="font-family: unicode;">Update Date</th>
+                                <th style="font-family: unicode;">Updated By</th>
+                                <th style="font-family: unicode;">Status</th>
+                                <th style="font-family: unicode;">Action</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let withdraw of withdrawDeniedList">
+                                <td style="font-family: unicode;">{{withdraw.name}}</td>
+                                <td style="font-family: unicode;">{{withdraw.refcode}}</td>
+                                <td style="font-family: unicode;">{{withdraw.phoneNo}}</td>
+                                <td style="font-family: unicode;">{{withdraw.payment}}</td>
+							                	 <td style="font-family: unicode;" class="text-right">{{withdraw.balance}}</td>
+                                <td style="font-family: unicode;" class="text-right">{{withdraw.amount}}</td>
+                                <td style="font-family: unicode;">{{withdraw.createdDate}}</td>
+                               <!--<td style="font-family: unicode;">{{withdraw.userName}}</td>-->
+                                <td style="font-family: unicode;">{{withdraw.updatedDate}}</td>
+                                <td style="font-family: unicode;">{{withdraw.updatedBy}}</td>
+                                <td style="font-family: unicode;">{{withdraw.status}}</td>
+                                <td style="font-family: unicode;"><a
+                                    [routerLink]="['/agent-withdraw-check-detail', withdraw.id]"><i class="fas fa-edit"
+                                      style="color:#4b88eb"></i></a>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </form>
+        <!-- /.row -->
+
+        <!-- /.row -->
+      </div>
+      <!--/. container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+
+  <app-footer></app-footer>
+  <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="square-jelly-box">
+    <p style="font-size: 16px; color: white">Loading...</p>
+  </ngx-spinner>
+</div>

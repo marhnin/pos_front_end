@@ -1,0 +1,9 @@
+
+label:not(.form-check-label):not(.custom-file-label) {
+    font-weight: 500;
+}
+
+.fa-eye-slash:hover,
+.fa-eye:hover {
+  cursor: pointer;
+}

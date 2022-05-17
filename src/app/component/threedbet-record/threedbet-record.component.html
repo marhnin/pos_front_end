@@ -1,0 +1,215 @@
+<div class="wrapper">
+  <app-header-sidebar></app-header-sidebar>
+
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2" style="border: 1px solid #ced4da;border-radius: 0.25rem;">
+          <div class="col-sm-8">
+            <h3 class="m-0 text-dark" style="font-weight: bold;padding: 3px 0px 3px 5px;"> 3D Bet History </h3>
+          </div>
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <form>
+          <div class="row">
+		  <div class="form-group col-md-2">
+              <label>Phone No</label>
+              <input id='phoneNo' type="text" list="users" class="form-control form-control-sm" [(ngModel)]="phoneNo"
+                [ngModelOptions]="{standalone: true}">
+              <datalist id="users">
+                <option *ngFor="let user of userList" value={{user.phoneNo}}>
+              </datalist>
+            </div>
+            <div class="form-group col-md-2">
+              <label>From Date</label>
+              <input id="singleDate" readonly class="form-control form-control-sm" placeholder="Select Date"
+                [ngxDatePicker]="dateInstanceSingle" [value]="singleDate" (valueChange)="onChangeSingle()"
+                [(ngModel)] = "date"  [ngModelOptions]="{standalone: true}" >
+              <ngx-date-picker #dateInstanceSingle></ngx-date-picker>
+            </div>
+
+            <div class="form-group col-md-2">
+              <label>To Date</label>
+              <input id="singleDate1" readonly class="form-control form-control-sm" placeholder="Select Date"
+                [ngxDatePicker]="dateInstanceSingle1" [value]="singleDate1" (valueChange)="onChangeSingle1()"
+                [(ngModel)] = "toDate" [ngModelOptions]="{standalone: true}" >
+              <ngx-date-picker #dateInstanceSingle1></ngx-date-picker>
+            </div>
+
+
+        <!--    <div class="col-md-6"></div>  <div class="form-group col-md-2 col-sm-4 col-xs-4">
+			   -->
+
+           
+			<div class="form-group col-md-2">
+              <label></label>
+              <button id="search" type="button" class="btn btn-block btn-primary btn-sm" style="margin-top: 4%;"
+                (click)="search()">Search</button>
+            </div>
+
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title" style="font-weight: bold;"> 3D Bet History List </h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                  <table width='100%' id="{{'tblthreedbet' + idIndex}}" datatable [dtTrigger]="dtTrigger"
+                    [dtOptions]="dtOptions" class="table table-bordered table-hover">
+                    <thead>
+                      <tr>
+                        <th style="font-family: unicode;">Phone No</th>
+                        <th style="font-family: unicode;">Name</th>
+                        <th style="font-family: unicode;">Total Amount</th>
+                        <th style="font-family: unicode;">Discount Amount</th>
+                        <th style="font-family: unicode;">Discount Percentage</th>
+                        <th style="font-family: unicode;">Created Date</th>
+                        <th style="font-family: unicode;">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let threedbet of threedbetList">
+                        <td style="font-family: unicode;"><a [routerLink] = "['/user-detail', threedbet.user_id]">{{threedbet.phone_no}}</a></td>
+                        <td style="font-family: unicode;">{{threedbet.name}}</td>
+                        <td style="font-family: unicode;" class="text-right" width="10%">{{threedbet.total_amount_Str}}</td>
+                        <td style="font-family: unicode;" >{{threedbet.discountAmt_Str}}</td>
+                        <td style="font-family: unicode;" >{{threedbet.discountPercent}}</td>
+                        <td style="font-family: unicode;">{{threedbet.created_date_Str}}</td>
+                        <td style="font-family: unicode;"><i class="far fa-eye" style="color:#4b88eb; cursor: pointer;"
+                            (click)="goModal(threedbet.id,threedbet.phone_no,threedbet.name,threedbet.total_amount_Str,threedbet.created_date)"></i>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /.card-body -->
+              </div>
+            </div>
+          </div>
+
+        </form>
+        <!-- /.row -->
+
+        <!-- /.row -->
+      </div>
+      <!--/. container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+
+  <app-footer></app-footer>
+  <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="square-jelly-box">
+    <p style="font-size: 16px; color: white">Loading...</p>
+  </ngx-spinner>
+</div>
+
+<div id="browseAccountData" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" style="font-weight: bold;font-size: 1.1rem;"> 3D Bet History Detail </h3>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> x </button>
+      </div>
+
+      <div class="modal-body">
+        <form>
+          <div class="col-md-12">
+
+            <div class="row" style="margin-left: 0.1%;">
+              <label class="col-md-2"> PhoneNo </label>
+              <div class="form-group col-md-3">
+                <input class="form-control form-control-sm" [(ngModel)]="phoneNo2" [ngModelOptions]="{standalone: true}"
+                  disabled>
+              </div>
+              <div class="col-md-1"></div>
+              <label class="col-md-2">Total</label>
+              <div class="form-group col-md-3">
+                <input class="form-control form-control-sm" [(ngModel)]="totalAmount"
+                  [ngModelOptions]="{standalone: true}" disabled>
+              </div>
+            </div>
+
+            <div class="row" style="margin-left: 0.1%;">
+              <label class="col-md-2">Name</label>
+              <div class="form-group col-md-3">
+                <input class="form-control form-control-sm" [(ngModel)]="userName" [ngModelOptions]="{standalone: true}"
+                  disabled>
+              </div>
+              <div class="col-md-1"></div>
+              <label class="col-md-2">Bet Date</label>
+              <div class="form-group col-md-3">
+                <input class="form-control form-control-sm" [(ngModel)]="createdDate"
+                  [ngModelOptions]="{standalone: true}" disabled>
+              </div>
+            </div>
+
+            <div class="col-md-12" style="margin-top: 0.5%;">
+              <div class="card">
+                <div class="card-body">
+                  <table width='100%' id="{{'tblthreedbetdetail' + idIndex2}}" datatable [dtTrigger]="dtTrigger2"
+                    [dtOptions]="dtOptions2" class="table table-bordered table-hover">
+                    <thead>
+                      <tr>
+                        <th style="font-family: unicode;">No</th>
+                        <th style="font-family: unicode;">Bet Number</th>
+                        <th style="font-family: unicode;">Amount</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let threedbetd of threeDBetDetailDTOList, let i = index">
+                        <td style="font-family: unicode;padding: 0.35rem 0.75rem 0.30rem 0.75rem;">{{ i + 1 }}</td>
+                        <td style="font-family: unicode;padding: 0.35rem 0.75rem 0.30rem 0.75rem;">
+                          {{threedbetd.number}}</td>
+                        <td style="font-family: unicode;padding: 0.35rem 0.75rem 0.30rem 0.75rem;">
+                          {{threedbetd.total_amount_Str}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div id="deleteData" class="modal fade">
+  <div class="modal-dialog">
+      <div class="modal-content">
+
+          <div class="modal-body">
+              <form>
+
+                  <div class="row" style="margin-top: 5%;margin-bottom: 3%;margin-left: 9%;">
+                      <div class="form-group col-md-12">
+                          <h5> This Account is used by another device. 
+                              Please Sign Out. Login Again. </h5>
+                      </div>
+                  </div>
+
+                  <div class="row" style="margin-left: 40%;margin-bottom: 3%;">
+                      <div class="col-md-5 col-sm-6" id="deleteBtn">
+                          <button type="button" class="btn btn-block btn-success" (click)="OkLogout()"> Ok </button>
+                      </div>
+                  </div>
+              </form>
+          </div>
+
+      </div>
+  </div>
+</div>
