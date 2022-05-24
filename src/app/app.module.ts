@@ -19,7 +19,6 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
 import { NgxDatePickerModule } from '@ngx-tiny/date-picker';
 
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
-
 import { LoginComponent } from './component/login/login.component';
 import { PageNotfoundComponent } from './component/page-notfound/page-notfound.component';
 import { WelcomeComponent } from './component/welcome/welcome.component';
@@ -157,6 +156,7 @@ import { UserActivityReportComponent } from './component/user-activity-report/us
 import { AdvertiseTeamListComponent } from './component/advertise-team-list/advertise-team-list.component';
 import { AdvertiseTeamDetailComponent } from './component/advertise-team-detail/advertise-team-detail.component';
 import { AdvertisingTeamAddComponent } from './component/advertising-team-add/advertising-team-add.component';
+import { UserforgotpasswordComponent } from './component/userforgotpassword/userforgotpassword.component';
 
 @NgModule({
   declarations: [
@@ -284,7 +284,8 @@ import { AdvertisingTeamAddComponent } from './component/advertising-team-add/ad
     UserActivityReportComponent,
     AdvertiseTeamListComponent,
     AdvertiseTeamDetailComponent,
-    AdvertisingTeamAddComponent
+    AdvertisingTeamAddComponent,
+    UserforgotpasswordComponent
   ],
   imports: [
     BrowserModule,

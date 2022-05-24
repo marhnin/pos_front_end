@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './component/login/login.component';
+import { UserforgotpasswordComponent } from './component/userforgotpassword/userforgotpassword.component';
 import { PageNotfoundComponent } from './component/page-notfound/page-notfound.component';
 import { WelcomeComponent } from './component/welcome/welcome.component';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
@@ -135,6 +136,9 @@ const routes: Routes = [
   },
   {
     path: 'ad-login', component: LoginComponent
+  },
+  {
+    path: 'userforgotpassword',component:UserforgotpasswordComponent
   },
   {
     path: 'welcome', component: WelcomeComponent
