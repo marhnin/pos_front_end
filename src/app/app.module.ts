@@ -157,7 +157,8 @@ import { UserActivityReportComponent } from './component/user-activity-report/us
 import { AdvertiseTeamListComponent } from './component/advertise-team-list/advertise-team-list.component';
 import { AdvertiseTeamDetailComponent } from './component/advertise-team-detail/advertise-team-detail.component';
 import { AdvertisingTeamAddComponent } from './component/advertising-team-add/advertising-team-add.component';
-
+import { PromouserdatareportComponent } from './component/promouserdatareport/promouserdatareport.component';
+ 
 @NgModule({
   declarations: [
     AppComponent,
@@ -284,7 +285,8 @@ import { AdvertisingTeamAddComponent } from './component/advertising-team-add/ad
     UserActivityReportComponent,
     AdvertiseTeamListComponent,
     AdvertiseTeamDetailComponent,
-    AdvertisingTeamAddComponent
+    AdvertisingTeamAddComponent,
+    PromouserdatareportComponent 
   ],
   imports: [
     BrowserModule,
