@@ -157,7 +157,8 @@ import { AdvertiseTeamListComponent } from './component/advertise-team-list/adve
 import { AdvertiseTeamDetailComponent } from './component/advertise-team-detail/advertise-team-detail.component';
 import { AdvertisingTeamAddComponent } from './component/advertising-team-add/advertising-team-add.component';
 import { UserforgotpasswordComponent } from './component/userforgotpassword/userforgotpassword.component';
-
+import { PromouserdatareportComponent } from './component/promouserdatareport/promouserdatareport.component';
+  
 @NgModule({
   declarations: [
     AppComponent,
@@ -284,8 +285,9 @@ import { UserforgotpasswordComponent } from './component/userforgotpassword/user
     UserActivityReportComponent,
     AdvertiseTeamListComponent,
     AdvertiseTeamDetailComponent,
-    AdvertisingTeamAddComponent,
-    UserforgotpasswordComponent
+    AdvertisingTeamAddComponent, 
+    UserforgotpasswordComponent,
+    PromouserdatareportComponent  
   ],
   imports: [
     BrowserModule,

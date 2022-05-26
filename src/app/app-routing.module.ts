@@ -127,7 +127,7 @@ import { PromotionConfirmedUsersDetailComponent } from './component/promotion-co
 import { Version129PointUserListComponent } from './component/version129-point-user-list/version129-point-user-list.component';
 import { Version129ConfirmedPointUserListComponent } from './component/version129-confirmed-point-user-list/version129-confirmed-point-user-list.component';
 import { UserActivityReportComponent } from './component/user-activity-report/user-activity-report.component';
-
+import { PromouserdatareportComponent } from './component/promouserdatareport/promouserdatareport.component';
 const routes: Routes = [
   {
     path: '', 
@@ -562,6 +562,9 @@ const routes: Routes = [
    },
    {
     path :'advertise-team-detail', component: AdvertiseTeamDetailComponent, canActivate:[AuthGuard]
+   },
+   {
+    path :'promouserdatareport',component:PromouserdatareportComponent,canActivate:[AuthGuard]
    },
    {
     path: '**', component: PageNotfoundComponent
