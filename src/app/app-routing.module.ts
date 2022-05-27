@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './component/login/login.component';
 import { UserforgotpasswordComponent } from './component/userforgotpassword/userforgotpassword.component';
+import { UserforgotpassworddetailComponent } from './component/userforgotpassworddetail/userforgotpassworddetail.component';
 import { PageNotfoundComponent } from './component/page-notfound/page-notfound.component';
 import { WelcomeComponent } from './component/welcome/welcome.component';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
@@ -139,6 +140,9 @@ const routes: Routes = [
   },
   {
     path: 'userforgotpassword',component:UserforgotpasswordComponent
+  },
+  {
+    path: 'userforgotpassworddetail/:id',component:UserforgotpassworddetailComponent
   },
   {
     path: 'welcome', component: WelcomeComponent
