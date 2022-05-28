@@ -182,7 +182,7 @@ export class UserforgotpasswordComponent implements OnInit {
     if (!this.storage.retrieve('loadFlag')) {
       this.storage.store('loadFlag', 'noLoad');
       setTimeout(function () {
-        location.reload(true);
+        location.reload();
       }, 5);
     }
     else {
@@ -294,7 +294,6 @@ export class UserforgotpasswordComponent implements OnInit {
     }
 
     if (this.approveToDate == '' || this.approveToDate == undefined) {
-      console.log("date if case in approve to date");
       this.approvetodatechangeDate = this.approvetodaytodate;
     }
     else {

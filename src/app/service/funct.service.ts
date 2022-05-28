@@ -9,7 +9,7 @@ export class FunctService {
 
   constructor() {  
     //.Net api
-    this.ipaddress = "http://localhost:22735/api/"; 
+    //this.ipaddress = "http://localhost:22735/api/"; 
     
    // this.ipaddress = "http://192.168.100.15:8080/api/"; 
   
@@ -19,7 +19,7 @@ export class FunctService {
     // this.ipaddress  = "https://apinew.thai2d3d.com/api/";
 
     //dev
-    //this.ipaddress = "https://api.thai2d3d.com/api/";
+    this.ipaddress = "https://api.thai2d3d.com/api/";
 
     //this.ipaddress = "https://api.thai2d3dgame.com/api/";
 

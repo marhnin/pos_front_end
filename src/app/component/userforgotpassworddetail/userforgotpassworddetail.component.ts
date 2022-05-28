@@ -79,7 +79,7 @@ export class UserforgotpassworddetailComponent implements OnInit {
         this.dto.Response = result; 
         this.requestDTO = this.dto.Response;
         this.phoneno =  this.requestDTO.phone_no; 
-        this.imgURL = this.sanitizer.bypassSecurityTrustUrl(this.requestDTO.imageUrl); 
+        this.imgURL = this.requestDTO.imageUrl;//this.sanitizer.bypassSecurityTrustUrl(this.requestDTO.imageUrl); 
         this.spinner.hide(); 
       });
   }
@@ -202,7 +202,6 @@ export class UserforgotpassworddetailComponent implements OnInit {
     reader.readAsDataURL(files[0]);
     reader.onload = (_event) => {
       this.imgURL = reader.result;
-    //  console.log("imgURL>>>" + JSON.stringify(this.imgURL));
     }
   }  
   numericOnly(event): boolean { // restrict e,+,-,E characters in  input type number

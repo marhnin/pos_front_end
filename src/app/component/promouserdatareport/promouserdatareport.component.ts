@@ -232,22 +232,6 @@ export class PromouserdatareportComponent implements OnInit {
       worksheet.getColumn(5).width = 25;
       worksheet.getColumn(6).width = 25;
       worksheet.getColumn(7).width = 25;
-       // Footer Row
-       //const footerRow = worksheet.addRow([]);
-       //footerRow.getCell(7).value = 'Grand Total';
-       //footerRow.getCell(8).value = tot.toLocaleString();
-       //footerRow.getCell(7).fill = {
-       //type: 'pattern',
-       //pattern: 'solid',
-       //fgColor: { argb: 'FFCCFFE5' }
-       //};
-      // footerRow.getCell(7).border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } };
-       //footerRow.getCell(8).fill = {
-      // type: 'pattern',
-       //pattern: 'solid',
-      // fgColor: { argb: 'FFCCFFE5' }
-      // };
-      // footerRow.getCell(8).border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } };
         workbook.xlsx.writeBuffer().then((data: any) => {
         const blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
         fs.saveAs(blob, this.filename + repType);
