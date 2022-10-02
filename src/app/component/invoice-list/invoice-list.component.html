@@ -1,0 +1,135 @@
+<div class="wrapper">
+    <app-header-sidebar></app-header-sidebar>
+    <div class="content-wrapper">
+      <div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2" style="border: 1px solid #ced4da;border-radius: 0.25rem;">
+            <div class="col-sm-8">
+              <h3 class="m-0 text-dark" style="font-weight: bold;padding: 3px 0px 3px 5px;"> Invoice List </h3>
+            </div>
+          </div>
+        </div>
+      </div>
+      <section class="content">
+        <div class="container-fluid">
+          <form>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header">
+                    <div class="row">
+                       <div class="col-md-10">
+                         <h3 class="m-0 text-dark" style="font-weight: bold;padding: 3px 0px 3px 5px;"> Invoice List </h3>
+                       </div>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <table width='100%' id="{{'tblInvoice' + idIndex}}" datatable [dtTrigger]="dtTrigger" [dtOptions]="dtOptions" class="table table-bordered table-hover">
+                      <thead>
+                      <tr>
+                        <th style="font-family: unicode;">Customer Name 
+                        </th>
+                        <th style="font-family: unicode;">Sales Person Name</th>
+                        <th style="font-family: unicode;">Note</th>
+                        <th style="font-family: unicode;">Total Amount</th>
+                        <th style="font-family: unicode;">Action</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr *ngFor="let objInvoice of invoiceList, let i = index">
+                        <td style="font-family: unicode;">
+                          {{objInvoice.cname}}
+                        </td>
+                        <td style="font-family: unicode;">
+                          {{objInvoice.sname}}
+                        </td>
+                        <td style="font-family: unicode;">
+                          {{objInvoice.notes}}
+                        </td>
+                        <td style="font-family: unicode;">
+                         {{objInvoice.totalPrice  | number: '1.0-0'}}
+                        </td>
+                        <td><button type="button" class="btn-primary form-control-sm" (click) = "viewDetail(objInvoice.productData)">View Detail</button></td>
+                      </tr>                        
+                      </tbody>
+                    </table>
+                    <tr *ngFor="let objInvoice of invoiceList | paginate
+                    : {
+                        itemsPerPage: itemsPerPage,
+                        currentPage: page,
+                        totalItems: totalItems
+                      }" 
+                      >
+                  </tr> 
+
+                  <div class = "row">
+                    <div class = "col-md-6"></div>
+                    <div class = "col-md-6">
+                      <pagination-controls
+                        class="pagi"
+                        (pageChange)="clickPageNumber((page = $event))"
+                      ></pagination-controls>
+                  </div>
+                  </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </section>
+    </div>
+</div>
+<div id="detailModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" style="font-weight: bold;font-size: 1.1rem;"> Detail </h3>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> x </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="col-md-12">
+
+            <div class="col-md-12">
+              
+                <div class="card-body">
+
+                  <table width='100%' class = "table table-bordered">
+                    <thead>
+                    <tr>
+                      <th style="font-family: unicode;">Item Code
+                      </th>
+                      <th style="font-family: unicode;">Product Name</th>
+                      <th style="font-family: unicode;">Price</th>
+                      <th style="font-family: unicode;">Stock</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let objDetail of detailList, let i = index">
+                      <td style="font-family: unicode;">
+                        {{objDetail.itemcode}}
+                      </td>
+                      <td style="font-family: unicode;">
+                        {{objDetail.pname}}
+                      </td>
+                      <td style="font-family: unicode;">
+                        {{objDetail.price | number: '1.0-0'}}
+                      </td>
+                      <td style="font-family: unicode;">
+                       {{objDetail.stock }}
+                      </td>
+                    </tr>                        
+                    </tbody>
+                  </table>
+                </div>
+            </div>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>

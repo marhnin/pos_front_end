@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 import { DtoService } from '../../service/dto.service';
 import { UtilService } from '../../service/util.service';
 import { FunctService } from '../../service/funct.service';

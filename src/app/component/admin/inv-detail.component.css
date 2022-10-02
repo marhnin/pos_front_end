@@ -1,0 +1,31 @@
+.content-header {
+    padding: 15px 0.8rem 15px 1rem;
+}
+
+.table th{
+    padding: 0.65rem 0.75rem 0.45rem 0.75rem;
+    font-weight: bold;
+}
+
+.table td {
+   font-size: 14px !important;
+}
+
+.ui-table,
+.ui-table .ui-table-wrapper table {
+  font-size: 14px !important;
+  font-family: unicode !important;
+}
+
+.dataTables_wrapper {  
+    font-size: 14px !important;
+    font-family: unicode !important;
+}
+.btn-block {
+    display: block;
+    width: 50%;
+}
+.required
+{
+    color: red;
+}

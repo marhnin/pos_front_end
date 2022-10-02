@@ -1,0 +1,110 @@
+    <div class="wrapper">
+        <app-header-sidebar></app-header-sidebar>
+        <div class="content-wrapper">
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2" style="border: 1px solid #ced4da;border-radius: 0.25rem;">
+                <div class="col-sm-8">
+                  <h3 class="m-0 text-dark" style="font-weight: bold;padding: 3px 0px 3px 5px;"> Invoice Detail </h3>
+                </div>
+              </div>
+            </div>
+          </div>
+          <section class="content">
+            <div class="container-fluid">
+              <form>
+                <div class="row">
+                    <div class="form-group col-md-2">
+                      <label> Created Date <span class="required">*</span></label>
+                      <input type = "date" class="form-control form-control-sm" [(ngModel)]="parentDTO.created_date"
+                        [ngModelOptions]="{standalone: true}" required>
+                    </div>
+
+                  <div class="form-group col-md-2">
+                    <label>Customer Name  <span class="required">*</span></label>
+                    <input class="form-control form-control-sm" [(ngModel)]="parentDTO.cname" [ngModelOptions]="{standalone: true}" required>
+                  </div>
+
+                  <div class="form-group col-md-2">
+                    <label>Sale Person Name <span class="required">*</span></label>
+                    <input class="form-control form-control-sm" [(ngModel)]="parentDTO.sname" [ngModelOptions]="{standalone: true}" required>
+                  </div>
+
+                  <div class="form-group col-md-2">
+                    <label>Notes</label>
+                    <textarea class="form-control form-control-sm" [(ngModel)]="parentDTO.notes" [ngModelOptions]="{standalone: true}">
+                    </textarea>
+                  </div>
+
+                  <div class="col-md-12">
+                    <div class="card">
+                      <div class="card-header">
+                        <div class="row">
+                           <div class="col-md-10">
+                             <h3 class="m-0 text-dark" style="font-weight: bold;padding: 3px 0px 3px 5px;"> Items Detail </h3>
+                           </div>
+                          <div class="form-group col-md-2 col-sm-2 col-xs-2">
+                            <button (click)="Add()" title = "Add" type="button" class="btn btn-block btn-success btn-sm" style="margin-top: 4%;">
+                              <i class="fa fa-plus" aria-hidden="true">
+                              </i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card-body">
+                        <table width='100%' datatable [dtTrigger]="dtTrigger" [dtOptions]="dtOptions" class="table table-bordered table-hover">
+                          <thead>
+                          <tr>
+                            <th style="font-family: unicode;">Item Code <span class="required">*</span>
+                            </th>
+                            <th style="font-family: unicode;">Product Name</th>
+							              <th style="font-family: unicode;">Image</th>
+                            <th style="font-family: unicode;">Stock</th>
+                            <th style="font-family: unicode;">Price</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <tr *ngFor="let objProduct of productInputList, let i = index">
+                            <td style="font-family: unicode;">
+                              <input  id="itemcode{{i}}" required/>
+                              <button  (click) ="searchProduct($event,i)"> <i class="fa fa-search" style="color : rgb(14, 14, 40)" aria-hidden="true"></i></button>
+                            </td>
+                            <td style="font-family: unicode;">
+                              <input class="form-control form-control-sm" id="pname{{i}}" required>
+                            </td>
+					              		<td style="font-family: unicode;">
+                              <img *ngIf = "isImagePath" id="imagePath{{i}}" width="50px" height="50px" >
+                            </td>
+                            <td style="font-family: unicode;">
+                              <input class="form-control form-control-sm" id="stock{{i}}" required>
+                            </td>
+                            <td style="font-family: unicode;">
+                              <input type = "number" class="form-control form-control-sm" id="price{{i}}" required>
+                            </td>
+                          </tr>                        
+                          </tbody>
+                        </table>
+                        <div class="row">
+                         <div class="form-group col-md-8 col-sm-8 col-xs-8">
+                        </div>
+                        <div class="form-group col-md-4 col-sm-4 col-xs-4">
+                          <button (click)="Save()" type="button" class="btn btn-block btn-success btn-sm" style="margin-top: 4%;">
+                          Save
+                          </button>
+                        </div>
+                      </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </section>
+        </div>
+        <aside class="control-sidebar control-sidebar-dark">
+        </aside>
+        <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="square-jelly-box">
+          <p style="font-size: 16px; color: white">Loading...</p>
+        </ngx-spinner>
+    </div>
+    
